@@ -24,10 +24,10 @@ export function DisableDraftMode() {
   return (
     <div>
       {pending ? (
-        "Disabling draft mode..."
+        ""
       ) : (
         <button type="button" onClick={disable}>
-          Disable draft mode
+    
         </button>
       )}
     </div>
