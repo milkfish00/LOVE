@@ -141,10 +141,12 @@ const portableTextComponents = {
 export default async function LegalDocumentPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
+
   const data = await client.fetch(legalDocumentQuery, {
-    slug: params.slug,
+    slug: slug,
   });
 
   const document: LegalDocument | null = data?.legalDocuments;
@@ -187,10 +189,12 @@ export default async function LegalDocumentPage({
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
+
   const data = await client.fetch(legalDocumentQuery, {
-    slug: params.slug,
+    slug: slug,
   });
 
   const document: LegalDocument | null = data?.legalDocuments;
