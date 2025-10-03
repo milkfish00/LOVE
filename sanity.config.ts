@@ -22,6 +22,9 @@ export default defineConfig({
   dataset,
 useCdn: false,
   title: "Love and Learning Child Care Center",
+  appId: 'uivswvmi15vc4wli077kf7c5', 
+  apiVersion: apiVersion,
+  theme: myTheme,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
   icon: Logo,
