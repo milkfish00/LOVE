@@ -45,7 +45,6 @@ export default async function RootLayout({
   return (
     <div className={`${geistSans.variable} ${geistMono.variable}`}>
       <ConditionalLayout settings={settings}>
-
         {children}
         {dm.isEnabled && (
           <>

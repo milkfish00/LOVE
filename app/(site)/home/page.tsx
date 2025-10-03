@@ -3,7 +3,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { urlFor } from "@/sanity/lib/image";
 import { homeQuery, programsQuery } from "@/app/lib/queries";
-import { homeInterface, Programs } from "@/app/lib/interface";
+import {  Programs } from "@/app/lib/interface";
 import { sanityClient } from "@/app/lib/sanity";
 import FAQAccordion from "@/app/components/ui/Faq";
 import ProgramsSection from "@/app/components/Home/Tabs";
