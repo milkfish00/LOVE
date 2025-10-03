@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "createdAt": "2025-09-14T14:57:01.472Z",
+  "workspaces": [
+    {
+      "name": "default",
+      "title": "Love and Learning Child Care Center",
+      "basePath": "/studio",
+      "projectId": "6jqzfkhy",
+      "dataset": "production",
+      "icon": "<img alt=\"\" style=\"height:1.5rem;width:3rem;object-fit:contain\">",
+      "mediaLibrary": {
+        "enabled": false
+      },
+      "schema": "9d53b544.create-schema.json",
+      "tools": "56d5dc66.create-tools.json"
+    }
+  ]
+}
