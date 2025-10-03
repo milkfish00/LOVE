@@ -125,7 +125,7 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
               {(hero?.description || !hero) && (
                 <p className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed ">
                   {hero?.description ||
-                    "Explore helpful guides, forms, and checklists for families and staff."}
+                    "Explore helpful guides, forms, and checklists for families and staff"}
                 </p>
               )}
             </div>
