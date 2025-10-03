@@ -107,7 +107,7 @@ export default function NotFound() {
          {/* Error Message */}
          <div className="mb-6 md:mb-10">
            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#000000] mb-3 md:mb-6">
-             Oops! Page Not Found
+             Oops! Page Not Found.
            </h2>
            <p className="text-sm sm:text-base md:text-lg text-[#000000] leading-relaxed">
              The page you're looking for doesn't exist. It might have been moved,
