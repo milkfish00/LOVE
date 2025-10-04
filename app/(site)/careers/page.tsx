@@ -1,11 +1,12 @@
+// app/careers/page.tsx
 import React from "react";
-import { sanityClient } from "@/app/lib/sanity";
 import { careersQuery } from "@/app/lib/queries";
 import { Careers } from "@/app/lib/interface";
 import { extractTextFromRichText } from "@/app/lib/program-utils";
 import { slugify } from "@/app/lib/slug";
 import CareersPageClient, { CareersListJob } from "./CareersPageClient";
 import type { Metadata } from "next";
+import { sanityFetch } from "@/sanity/lib/live";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -15,9 +16,13 @@ export const metadata: Metadata = {
 
 const JobsPage = async () => {
   try {
-    const data: Careers = await sanityClient.fetch(careersQuery);
-
-    const jobs: CareersListJob[] = (data?.jobs || []).map((job) => ({
+    // ✅ Use only sanityFetch for visual editor to work
+        const { data } = (await sanityFetch({
+          query: careersQuery,
+          params: {},
+        })) as { data: Careers };
+    
+        const jobs: CareersListJob[] = (data?.jobs || []).map((job) => ({
       key: job._key,
       title: job.title,
       location: job.location,
@@ -34,7 +39,11 @@ const JobsPage = async () => {
     );
   } catch (error) {
     console.error("Error loading careers:", error);
-    return <div className="max-w-5xl mx-auto px-4 py-12">Failed to load careers.</div>;
+    return (
+      <div className="max-w-5xl mx-auto px-4 py-12">
+        Failed to load careers.
+      </div>
+    );
   }
 };
 

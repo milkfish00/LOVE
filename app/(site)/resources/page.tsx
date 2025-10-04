@@ -1,9 +1,12 @@
 import React from "react";
 import { resourcesQuery } from "@/app/lib/queries";
-import { Resources } from "@/app/lib/interface";
-import { sanityClient, urlFor } from "@/app/lib/sanity";
+import { urlFor } from "@/app/lib/sanity";
 import ResourcesPageClient from "./ResourcesPageClient";
 import type { Metadata } from "next";
+import { sanityFetch } from "@/sanity/lib/live";
+
+// Enable ISR with 60 second revalidation
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -14,8 +17,6 @@ export const metadata: Metadata = {
 // Build Sanity file URL from file asset ref
 function fileUrlFromRef(ref?: string): string | undefined {
   if (!ref) return undefined;
-  // Sanity file refs look like: file-<assetId>-<extension>
-  // Example: file-123abc-xyz.pdf
   const [, assetId, ext] = ref.split("-");
   if (!assetId || !ext) return undefined;
   const projectId = "6jqzfkhy";
@@ -24,7 +25,18 @@ function fileUrlFromRef(ref?: string): string | undefined {
 }
 
 const ResourcesPage = async () => {
-  const data = (await sanityClient.fetch(resourcesQuery)) as Resources | null;
+  const { data } = await sanityFetch({
+    query: resourcesQuery,
+    params: {},
+  });
+
+  // DEBUG - Check your server console
+  console.log("=== DEBUG ===");
+  console.log("data exists:", !!data);
+  console.log("data.resources exists:", !!data?.resources);
+  console.log("data.resources length:", data?.resources?.length);
+  console.log("First resource:", data?.resources?.[0]);
+
 
   const hero = data?.resourcesHero?.[0]
     ? {
@@ -36,7 +48,6 @@ const ResourcesPage = async () => {
       }
     : undefined;
 
-  // Fixed tabs for simpler navigation
   const tabs = ["Parents", "Staff"];
 
   const colorPaletteMap: Record<string, { color: string; bgColor: string }> = {
@@ -48,16 +59,17 @@ const ResourcesPage = async () => {
     "deep-purple": { color: "bg-[#80739C]", bgColor: "bg-[#80739C]/10" },
   };
 
-  // Override colors by resource type where desired
-  const typeColorOverrides: Record<string, { color: string; bgColor: string }> = {
-    // Match individual pages: checklist uses orange (#F5856F)
-    checklist: { color: "bg-[#F5856F]", bgColor: "bg-[#F5856F]/10" },
-    // Guides use green gradient on detail; use solid #6A9478 here
-    guide: { color: "bg-[#6A9478]", bgColor: "bg-[#6A9478]/10" },
-  };
+  const typeColorOverrides: Record<string, { color: string; bgColor: string }> =
+    {
+      checklist: { color: "bg-[#F5856F]", bgColor: "bg-[#F5856F]/10" },
+      guide: { color: "bg-[#6A9478]", bgColor: "bg-[#6A9478]/10" },
+    };
 
-  const resources = (data?.resources || []).map((r) => {
-    const defaultPalette = { color: "bg-[#E3AC4A]", bgColor: "bg-[#E3AC4A]/10" };
+  const resources = (data?.resources || []).map((r: any) => {
+    const defaultPalette = {
+      color: "bg-[#E3AC4A]",
+      bgColor: "bg-[#E3AC4A]/10",
+    };
     const paletteFromField = r.colorPalette
       ? colorPaletteMap[r.colorPalette] || defaultPalette
       : defaultPalette;
@@ -74,20 +86,29 @@ const ResourcesPage = async () => {
     return {
       id: r.slug?.current || r._key,
       title: r.title,
-      description: (r.description || (
-        Array.isArray(r.content) && r.content.length > 0
+      description:
+        r.description ||
+        (Array.isArray(r.content) && r.content.length > 0
           ? r.content
-              .map((block: any) => (Array.isArray(block.children) ? block.children.map((c: any) => c.text || "").join("") : ""))
+              .map((block: any) =>
+                Array.isArray(block.children)
+                  ? block.children.map((c: any) => c.text || "").join("")
+                  : ""
+              )
               .join(" ")
-          : ""
-      )),
+          : ""),
       category: undefined,
       tags: r.tags,
       type: r.type,
       iconName,
       color: palette.color,
       bgColor: palette.bgColor,
-      detailHref: r.type === "file" ? undefined : (r.slug?.current ? `/resources/${r.slug.current}` : undefined),
+      detailHref:
+        r.type === "file"
+          ? undefined
+          : r.slug?.current
+            ? `/resources/${r.slug.current}`
+            : undefined,
       downloadHref,
     };
   });

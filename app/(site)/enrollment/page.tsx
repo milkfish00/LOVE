@@ -4,6 +4,7 @@ import { tuitionQuery } from "@/app/lib/queries";
 import { sanityClient } from "@/app/lib/sanity";
 import EnrollmentPageClient from "./EnrollmentPageClient";
 import type { Metadata } from "next";
+import { sanityFetch } from "@/sanity/lib/live";
 
 export const metadata: Metadata = {
   title: "Tuition & Enrollment",
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 };
 
 const EnrollmentPage = async () => {
-  const data = (await sanityClient.fetch(tuitionQuery)) as Tuition | null;
+  const { data } = await sanityFetch({
+    query: tuitionQuery,
+    params: {},
+  });
 
   if (!data) {
     return <div className="max-w-4xl mx-auto px-6 py-16">No enrollment data found.</div>;

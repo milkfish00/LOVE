@@ -3,6 +3,10 @@
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/lib/client";
 import { PortableText } from "@portabletext/react";
+import { sanityFetch } from "@/sanity/lib/live";
+
+export const revalidate = 60; // Revalidate every 60 seconds
+
 
 // Query to get legal document by slug
 const legalDocumentQuery = `
@@ -61,6 +65,7 @@ interface LegalDocument {
 
 // Generate static params for all legal documents
 export async function generateStaticParams() {
+  
   const data = await client.fetch(allLegalSlugsQuery);
 
   if (!data?.legalDocuments) {
@@ -141,12 +146,12 @@ const portableTextComponents = {
 export default async function LegalDocumentPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
-  const { slug } = await params;
-
-  const data = await client.fetch(legalDocumentQuery, {
-    slug: slug,
+  
+  const { data } = await sanityFetch({
+    query: legalDocumentQuery,
+    params: { slug: params.slug },
   });
 
   const document: LegalDocument | null = data?.legalDocuments;
@@ -189,12 +194,10 @@ export default async function LegalDocumentPage({
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
-  const { slug } = await params;
-
   const data = await client.fetch(legalDocumentQuery, {
-    slug: slug,
+    slug: params.slug,
   });
 
   const document: LegalDocument | null = data?.legalDocuments;

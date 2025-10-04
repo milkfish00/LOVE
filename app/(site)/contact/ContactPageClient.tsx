@@ -1,23 +1,13 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Clock,
-  Send,
-  ArrowRight,
-  CheckCircle,
-  Facebook,
-  Instagram,
-  Twitter,
-  Globe,
-} from "lucide-react";
-import { sanityClient } from "@/app/lib/sanity";
-import { contactQuery } from "@/app/lib/queries";
+import { Phone, Mail, MapPin, Clock, Globe } from "lucide-react";
 import { Contact } from "@/app/lib/interface";
 
-const ContactPageClient = () => {
+interface ContactPageClientProps {
+  data: Contact;
+}
+
+const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,7 +36,6 @@ const ContactPageClient = () => {
   };
 
   const handleSubmit = () => {
-    // Allow native submit to hidden iframe; just update UI state
     setIsSubmitting(true);
     setSuccessMsg(null);
     setErrorMsg(null);
@@ -72,28 +61,17 @@ const ContactPageClient = () => {
     };
   }, [expectingResponse]);
 
-  const [contactData, setContactData] = useState<Contact | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-    sanityClient
-      .fetch(contactQuery)
-      .then((data: Contact) => {
-        if (mounted) setContactData(data);
-      })
-      .catch(() => {
-        // ignore; render defaults below if needed
-      });
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
   const getIconForItem = (item: any) => {
     const key = (item?.type || item?.title || "").toLowerCase();
     if (item?.number || key.includes("phone")) return Phone;
     if (key.includes("email")) return Mail;
-    if (item?.street || item?.address || key.includes("address") || key.includes("visit")) return MapPin;
+    if (
+      item?.street ||
+      item?.address ||
+      key.includes("address") ||
+      key.includes("visit")
+    )
+      return MapPin;
     if (item?.hours || key.includes("hour")) return Clock;
     return Globe;
   };
@@ -102,46 +80,49 @@ const ContactPageClient = () => {
     const key = (item?.type || item?.title || "").toLowerCase();
     if (item?.number || key.includes("phone")) return "bg-[#80739C]";
     if (key.includes("email")) return "bg-[#86AF61]";
-    if (item?.street || item?.address || key.includes("address") || key.includes("visit")) return "bg-[#2E3192]";
+    if (
+      item?.street ||
+      item?.address ||
+      key.includes("address") ||
+      key.includes("visit")
+    )
+      return "bg-[#2E3192]";
     if (item?.hours || key.includes("hour")) return "bg-[#E3AC4A]";
     return "bg-[#80739C]";
   };
 
-  const contactInfo = (contactData?.contactInformation || []).map((item: any) => {
-    const Icon = getIconForItem(item);
-    const details = item?.number || [item?.street, item?.address].filter(Boolean).join(" ") || item?.hours || "";
-    const subtitle = item?.subtitle || (item?.hours && !details.includes(item.hours) ? item.hours : "");
-    return {
-      icon: Icon,
-      title: item?.title || item?.type || "",
-      details,
-      subtitle,
-      color: getColorForItem(item),
-    };
-  });
-
-  const faqs = [
-    {
-      question: "Etiam elementum non nibh sit amet accumsan.?",
-      answer: "Sed sed augue quis tortor tincidunt elementum.",
-    },
-    {
-      question: "Etiam elementum non nibh sit amet accumsan.?",
-      answer: "Sed sed augue quis tortor tincidunt elementum.",
-    },
-    {
-      question: "Etiam elementum non nibh sit amet accumsan.?",
-      answer: "Sed sed augue quis tortor tincidunt elementum.",
-    },
-  ];
+  const contactInfo = (contactData?.contactInformation || []).map(
+    (item: any) => {
+      const Icon = getIconForItem(item);
+      const details =
+        item?.number ||
+        [item?.street, item?.address].filter(Boolean).join(" ") ||
+        item?.hours ||
+        "";
+      const subtitle =
+        item?.subtitle ||
+        (item?.hours && !details.includes(item.hours) ? item.hours : "");
+      return {
+        icon: Icon,
+        title: item?.title || item?.type || "",
+        details,
+        subtitle,
+        color: getColorForItem(item),
+      };
+    }
+  );
 
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
       <section className="py-20 ">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">{contactData?.title || "Contact Us"}</h1>
-          <p className="text-xl max-w-xl mx-auto">{contactData?.description || ""}</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            {contactData?.title || "Contact Us"}
+          </h1>
+          <p className="text-xl max-w-xl mx-auto">
+            {contactData?.description || ""}
+          </p>
         </div>
       </section>
 
@@ -166,8 +147,6 @@ const ContactPageClient = () => {
                     <input
                       type="text"
                       name="name"
-                      
-                      
                       className="w-full px-4 py-3 rounded-lg text-gray-400 border border-gray-300 focus:ring-2 focus:ring-[#80739C] focus:border-transparent"
                       placeholder=""
                       required
@@ -180,8 +159,6 @@ const ContactPageClient = () => {
                     <input
                       type="email"
                       name="email"
-                     
-              
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#80739C] focus:border-transparent"
                       placeholder=""
                       required
@@ -197,7 +174,6 @@ const ContactPageClient = () => {
                     <input
                       type="text"
                       name="subject"
-                
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#80739C] focus:border-transparent"
                       placeholder=""
                       required
@@ -211,7 +187,6 @@ const ContactPageClient = () => {
                   </label>
                   <textarea
                     name="message"
-                 
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#80739C] focus:border-transparent resize-none h-32"
                     placeholder="Tell us more about your needs or questions..."
                   />
@@ -250,7 +225,9 @@ const ContactPageClient = () => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactInfo.length === 0 && (
-              <div className="text-gray-600">Contact information coming soon.</div>
+              <div className="text-gray-600">
+                Contact information coming soon.
+              </div>
             )}
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
@@ -266,7 +243,6 @@ const ContactPageClient = () => {
                   <p className="text-gray-800 font-semibold mb-2">
                     {info.details}
                   </p>
-               
                 </div>
               );
             })}
@@ -278,5 +254,3 @@ const ContactPageClient = () => {
 };
 
 export default ContactPageClient;
-
-

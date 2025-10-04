@@ -8,6 +8,7 @@ import { sanityClient } from "@/app/lib/sanity";
 import FAQAccordion from "@/app/components/ui/Faq";
 import ProgramsSection from "@/app/components/Home/Tabs";
 import { sanityFetch } from "@/sanity/lib/live";
+import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
 
 // Enable ISR with 60 second revalidation
 export const revalidate = 60;
@@ -80,7 +81,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <ProgramsSection data={programsData} />
+      <ProgramsSectionWrapper />
 
       {/* About Section */}
       <div className="bg-[#81AA8E] min-h-screen flex items-center justify-center p-4">

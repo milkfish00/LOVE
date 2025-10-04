@@ -46,7 +46,7 @@ export default async function RootLayout({
     <div className={`${geistSans.variable} ${geistMono.variable}`}>
       <ConditionalLayout settings={settings}>
         {children}
-        {dm.isEnabled && (
+        {(await draftMode()).isEnabled && (
           <>
             <VisualEditing />
             <DisableDraftMode />

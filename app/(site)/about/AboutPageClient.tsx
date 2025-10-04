@@ -4,6 +4,7 @@ import Image from "next/image";
 import { urlFor } from "@/app/lib/sanity";
 import { About } from "@/app/lib/interface";
 
+
 interface AboutPageClientProps {
   data: About;
 }

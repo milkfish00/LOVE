@@ -32,11 +32,9 @@ export default defineConfig({
     structureTool({ structure }),
     presentationTool({
       previewUrl: {
-        origin:
-          (typeof window === "undefined"
-            ? process.env.NEXT_PUBLIC_SITE_URL
-            : window.location.origin) || "http://localhost:3000",
-        draftMode: {
+        initial: process.env.SANITY_STUDIO_PREVIEW_ORIGIN,
+        preview: "/",
+        previewMode: {
           enable: "/api/draft-mode/enable",
         },
       },

@@ -26,7 +26,7 @@ export function DisableDraftMode() {
       {pending ? (
         "Disabling draft mode..."
       ) : (
-        <button type="button" onClick={disable}>
+        <button type="button" onClick={disable} className="fixed z-100 bottom-4 right-4 bg-[#ff0000] text-white px-4 py-2 rounded shadow  transition">
           Disable draft mode
         </button>
       )}

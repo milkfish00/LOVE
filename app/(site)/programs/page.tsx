@@ -1,10 +1,17 @@
 import React from "react";
 import { programsQuery } from "@/app/lib/queries";
 import { Programs } from "@/app/lib/interface";
-import { sanityClient, urlFor } from "@/app/lib/sanity";
-import { getProgramColors, extractTextFromRichText } from "@/app/lib/program-utils";
+import { urlFor } from "@/app/lib/sanity";
+import {
+  getProgramColors,
+  extractTextFromRichText,
+} from "@/app/lib/program-utils";
 import ProgramsPageClient from "@/app/(site)/programs/ProgramsPageClient";
 import type { Metadata } from "next";
+import { sanityFetch } from "@/sanity/lib/live";
+
+// Enable ISR with 60 second revalidation
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Programs",
@@ -13,27 +20,33 @@ export const metadata: Metadata = {
 };
 
 const ProgramsPage = async () => {
-  try {
-    // Fetch programs data from Sanity
-    console.log('Fetching programs data...');
-    const data: Programs = await sanityClient.fetch(programsQuery);
-    console.log('Programs data:', data);
-    
-    if (!data?.programSections) {
-      console.log('No program sections found');
-      return <div>No programs found</div>;
-    }
+  const { data } = await sanityFetch({
+    query: programsQuery,
+    params: {},
+  });
+
+  if (!data?.programSections) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600 text-lg">No programs found</p>
+      </div>
+    );
+  }
 
   // Transform Sanity data to match the expected format
-  const transformedPrograms = data.programSections.map((program) => {
+  const transformedPrograms = data.programSections.map((program: { slug: { current: string; }; programTitle: any; ageRange: any; description: any[]; image: { asset: { _ref: any; }; }; classSize: any; schedule: any; dailyActivities: any; }) => {
     const colors = getProgramColors(program.slug.current);
     return {
       id: program.slug.current,
       slug: program.slug,
       title: program.programTitle,
       ageRange: program.ageRange,
-      description: extractTextFromRichText(program.description) || "Program description not available",
-      image: program.image?.asset?._ref ? urlFor(program.image).url() : `/${program.slug.current}.svg`,
+      description:
+        extractTextFromRichText(program.description) ||
+        "Program description not available",
+      image: program.image?.asset?._ref
+        ? urlFor(program.image).url()
+        : `/${program.slug.current}.svg`,
       color: colors.color,
       textColor: colors.textColor,
       link: `/programs/${program.slug.current}`,
@@ -55,11 +68,17 @@ const ProgramsPage = async () => {
       dailyActivities: program.dailyActivities || [],
       learningAreas: Array.from({ length: 4 }, (_, index) => {
         const iconNames = ["BookOpen", "Target", "Star", "Users"];
-        const titles = ["Cognitive Development", "Social Skills", "Creative Expression", "Physical Development"];
+        const titles = [
+          "Cognitive Development",
+          "Social Skills",
+          "Creative Expression",
+          "Physical Development",
+        ];
         return {
           icon: iconNames[index] || "BookOpen",
           title: titles[index],
-          description: "Age-appropriate activities designed to foster growth and learning in this essential area.",
+          description:
+            "Age-appropriate activities designed to foster growth and learning in this essential area.",
         };
       }),
       milestones: [
@@ -73,10 +92,6 @@ const ProgramsPage = async () => {
   });
 
   return <ProgramsPageClient programs={transformedPrograms} />;
-  } catch (error) {
-    console.error('Error fetching programs data:', error);
-    return <div>Error loading programs. Please try again later.</div>;
-  }
 };
 
 export default ProgramsPage;

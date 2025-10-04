@@ -60,31 +60,39 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0] || "Parents");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const filteredResources = useMemo(() => {
-    if (!resources || resources.length === 0) return [];
+const filteredResources = useMemo(() => {
+  if (!resources || resources.length === 0) return [];
 
-    const byTab = (() => {
-      if (activeTab === "All") return resources;
-      const normalized = activeTab.toLowerCase();
-      return resources.filter((r) =>
-        (r.tags || []).some((t) => t.toLowerCase() === normalized)
-      );
-    })();
+  const clean = (str: string) =>
+    str
+      ?.toLowerCase()
+      .replace(/[\u200B-\u200D\uFEFF\u202A-\u202E\u2060-\u206F\u00A0]/g, "") // strip invisible Unicode
+      .trim();
 
-    const query = searchQuery.trim().toLowerCase();
-    const byQuery = !query
-      ? byTab
-      : byTab.filter((r) => {
-          const title = (r.title || "").toLowerCase();
-          const description = (r.description || "").toLowerCase();
-          return title.includes(query) || description.includes(query);
-        });
+  const normalized = clean(activeTab);
 
-    const order: Record<string, number> = { checklist: 0, guide: 1, file: 2 };
-    return [...byQuery].sort(
-      (a, b) => (order[a.type || ""] ?? 1) - (order[b.type || ""] ?? 1)
-    );
-  }, [resources, activeTab, searchQuery]);
+  const byTab =
+    activeTab === "All"
+      ? resources
+      : resources.filter((r) =>
+          (r.tags || []).some((t) => clean(t) === normalized)
+        );
+
+  const query = clean(searchQuery);
+  const byQuery = !query
+    ? byTab
+    : byTab.filter((r) => {
+        const title = clean(r.title || "");
+        const description = clean(r.description || "");
+        return title.includes(query) || description.includes(query);
+      });
+
+  const order: Record<string, number> = { checklist: 0, guide: 1, file: 2 };
+  return [...byQuery].sort(
+    (a, b) => (order[a.type || ""] ?? 1) - (order[b.type || ""] ?? 1)
+  );
+}, [resources, activeTab, searchQuery]);
+
 
   const checklists = useMemo(
     () => filteredResources.filter((r) => r.type === "checklist"),

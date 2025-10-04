@@ -4,6 +4,9 @@ import { Resources } from "@/app/lib/interface";
 import { sanityClient } from "@/app/lib/sanity";
 import { CheckSquare, BookOpen, HelpCircle } from "lucide-react";
 import type { Metadata } from "next";
+import { sanityFetch } from "@/sanity/lib/live";
+
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const data = (await sanityClient.fetch(allResourceSlugsQuery)) as Resources;
@@ -14,18 +17,24 @@ export async function generateStaticParams() {
   return params as { slug: string }[];
 }
 
-export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> }
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
-  const data = await sanityClient.fetch(resourceBySlugQuery, { slug });
+  const { data } = await sanityFetch({
+    query: resourceBySlugQuery,
+    params: { slug },
+  });
   const resource = data?.resources;
   const title = resource?.title ? `${resource.title} – Resource` : "Resource";
-  const description = resource?.description || "Helpful resource from Love & Learning Child Care Center.";
+  const description =
+    resource?.description ||
+    "Helpful resource from Love & Learning Child Care Center.";
   return { title, description };
 }
 
-// Build Sanity file URL from file asset ref
 function fileUrlFromRef(ref?: string): string | undefined {
   if (!ref) return undefined;
   const [, assetId, ext] = ref.split("-");
@@ -35,22 +44,31 @@ function fileUrlFromRef(ref?: string): string | undefined {
   return `https://cdn.sanity.io/files/${projectId}/${dataset}/${assetId}.${ext}`;
 }
 
-const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+const ResourceDetailPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const { slug } = await params;
-
-  const data = await sanityClient.fetch(resourceBySlugQuery, { slug });
+  const { data } = await sanityFetch({
+    query: resourceBySlugQuery,
+    params: { slug },
+  });
   const resource = data?.resources;
 
   if (!resource) {
     return (
       <div className="max-w-3xl mx-auto px-6 py-16">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Resource Not Found</h1>
-        <p className="text-gray-600">The resource you are looking for does not exist.</p>
+        <h1 className="text-2xl font-bold text-gray-800 mb-2">
+          Resource Not Found
+        </h1>
+        <p className="text-gray-600">
+          The resource you are looking for does not exist.
+        </p>
       </div>
     );
   }
 
-  // Checklist layout (styled like "First Day")
   if (resource.type === "checklist") {
     return (
       <div className="min-h-screen bg-white">
@@ -69,7 +87,6 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
             )}
           </div>
         </section>
-
         <section className="py-12">
           <div className="max-w-3xl mx-auto px-6">
             <div className="bg-white rounded-xl">
@@ -77,11 +94,13 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
                 <div className="w-12 h-12 bg-[#F5856F]/10 rounded-xl flex items-center justify-center mr-4">
                   <CheckSquare className="w-6 h-6 text-[#F5856F]" />
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-900">Checklist</h2>
+                <h2 className="text-2xl font-semibold text-gray-900">
+                  Checklist
+                </h2>
               </div>
-
               <div className="space-y-4 mb-12">
-                {Array.isArray(resource.checklistItems) && resource.checklistItems.length > 0 ? (
+                {Array.isArray(resource.checklistItems) &&
+                resource.checklistItems.length > 0 ? (
                   resource.checklistItems.map((item: any) => (
                     <div
                       key={item._key}
@@ -90,18 +109,23 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
                         <div className="w-2 h-2 bg-[#F5856F] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                       </div>
                       <div>
-                        <div className="text-gray-900 font-medium">{item.item}</div>
+                        <div className="text-gray-900 font-medium">
+                          {item.item}
+                        </div>
                         {item.details && (
-                          <div className="text-gray-600 text-sm mt-1">{item.details}</div>
+                          <div className="text-gray-600 text-sm mt-1">
+                            {item.details}
+                          </div>
                         )}
                       </div>
                     </div>
                   ))
                 ) : (
-                  <div className="text-gray-600">No checklist items available.</div>
+                  <div className="text-gray-600">
+                    No checklist items available.
+                  </div>
                 )}
               </div>
-
               <div className="bg-[#F5856F] rounded-2xl p-8 text-white">
                 <div className="flex flex-col md:flex-row items-center gap-6">
                   <div className="flex-shrink-0 w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
@@ -110,7 +134,8 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
                   <div className="flex-1 text-center md:text-left">
                     <h4 className="font-bold text-xl mb-3">Need Help?</h4>
                     <p className="text-white/90 text-sm mb-6">
-                      Have questions about this checklist? Reach out and we’ll assist you.
+                      Have questions about this checklist? Reach out and we'll
+                      assist you.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                       {resource.downloadPdf?.asset?._ref && (
@@ -119,8 +144,7 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
                           className="inline-flex items-center justify-center gap-2 bg-white text-[#892e1c] px-5 py-3 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors cursor-pointer"
                           target="_blank"
                           rel="noreferrer"
-                          download
-                        >
+                          download>
                           Download PDF
                         </a>
                       )}
@@ -140,7 +164,6 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
     );
   }
 
-  // Guide layout (styled like "Financial Assistance")
   if (resource.type === "guide") {
     return (
       <div className="min-h-screen">
@@ -159,7 +182,6 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
             )}
           </div>
         </section>
-
         <section className="py-12">
           <div className="max-w-4xl mx-auto px-6">
             <div className="bg-white rounded-2xl">
@@ -167,7 +189,8 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
                 <h2 className="text-2xl font-semibold text-gray-900">Guide</h2>
               </div>
               <div className="prose max-w-none">
-                {Array.isArray(resource.content) && resource.content.length > 0 ? (
+                {Array.isArray(resource.content) &&
+                resource.content.length > 0 ? (
                   resource.content.map((block: any) => (
                     <p key={block._key}>
                       {Array.isArray(block.children)
@@ -186,8 +209,7 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
                     href={fileUrlFromRef(resource.downloadPdf.asset._ref)}
                     target="_blank"
                     rel="noreferrer"
-                    download
-                  >
+                    download>
                     Download PDF
                   </a>
                 </div>
@@ -199,12 +221,13 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ slug: string }
     );
   }
 
-  // File layout (simple download)
   return (
     <div className="min-h-screen bg-white">
       <section className="py-12">
         <div className="max-w-3xl mx-auto px-6">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{resource.title}</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {resource.title}
+          </h1>
           {resource.description && (
             <p className="text-lg text-gray-700 mb-8">{resource.description}</p>
           )}

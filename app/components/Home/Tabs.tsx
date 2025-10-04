@@ -1,15 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { programsQuery } from "@/app/lib/queries";
 import { Programs } from "@/app/lib/interface";
-import { sanityClient, urlFor } from "@/app/lib/sanity";
+import { urlFor } from "@/app/lib/sanity";
 import { PortableText } from "next-sanity";
 
 interface ProgramsSectionProps {
   data: Programs;
 }
 
-const ProgramsSection = ({ data }: ProgramsSectionProps) => {
+export default function ProgramsSection({ data }: ProgramsSectionProps) {
   const [activeTab, setActiveTab] = useState(
     data?.programSections?.[0]?.slug?.current || ""
   );
@@ -152,13 +151,6 @@ const ProgramsSection = ({ data }: ProgramsSectionProps) => {
       </div>
     </section>
   );
-};
-
-export async function ProgramsSectionWrapper() {
-  const query = programsQuery;
-  const data: Programs = await sanityClient.fetch(query);
-
-  return <ProgramsSection data={data} />;
 }
 
-export default ProgramsSection;
+// Remove the ProgramsSectionWrapper function from this file

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 
 // Define the interface for age group objects
@@ -24,9 +24,13 @@ interface AgeGroup {
 
 interface ProgramsPageClientProps {
   programs: AgeGroup[];
+  programPageTitle?: string;
 }
 
-const ProgramsPageClient = ({ programs }: ProgramsPageClientProps) => {
+const ProgramsPageClient = ({
+  programs,
+  programPageTitle = "Our Programs",
+}: ProgramsPageClientProps) => {
   const [activeAgeGroup, setActiveAgeGroup] = useState(programs[0]?.id || "");
 
   // Color mapping to match ProgramsSection
@@ -63,7 +67,7 @@ const ProgramsPageClient = ({ programs }: ProgramsPageClientProps) => {
       <section className="py-16 md:py-20">
         <div className="max-w-xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Our Programs
+            {programPageTitle}
           </h2>
           <p className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed ">
             Developmentally appropriate programs that nurture curiosity,

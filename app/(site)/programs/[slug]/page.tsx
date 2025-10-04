@@ -3,42 +3,50 @@ import { ArrowLeft } from "lucide-react";
 import { programBySlugQuery, allProgramSlugsQuery } from "@/app/lib/queries";
 import { Programs } from "@/app/lib/interface";
 import { sanityClient, urlFor } from "@/app/lib/sanity";
-import { getProgramColors, extractTextFromRichText } from "@/app/lib/program-utils";
+import {
+  getProgramColors,
+  extractTextFromRichText,
+} from "@/app/lib/program-utils";
+import { sanityFetch } from "@/sanity/lib/live";
 
+// Enable ISR with 60 second revalidation
+export const revalidate = 60;
 
 // Generate static paths for all programs
 export async function generateStaticParams() {
   try {
     const data: Programs = await sanityClient.fetch(allProgramSlugsQuery);
-    console.log('generateStaticParams data:', data);
-    
-    const params = data.programSections?.map((program) => ({
-      slug: program.slug.current,
-    })) || [];
-    
-    console.log('generateStaticParams returning:', params);
+
+    const params =
+      data.programSections?.map((program) => ({
+        slug: program.slug.current,
+      })) || [];
+
     return params;
   } catch (error) {
-    console.error('Error in generateStaticParams:', error);
+    console.error("Error in generateStaticParams:", error);
     return [];
   }
 }
 
-const IndividualProgramPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+const IndividualProgramPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const { slug } = await params;
-  
-  // Fetch program data by slug
-  const data = await sanityClient.fetch(programBySlugQuery, { slug });
-  console.log('IndividualProgramPage data:', data);
+
+  // Fetch program data by slug using sanityFetch for visual editing
+  const { data } = await sanityFetch({
+    query: programBySlugQuery,
+    params: { slug },
+  });
 
   // Support both shapes: object (from slug query) or array (from full doc)
   const rawProgramSections = data?.programSections;
   const currentProgram = Array.isArray(rawProgramSections)
     ? rawProgramSections.find((p: any) => p?.slug?.current === slug)
     : rawProgramSections;
-  console.log('IndividualProgramPage currentProgram:', currentProgram);
-
-  
 
   // Handle case where program is not found
   if (!currentProgram) {
@@ -187,7 +195,7 @@ const IndividualProgramPage = async ({ params }: { params: Promise<{ slug: strin
             Ready to Enroll in Our {currentProgram.programTitle} Program?
           </h2>
           <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-            Schedule a tour or reach out for enrollment details. We’re here to
+            Schedule a tour or reach out for enrollment details. We're here to
             help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
