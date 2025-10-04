@@ -7,7 +7,6 @@ import { sanityFetch } from "@/sanity/lib/live";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
-
 // Query to get legal document by slug
 const legalDocumentQuery = `
   *[_type == "settings"][0] {
@@ -65,7 +64,6 @@ interface LegalDocument {
 
 // Generate static params for all legal documents
 export async function generateStaticParams() {
-  
   const data = await client.fetch(allLegalSlugsQuery);
 
   if (!data?.legalDocuments) {
@@ -143,15 +141,18 @@ const portableTextComponents = {
   },
 };
 
+// Update the component to accept Promise<params>
 export default async function LegalDocumentPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  
+  // Await the params Promise
+  const { slug } = await params;
+
   const { data } = await sanityFetch({
     query: legalDocumentQuery,
-    params: { slug: params.slug },
+    params: { slug },
   });
 
   const document: LegalDocument | null = data?.legalDocuments;
@@ -190,14 +191,16 @@ export default async function LegalDocumentPage({
   );
 }
 
-// Add metadata generation
+// Update metadata generation to handle Promise params
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
+
   const data = await client.fetch(legalDocumentQuery, {
-    slug: params.slug,
+    slug,
   });
 
   const document: LegalDocument | null = data?.legalDocuments;
