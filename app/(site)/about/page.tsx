@@ -4,6 +4,9 @@ import { About } from "@/app/lib/interface";
 import { sanityClient } from "@/app/lib/sanity";
 import AboutPageClient from "./AboutPageClient";
 import type { Metadata } from "next";
+import { sanityFetch } from "@/sanity/lib/live";
+// Enable ISR with 60 second revalidation
+export const revalidate = 60; 
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -13,6 +16,7 @@ export const metadata: Metadata = {
 
 export default async function AboutUsPage() {
   const query = aboutQuery;
+  
   const data: About = await sanityClient.fetch(query);
   return <AboutPageClient data={data} />;
 }
