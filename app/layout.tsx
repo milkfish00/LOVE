@@ -4,9 +4,7 @@ import { openSans } from "@/app/fonts";
 import { sanityClient } from "@/app/lib/sanity";
 import { settingsQuery } from "@/app/lib/queries";
 import { urlFor } from "@/app/lib/sanity";
-import { VisualEditing } from "next-sanity/visual-editing";
-import { draftMode } from "next/headers";
-import { DisableDraftMode } from "./components/DisableDraftMode";
+
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -22,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     const defaultTitle = "Love & Learning Child Care Center";
     const defaultDescription =
-      "A nurturing, play-based early childhood program in Charlotte, NC. Explore our infant through pre-K programs, enrollment, and resources.";
+      "Nature-based child care in Fletcher, NC. Love and Learning serves infants through pre-K with outdoor-focused learning. ";
     const defaultKeywords = [
       "child care",
       "daycare",
@@ -65,9 +63,12 @@ export async function generateMetadata(): Promise<Metadata> {
   } catch (e) {
     return {
       metadataBase: new URL("https://www.loveandlearningchildcare.com"),
-      title: { default: "Love & Learning Child Care Center", template: "%s | Love & Learning Child Care Center" },
+      title: {
+        default: "Love & Learning Child Care Center",
+        template: "%s | Love & Learning Child Care Center",
+      },
       description:
-        "A nurturing, play-based early childhood program in Charlotte, NC. Explore our infant through pre-K programs, enrollment, and resources.",
+        "Nature-based child care in Fletcher, NC. Love and Learning serves infants through pre-K with outdoor-focused learning. ",
       keywords: [
         "child care",
         "daycare",
@@ -80,16 +81,21 @@ export async function generateMetadata(): Promise<Metadata> {
         type: "website",
         title: "Love & Learning Child Care Center",
         description:
-          "A nurturing, play-based early childhood program in Charlotte, NC.",
+          "Nature-based child care in Fletcher, NC. Love and Learning serves infants through pre-K with outdoor-focused learning. ",
         images: [
-          { url: "/hero.jpeg", width: 1200, height: 630, alt: "Love & Learning" },
+          {
+            url: "/hero.jpeg",
+            width: 1200,
+            height: 630,
+            alt: "Love & Learning",
+          },
         ],
       },
       twitter: {
         card: "summary_large_image",
         title: "Love & Learning Child Care Center",
         description:
-          "A nurturing, play-based early childhood program in Charlotte, NC.",
+          "Nature-based child care in Fletcher, NC. Love and Learning serves infants through pre-K with outdoor-focused learning. ",
         images: ["/hero.jpeg"],
       },
       robots: {
