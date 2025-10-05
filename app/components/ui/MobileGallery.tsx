@@ -102,6 +102,7 @@ const MobilePhotoGallery: React.FC<MobilePhotoGalleryProps> = ({ images }) => {
               alt={images[index]?.alt || `Photo ${index + 1}`}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
           </div>
         ))}
@@ -145,6 +146,8 @@ const MobilePhotoGallery: React.FC<MobilePhotoGalleryProps> = ({ images }) => {
               src={selectedPhoto}
               alt={images[currentIndex]?.alt || `Photo ${currentIndex + 1}`}
               className="max-w-full max-h-full object-contain rounded-lg"
+              loading="eager"
+              decoding="async"
             />
           </div>
 

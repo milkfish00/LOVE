@@ -30,7 +30,9 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                   <img
                     src={urlFor(settings.footerLogo).url()}
                     alt="Love & Learning Child Care Center"
-                    className="w-60"
+                    className="w-60 h-auto"
+                    loading="lazy"
+                    decoding="async"
                   />
                 )}
               </Link>

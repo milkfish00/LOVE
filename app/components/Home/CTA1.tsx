@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 const CTA1 = () => {
   return (
@@ -8,18 +9,20 @@ const CTA1 = () => {
           <div className="lg:flex items-center gap-16">
             <div className="lg:w-1/2">
               <div className="relative">
-                <img
-                  src="https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg"
-                  alt="Students learning in classroom"
-                  className="w-full h-[300px] object-cover md:rounded-2xl   "
-                />
+                <div className="relative h-[300px] w-full md:rounded-2xl overflow-hidden">
+                  <Image
+                    src="https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg"
+                    alt="Students learning in classroom"
+                    fill
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
                 {/* Flower decoration */}
                 <div className="absolute -bottom-6 -left-6 w-32 h-32">
-                  <img
-                    src="/svg/flower4.svg"
-                    alt="Decorative flower"
-                    className="w-full h-auto"
-                  />
+                  <img src="/svg/flower4.svg" alt="" loading="lazy" decoding="async" className="w-full h-auto" />
                 </div>
               </div>
             </div>

@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@lottiefiles/lottie-interactivity": "^1.6.2",
     "@sanity/image-url": "^1.2.0",
     "@sanity/preview-url-secret": "2.1.15",
     "@sanity/vision": "^4.6.0",
@@ -22,11 +21,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-draggable": "^4.5.0",
-    "react-lottie": "^1.2.10",
-    "react-lottie-player": "^2.1.0",
-    "react-slick": "^0.31.0",
     "sanity": "^4.6.0",
-    "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
@@ -35,7 +30,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/react-slick": "^0.23.13",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

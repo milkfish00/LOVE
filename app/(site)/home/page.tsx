@@ -1,6 +1,7 @@
 // Server Component (remove "use client")
 import React from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { homeQuery, programsQuery } from "@/app/lib/queries";
 import {  Programs } from "@/app/lib/interface";
@@ -34,34 +35,34 @@ export default async function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
         <div className="absolute top-0 right-0 z-30 w-38 md:w-64 lg:w-80">
-          <img
-            src="/svg/flower3.svg"
-            alt="Decorative flowers"
-            className="w-full h-auto hover:rotate-180"
-          />
+          <img src="/svg/flower3.svg" alt="" loading="lazy" decoding="async" className="w-full h-auto hover:rotate-180" />
         </div>
 
         <div className="absolute bottom-0 left-0 z-30 w-48 md:w-64 lg:w-80">
-          <img
-            src="/svg/flower2.svg"
-            alt="Decorative flowers"
-            className="w-full h-auto hover:rotate-45"
-          />
+          <img src="/svg/flower2.svg" alt="" loading="lazy" decoding="async" className="w-full h-auto hover:rotate-45" />
         </div>
 
         <div className="absolute inset-0 bg-black/50 z-10"></div>
 
         {data?.heroSections?.[0]?.backgroundImage ? (
-          <img
+          <Image
             src={urlFor(data.heroSections[0].backgroundImage).url()}
             alt="Children playing"
-            className="w-full h-full object-cover absolute inset-0"
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="object-cover"
           />
         ) : (
-          <img
+          <Image
             src="/hero.jpeg"
             alt="Children playing"
-            className="w-full h-full object-cover absolute inset-0"
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="object-cover"
           />
         )}
 
@@ -105,11 +106,15 @@ export default async function Home() {
             </div>
 
             {/* Image Section */}
-            <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-[32rem]">
-              <img
+            <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-[32rem] relative">
+              <Image
                 alt="App screenshot"
                 src={urlFor(data?.aboutSections?.[0]?.image).url()}
-                className="w-full h-full object-cover lg:object-center rounded-b-3xl lg:rounded-r-3xl lg:rounded-bl-none"
+                fill
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover lg:object-center rounded-b-3xl lg:rounded-r-3xl lg:rounded-bl-none"
               />
             </div>
           </div>
@@ -123,18 +128,20 @@ export default async function Home() {
             <div className="lg:flex items-center gap-16">
               <div className="lg:w-1/2">
                 <div className="relative">
-                  <img
-                    src={urlFor(data?.cta1Sections?.[0]?.image).url()}
-                    alt="Students learning in classroom"
-                    className="w-full h-[300px] object-cover md:rounded-2xl"
-                  />
+                  <div className="relative h-[300px]">
+                    <Image
+                      src={urlFor(data?.cta1Sections?.[0]?.image).url()}
+                      alt="Students learning in classroom"
+                      fill
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover md:rounded-2xl"
+                    />
+                  </div>
                   {/* Flower decoration */}
                   <div className="absolute -bottom-6 -left-6 w-32 h-32">
-                    <img
-                      src="/svg/flower4.svg"
-                      alt="Decorative flower"
-                      className="w-full h-auto"
-                    />
+                    <img src="/svg/flower4.svg" alt="" loading="lazy" decoding="async" className="w-full h-auto" />
                   </div>
                 </div>
               </div>
@@ -178,18 +185,20 @@ export default async function Home() {
 
               <div className="lg:w-1/2 mt-12 lg:mt-0">
                 <div className="relative">
-                  <img
-                    src={urlFor(data?.cta2Sections?.[0]?.image).url()}
-                    alt="Children playing and learning"
-                    className="w-full h-[500px] object-cover rounded-2xl"
-                  />
+                  <div className="relative h-[500px]">
+                    <Image
+                      src={urlFor(data?.cta2Sections?.[0]?.image).url()}
+                      alt="Children playing and learning"
+                      fill
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover rounded-2xl"
+                    />
+                  </div>
                   {/* Flower decoration */}
                   <div className="absolute -top-6 -right-6 w-28 h-28">
-                    <img
-                      src="/svg/flower5.svg"
-                      alt="Decorative flower"
-                      className="w-full h-auto"
-                    />
+                    <img src="/svg/flower5.svg" alt="" loading="lazy" decoding="async" className="w-full h-auto" />
                   </div>
                 </div>
               </div>

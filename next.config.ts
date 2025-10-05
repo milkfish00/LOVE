@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         hostname: "swiperjs.com",
@@ -9,8 +10,14 @@ const nextConfig: NextConfig = {
       {
         hostname: "cdn.sanity.io",
       },
+      {
+        hostname: "images.pexels.com",
+      },
       
     ],
+  },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "@heroicons/react"],
   },
   // Enable features for better performance
   serverExternalPackages: ['@sanity/client'],

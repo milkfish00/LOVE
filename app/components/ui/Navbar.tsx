@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { buttonClasses } from "./buttonStyles";
 import { NavSettings } from "../../lib/interface";
@@ -201,11 +202,15 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
             <div className="flex-shrink-0">
               <Link href="/" className="flex items-center group">
                 {settings?.navLogo && (
-                  <img
-                    src={urlFor(settings.navLogo).url()}
-                    alt="Love & Learning Child Care Center"
-                    className="h-7 w-auto transition-transform duration-200"
-                  />
+                  <div className="relative h-7 w-auto" style={{ width: "auto" }}>
+                    <Image
+                      src={urlFor(settings.navLogo).width(160).quality(80).url()}
+                      alt="Love & Learning Child Care Center"
+                      width={160}
+                      height={28}
+                      priority
+                    />
+                  </div>
                 )}
               </Link>
             </div>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { Programs } from "@/app/lib/interface";
 import { urlFor } from "@/app/lib/sanity";
 import { PortableText } from "next-sanity";
@@ -96,11 +97,17 @@ export default function ProgramsSection({ data }: ProgramsSectionProps) {
                 {(() => {
                   const imageUrl = getImageUrl(currentProgram.image);
                   return imageUrl ? (
-                    <img
-                      src={imageUrl}
-                      alt={currentProgram.programTitle}
-                      className="w-full max-w-xs h-64 object-contain"
-                    />
+                    <div className="relative w-full max-w-xs h-64">
+                      <Image
+                        src={imageUrl}
+                        alt={currentProgram.programTitle}
+                        fill
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(max-width: 1024px) 50vw, 400px"
+                        className="object-contain"
+                      />
+                    </div>
                   ) : (
                     <div className="w-full h-64 flex items-center justify-center">
                       <h3 className="text-gray-400 text-lg ">

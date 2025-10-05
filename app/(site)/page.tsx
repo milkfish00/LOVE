@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-import ChildData from "@/public/childern2.json";
-
 // Import Lottie with no SSR to prevent document errors
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
@@ -14,6 +12,7 @@ export default function Home() {
   const [showButton, setShowButton] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [animationLoaded, setAnimationLoaded] = useState(false);
+  const [animationData, setAnimationData] = useState<any | null>(null);
   const [windowHeight, setWindowHeight] = useState(0);
 
   useEffect(() => {
@@ -41,6 +40,23 @@ export default function Home() {
   const handleAnimationLoad = () => {
     setAnimationLoaded(true);
   };
+
+  // Defer loading heavy Lottie JSON until idle to reduce main-thread work and first load JS
+  useEffect(() => {
+    const load = () => {
+      fetch("/childern2.json")
+        .then((res) => res.json())
+        .then((json) => setAnimationData(json))
+        .catch(() => setAnimationData(null));
+    };
+
+    if ("requestIdleCallback" in window) {
+      (window as any).requestIdleCallback(load, { timeout: 2000 });
+    } else {
+      // Slight delay to avoid blocking TTI
+      setTimeout(load, 800);
+    }
+  }, []);
 
   return (
     <div
@@ -186,8 +202,9 @@ export default function Home() {
       </div>
       <div className="absolute bottom-0 w-full h-auto hidden md:block">
         <div className="w-full">
-          <Lottie
-            animationData={ChildData}
+          {animationData && (
+            <Lottie
+            animationData={animationData}
             loop={false}
             autoplay={true}
             onDOMLoaded={handleAnimationLoad} // Add this event handler
@@ -202,14 +219,16 @@ export default function Home() {
               hideOnTransparent: true,
             }}
           />
+          )}
         </div>
       </div>
       <div
         className="absolute bottom-0 w-full h-auto md:hidden"
         style={{ maxHeight: `${windowHeight}px` }}>
         <div className="w-full h-full">
-          <Lottie
-            animationData={ChildData}
+          {animationData && (
+            <Lottie
+            animationData={animationData}
             loop={false}
             autoplay={true}
             onDOMLoaded={handleAnimationLoad}
@@ -224,6 +243,7 @@ export default function Home() {
               hideOnTransparent: true,
             }}
           />
+          )}
         </div>
       </div>
     </div>

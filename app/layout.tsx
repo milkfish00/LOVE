@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { openSans } from "@/app/fonts";
 import { sanityClient } from "@/app/lib/sanity";
 import { settingsQuery } from "@/app/lib/queries";
 import { urlFor } from "@/app/lib/sanity";
@@ -107,8 +108,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head></head>
-      <body>
+      <head>
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="" />
+        <link rel="dns-prefetch" href="//cdn.sanity.io" />
+      </head>
+      <body className={openSans.className}>
         {children}
      
       </body>

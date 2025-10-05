@@ -1,62 +1,21 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import Slider from "react-slick";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { homeQuery } from "@/app/lib/queries";
 import { homeInterface } from "@/app/lib/interface";
 import { sanityClient } from "@/app/lib/sanity";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
-const settings = {
-  dots: true,
-  infinite: true,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 5000,
-  pauseOnHover: true,
-  speed: 600,
-  arrows: false,
-  cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
-  responsive: [
-    {
-      breakpoint: 1280,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        centerMode: false,
-      },
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        centerMode: true,
-        centerPadding: "40px",
-      },
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        centerMode: true,
-        centerPadding: "20px",
-        dots: false,
-      },
-    },
-  ],
-};
+// Lightweight scroll-snap settings
+const AUTOPLAY_INTERVAL = 5000;
 
 interface TestimonialsSliderProps {
   data: homeInterface;
 }
 
 const TestimonialsSlider = ({ data }: TestimonialsSliderProps) => {
-  const sliderRef = useRef<Slider>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -93,23 +52,20 @@ const TestimonialsSlider = ({ data }: TestimonialsSliderProps) => {
     );
   }
 
-  // Adjust slider settings based on number of testimonials
-  const dynamicSettings = {
-    ...settings,
-    infinite: testimonials.length > 3,
-    slidesToShow: Math.min(3, testimonials.length),
-    responsive: settings.responsive.map((breakpoint) => ({
-      ...breakpoint,
-      settings: {
-        ...breakpoint.settings,
-        slidesToShow: Math.min(
-          breakpoint.settings.slidesToShow || 1,
-          testimonials.length
-        ),
-        infinite: testimonials.length > (breakpoint.settings.slidesToShow || 1),
-      },
-    })),
-  };
+  // Autoplay via scroll snapping
+  useEffect(() => {
+    if (!containerRef.current || testimonials.length <= 1) return;
+    const id = setInterval(() => {
+      const el = containerRef.current!;
+      const total = el.children.length;
+      const next = (index + 1) % total;
+      const child = el.children[next] as HTMLElement;
+      child?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      setIndex(next);
+    }, AUTOPLAY_INTERVAL);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, testimonials.length]);
 
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -126,14 +82,29 @@ const TestimonialsSlider = ({ data }: TestimonialsSliderProps) => {
           {!isMobile && testimonials.length > 1 && (
             <>
               <button
-                onClick={() => sliderRef.current?.slickPrev()}
+                onClick={() => {
+                  if (!containerRef.current) return;
+                  const el = containerRef.current;
+                  const prev = Math.max(0, index - 1);
+                  const child = el.children[prev] as HTMLElement;
+                  child?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                  setIndex(prev);
+                }}
                 className="absolute -left-4 lg:-left-12 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 group"
                 aria-label="Previous testimonial">
                 <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700 group-hover:text-[#3A5F8A] transition-colors" />
               </button>
 
               <button
-                onClick={() => sliderRef.current?.slickNext()}
+                onClick={() => {
+                  if (!containerRef.current) return;
+                  const el = containerRef.current;
+                  const total = el.children.length;
+                  const next = Math.min(total - 1, index + 1);
+                  const child = el.children[next] as HTMLElement;
+                  child?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                  setIndex(next);
+                }}
                 className="absolute -right-4 lg:-right-12 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 group"
                 aria-label="Next testimonial">
                 <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700 group-hover:text-[#3A5F8A] transition-colors" />
@@ -141,7 +112,7 @@ const TestimonialsSlider = ({ data }: TestimonialsSliderProps) => {
             </>
           )}
 
-          <div className="slider-container px-2 md:px-0">
+          <div className="px-2 md:px-0">
             {testimonials.length === 1 ? (
               // Single testimonial - no slider needed
               <div className="flex justify-center">
@@ -150,16 +121,20 @@ const TestimonialsSlider = ({ data }: TestimonialsSliderProps) => {
                 </div>
               </div>
             ) : (
-              // Multiple testimonials - use slider
-              <Slider {...dynamicSettings} ref={sliderRef}>
+              // Multiple testimonials - scroll snap row
+              <div
+                ref={containerRef}
+                className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-1 scrollbar-hide"
+                style={{ scrollBehavior: "smooth" }}
+                aria-label="Testimonials carousel">
                 {testimonials.map((testimonial) => (
                   <div
                     key={testimonial._key}
-                    className="px-2 sm:px-3 focus:outline-none">
+                    className="px-2 sm:px-3 min-w-[85%] md:min-w-[48%] xl:min-w-[32%] snap-center focus:outline-none">
                     <TestimonialCard testimonial={testimonial} />
                   </div>
                 ))}
-              </Slider>
+              </div>
             )}
           </div>
 
@@ -167,14 +142,29 @@ const TestimonialsSlider = ({ data }: TestimonialsSliderProps) => {
           {isMobile && testimonials.length > 1 && (
             <div className="flex justify-center gap-4 mt-6 md:mt-8">
               <button
-                onClick={() => sliderRef.current?.slickPrev()}
+                onClick={() => {
+                  if (!containerRef.current) return;
+                  const el = containerRef.current;
+                  const prev = Math.max(0, index - 1);
+                  const child = el.children[prev] as HTMLElement;
+                  child?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                  setIndex(prev);
+                }}
                 className="w-10 h-10 bg-white hover:bg-gray-50 rounded-full shadow flex items-center justify-center transition-all duration-300 group"
                 aria-label="Previous testimonial">
                 <ChevronLeft className="w-5 h-5 text-gray-700 group-hover:text-[#3A5F8A] transition-colors" />
               </button>
 
               <button
-                onClick={() => sliderRef.current?.slickNext()}
+                onClick={() => {
+                  if (!containerRef.current) return;
+                  const el = containerRef.current;
+                  const total = el.children.length;
+                  const next = Math.min(total - 1, index + 1);
+                  const child = el.children[next] as HTMLElement;
+                  child?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                  setIndex(next);
+                }}
                 className="w-10 h-10 bg-white hover:bg-gray-50 rounded-full shadow flex items-center justify-center transition-all duration-300 group"
                 aria-label="Next testimonial">
                 <ChevronRight className="w-5 h-5 text-gray-700 group-hover:text-[#3A5F8A] transition-colors" />

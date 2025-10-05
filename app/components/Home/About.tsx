@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const About = () => {
   return (
@@ -23,10 +24,13 @@ const About = () => {
             </div>
           </div>
           <div className="relative h-80">
-            <img
+            <Image
               alt="App screenshot"
               src="https://images.pexels.com/photos/4871785/pexels-photo-4871785.jpeg"
-              className="absolute left-0 top-0 w-full h-full object-cover md:w-[57rem] md:h-auto md:max-w-none md:object-fill bg-white/5 ring-1 ring-white/10 py-8 md:pt-0"
+              fill
+              className="object-cover md:w-[57rem] md:h-auto md:max-w-none md:object-fill bg-white/5 ring-1 ring-white/10 py-8 md:pt-0"
+              sizes="(max-width: 768px) 100vw, 57rem"
+              priority={false}
             />
           </div>
         </div>

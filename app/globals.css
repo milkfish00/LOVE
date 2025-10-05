@@ -5,32 +5,35 @@
 
 @font-face {
   font-family: "Pally-reg"; /*a name to be used later*/
-  src: url("../public/fonts/Pally/Pally-Regular.otf"); /*URL to font*/
+  src: url("/fonts/Pally/Pally-Regular.otf") format("opentype"); /*URL to font*/
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Pally-bold"; /*a name to be used later*/
-  src: url("../public/fonts/Pally/Pally-Bold.otf"); /*URL to font*/
+  src: url("/fonts/Pally/Pally-Bold.otf") format("opentype"); /*URL to font*/
+  font-display: swap;
 }
 @font-face {
   font-family: "Pally-md"; /*a name to be used later*/
-  src: url("../public/fonts/Pally/Pally-Medium.otf"); /*URL to font*/
+  src: url("/fonts/Pally/Pally-Medium.otf") format("opentype"); /*URL to font*/
+  font-display: swap;
 }
 
 /* Tamil  Font */
 @font-face {
   font-family: "Tamil"; /*a name to be used later*/
-  src: url("../public/fonts/Tamil/tamil-sangam-mn.ttf"); /*URL to font*/
+  src: url("/fonts/Tamil/tamil-sangam-mn.ttf") format("truetype"); /*URL to font*/
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Tamil-bold"; /*a name to be used later*/
-  src: url("../public/fonts/Tamil/tamil-sangam-mn-bold.otf"); /*URL to font*/
+  src: url("/fonts/Tamil/tamil-sangam-mn-bold.otf") format("opentype"); /*URL to font*/
+  font-display: swap;
 }
 
-/* Open Sans Font */
-
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+/* Open Sans is loaded via next/font in app/fonts.ts for optimal performance */
 
 :root {
   --background: #ffffff;
@@ -45,6 +48,8 @@
   body {
     @apply font-sans;
     background-color: #ffffff;
+    font-synthesis-weight: none;
+    font-synthesis-style: none;
   }
 }
 
@@ -71,20 +76,13 @@ input {
   font-family: Tamil-bold;
 }
 
+/* Open Sans reference utility (now applied via next/font class) */
 .open-sans-ref {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
+  font-family: inherit;
 }
 
 p {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 400;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
 }
 
 /***************************************************

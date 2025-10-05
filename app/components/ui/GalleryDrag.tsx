@@ -296,7 +296,10 @@ const DraggableGallery: React.FC<DraggableGalleryProps> = ({ images }) => {
         <div className="text-gray-100 text-6xl sm:text-8xl md:text-9xl font-light tracking-widest">
           <img
             src="/navlogo.svg"
-            alt="Love Childcare"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
             className="h-20 md:h-60 w-auto opacity-40"
             onError={(e) => {
               e.currentTarget.style.display = "none";
@@ -308,19 +311,19 @@ const DraggableGallery: React.FC<DraggableGalleryProps> = ({ images }) => {
       {/* Decorative Flowers */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-32 md:w-52 opacity-20">
-          <img src="/svg/flower3.svg" alt="" className="w-full h-auto" />
+          <img src="/svg/flower3.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />
         </div>
         <div className="absolute bottom-0 left-0 w-40 md:w-60 opacity-20">
-          <img src="/svg/flower2.svg" alt="" className="w-full h-auto" />
+          <img src="/svg/flower2.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />
         </div>
         <div className="absolute -top-2 left-6 w-16 md:w-24 opacity-20">
-          <img src="/svg/flower1.svg" alt="" className="w-full h-auto" />
+          <img src="/svg/flower1.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />
         </div>
         <div className="absolute bottom-6 right-10 w-20 md:w-28 opacity-20">
-          <img src="/svg/flower5.svg" alt="" className="w-full h-auto" />
+          <img src="/svg/flower5.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />
         </div>
         <div className="absolute top-1/2 left-10 w-14 md:w-20 opacity-20">
-          <img src="/svg/flower4.svg" alt="" className="w-full h-auto" />
+          <img src="/svg/flower4.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />
         </div>
       </div>
 
@@ -367,6 +370,7 @@ const DraggableGallery: React.FC<DraggableGalleryProps> = ({ images }) => {
               className={`object-cover rounded-lg pointer-events-none w-48 h-48 sm:w-56 sm:h-56 md:w-96 md:h-96`}
               draggable={false}
               loading="lazy"
+              decoding="async"
               onError={() => handleImageError(photo.id)}
             />
           </div>

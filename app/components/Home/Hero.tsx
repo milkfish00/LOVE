@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -6,7 +7,10 @@ const Hero = () => {
       <div className="absolute top-0 right-0 z-30 w-38 md:w-64 lg:w-80">
         <img
           src="/svg/flower3.svg"
-          alt="Decorative flowers"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
           className="w-full h-auto hover:rotate-180"
         />
       </div>
@@ -14,17 +18,24 @@ const Hero = () => {
       <div className="absolute bottom-0 left-0 z-30 w-48 md:w-64 lg:w-80">
         <img
           src="/svg/flower2.svg"
-          alt="Decorative flowers"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
           className="w-full h-auto hover:rotate-45"
         />
       </div>
 
       <div className="absolute inset-0 bg-black/50 z-10"></div>
 
-      <img
+      <Image
         src="/hero.jpeg"
         alt="Children playing"
-        className="w-full h-full object-cover absolute inset-0"
+        fill
+        priority
+        fetchPriority="high"
+        className="object-cover absolute inset-0"
+        sizes="100vw"
       />
 
       <div className="absolute inset-0 flex items-center justify-center text-center z-20">
