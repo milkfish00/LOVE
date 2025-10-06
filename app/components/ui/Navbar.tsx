@@ -206,7 +206,7 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
                     <Image
                       src={urlFor(settings.navLogo).width(160).quality(80).url()}
                       alt="Love & Learning Child Care Center"
-                      width={160}
+                      width={210}
                       height={28}
                       priority
                     />
