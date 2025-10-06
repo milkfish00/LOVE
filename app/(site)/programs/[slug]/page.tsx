@@ -205,7 +205,7 @@ const IndividualProgramPage = async ({
               Contact Us
             </a>
             <a
-              href="/tuition"
+              href="/enrollment"
               className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors">
               View Tuition & Enrollment
             </a>

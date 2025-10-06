@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Love and Learning Child Care Center",
-  description: "Love and Learning Child Care Center",
+  description: "",
 };
 
 export default async function RootLayout({
