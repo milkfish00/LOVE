@@ -1,6 +1,6 @@
 import React from "react";
-import { Tuition } from "@/app/lib/interface";
-import { tuitionQuery } from "@/app/lib/queries";
+import { Tuition, Programs } from "@/app/lib/interface";
+import { tuitionQuery, programsQuery } from "@/app/lib/queries";
 import { sanityClient } from "@/app/lib/sanity";
 import EnrollmentPageClient from "./EnrollmentPageClient";
 import type { Metadata } from "next";
@@ -13,16 +13,21 @@ export const metadata: Metadata = {
 };
 
 const EnrollmentPage = async () => {
-  const { data } = await sanityFetch({
+  const { data: tuitionData } = await sanityFetch({
     query: tuitionQuery,
     params: {},
   });
 
-  if (!data) {
+  const { data: programsData } = await sanityFetch({
+    query: programsQuery,
+    params: {},
+  });
+
+  if (!tuitionData) {
     return <div className="max-w-4xl mx-auto px-6 py-16">No enrollment data found.</div>;
   }
 
-  return <EnrollmentPageClient data={data} />;
+  return <EnrollmentPageClient data={tuitionData} programsData={programsData} />;
 };
 
 export default EnrollmentPage;

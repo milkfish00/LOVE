@@ -182,6 +182,7 @@ export const programsQuery = `
         }
       },
       order,
+       tuitionRates,
       programTitle,
       schedule,
       slug {
@@ -225,6 +226,7 @@ export const programBySlugQuery = `
         }
       },
       programTitle,
+      tuitionRates,
       schedule,
       slug {
         _type,
@@ -261,11 +263,19 @@ export const tuitionQuery = `
     tuitionPayments[] {
       _key,
       description,
+        button {
+        text,
+        url
+      },
       title
     },
     ctaSection[] {
       _key,
       button {
+        text,
+        url
+      },
+      secondButton {
         text,
         url
       },
@@ -392,6 +402,8 @@ export const careersQuery = `
           marks,
           text
         },
+        level,
+        listItem,
         markDefs,
         style
       },
@@ -436,6 +448,15 @@ export const contactQuery = `
       address,
       number,
       hours
+    }, 
+     ctaSection[] {
+      _key,
+       title, 
+        description,
+      button {
+        text,
+        url
+      },
     }
   }
 `;
@@ -447,6 +468,9 @@ export const settingsQuery = `
     _type,
     _createdAt,
     _updatedAt,
+    _originalId,
+    _rev,
+    _system,
     title,
     description,
     favicon {
@@ -456,7 +480,14 @@ export const settingsQuery = `
         _type
       }
     },
-    logo {
+    navLogo {
+      _type,
+      asset {
+        _ref,
+        _type
+      }
+    },
+    footerLogo {
       _type,
       asset {
         _ref,
@@ -476,10 +507,22 @@ export const settingsQuery = `
       platform,
       url
     },
+    banner[] {
+      _key,
+      _type,
+      text,
+      subtitle,
+      buttonText,
+      link
+    },
     legalDocuments[] {
       _key,
       _type,
       title,
+      slug {
+        _type,
+        current
+      },
       content[] {
         _key,
         _type,
@@ -489,8 +532,13 @@ export const settingsQuery = `
           marks,
           text
         },
-        markDefs,
-        style
+        markDefs[] {
+          _key,
+          _type
+        },
+        style,
+        level,
+        listItem
       }
     }
   }
@@ -655,7 +703,7 @@ export const getHomeData = `*[_type == "home"] {
   }
 }`;
 
-//Settings 
+//Settings
 export const footerSettingsQuery = `
   *[_type == "settings"][0] {
     _id,
@@ -693,5 +741,3 @@ export const footerSettingsQuery = `
     }
   }
 `;
-
-

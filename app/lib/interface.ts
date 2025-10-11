@@ -155,6 +155,10 @@ export interface Tuition {
       text: string;
       url: string;
     };
+    secondButton: {
+      text: string;
+      url: string;
+    };
     description: string;
     title: string;
   }[];
@@ -177,6 +181,10 @@ export interface Tuition {
   title: string;
   tuitionPayments: {
     _key: string;
+    button: {
+      text: string;
+      url?: string;
+    };
     description: string;
     title: string;
   }[];
@@ -219,6 +227,7 @@ export interface Programs {
       };
     };
     order: number;
+    tuitionRates: string;
     programTitle: string;
     schedule: string;
     slug: {
@@ -226,7 +235,7 @@ export interface Programs {
       current: string;
     };
   }[];
-  
+
   title: string;
 }
 
@@ -316,8 +325,8 @@ export interface Gallery {
   title: string;
 }
 
-//careers
 
+//careers
 export interface Careers {
   _createdAt: string;
   _id: string;
@@ -337,6 +346,8 @@ export interface Careers {
         marks: string[];
         text: string;
       }[];
+      level?: number;
+      listItem?: "bullet" | "number";
       markDefs: any[];
       style: string;
     }[];
@@ -374,6 +385,15 @@ export interface Contact {
   }[];
   description: string;
   title: string;
+  ctaSection: {
+    _key: string;
+    button: {
+      text: string;
+      url: string;
+    };
+    description: string;
+    title: string;
+  }[];
 }
 
 //settings
@@ -390,32 +410,23 @@ export interface Settings {
   };
   _type: "settings";
   _updatedAt: string;
+  title: string;
   description: string;
   favicon: {
+    _type: "file";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  };
+  navLogo: {
     _type: "image";
     asset: {
       _ref: string;
       _type: "reference";
     };
   };
-  legalDocuments: {
-    _key: string;
-    _type: "legalDocument";
-    content: {
-      _key: string;
-      _type: "block";
-      children: {
-        _key: string;
-        _type: "span";
-        marks: string[];
-        text: string;
-      }[];
-      markDefs: any[];
-      style: string;
-    }[];
-    title: string;
-  }[];
-  logo: {
+  footerLogo: {
     _type: "image";
     asset: {
       _ref: string;
@@ -435,7 +446,41 @@ export interface Settings {
     platform: string;
     url: string;
   }[];
-  title: string;
+  banner: {
+    _key: string;
+    _type: "banner";
+    text: string;
+    subtitle: string;
+    buttonText: string;
+    link: string;
+  }[];
+  legalDocuments: {
+    _key: string;
+    _type: "legalDocument";
+    title: string;
+    slug: {
+      _type: "slug";
+      current: string;
+    };
+    content: {
+      _key: string;
+      _type: "block";
+      children: {
+        _key: string;
+        _type: "span";
+        marks: string[];
+        text: string;
+      }[];
+      markDefs: {
+        _key?: string;
+        _type?: string;
+        [key: string]: any;
+      }[];
+      style: string;
+      level?: number;
+      listItem?: "bullet" | "number";
+    }[];
+  }[];
 }
 
 // Home page interfaces

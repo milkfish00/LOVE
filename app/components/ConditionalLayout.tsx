@@ -3,6 +3,8 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "./ui/Navbar";
 import Footer from "./ui/Footer";
+import Banner from "./ui/Banner";
+
 
 interface ConditionalLayoutProps {
   children: React.ReactNode;
@@ -18,6 +20,7 @@ export default function ConditionalLayout({
 
   return (
     <>
+      {!isHomePage && <Banner />}
       {!isHomePage && settings && <Navbar settings={settings} />}
       {children}
       {!isHomePage && settings && <Footer settings={settings} />}

@@ -1,27 +1,39 @@
-"use client"
+"use client";
 import React from "react";
-import { Tuition } from "@/app/lib/interface";
+import { Tuition , Programs} from "@/app/lib/interface";
 import { ArrowRight } from "lucide-react";
 import { buttonClasses } from "@/app/components/ui/buttonStyles";
 import { text } from "@/app/components/ui/textStyles";
+import TuitionRatesSection from "@/app/components/Home/Tuition";
 
 type Props = {
   data: Tuition;
+  programsData?: Programs; 
 };
 
-// Removed icon map as the tuition section is simplified to a single paragraph
-
-const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
-
+const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
   const cta = data.ctaSection?.[0];
   const tuitionParagraph = data.tuitionPayments
     ?.map((item) => item.description)
     .filter(Boolean)
     .join(" ");
 
+  const tuitionButtons =
+    data.tuitionPayments
+      ?.map((t) => ({
+        key: t._key,
+        text: t.button?.text,
+        url: t.button?.url,
+      }))
+      .filter(
+        (b): b is { key: string; text: string; url: string | undefined } =>
+          !!b.text
+      ) || [];
+
   return (
     <div className="min-h-screen bg-[#fff3df]">
-      <section className="relative  py-24 px-6 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative py-24 px-6 overflow-hidden">
         <div className="absolute top-10 right-10 w-32 h-32 opacity-20">
           <img
             src="/svg/flower1.svg"
@@ -49,6 +61,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
             aria-hidden="true"
           />
         </div>
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1 className={`${text.h1} mb-6`}>
             {data.title || "Enrollment & Tuition"}
@@ -61,14 +74,14 @@ const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
         </div>
       </section>
 
-      {/* Removed in-page tabs for a minimal layout */}
-
+      {/* Main Content */}
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Enrollment Process */}
           <section id="enrollment" className="lg:col-span-2">
             <h2 className={`${text.h2} mb-6`}>Enrollment Process</h2>
             <div className="relative">
-              <div className="hidden sm:block absolute left-4 top-0 bottom-0 w-px bg-gray-200"></div>
+              <div className="hidden sm:block absolute left-4 top-0 bottom-0 w-px bg-gray-200" />
               <div className="space-y-6">
                 {data.enrollmentProcess?.map((step) => (
                   <div key={step._key} className="relative pl-12">
@@ -84,7 +97,10 @@ const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
               </div>
             </div>
           </section>
+
+          {/* Sidebar */}
           <aside className="lg:col-span-1 space-y-8">
+            {/* Tuition Card */}
             <section
               id="tuition"
               className="relative bg-white rounded-2xl border border-gray-200 shadow-sm p-6 overflow-hidden">
@@ -106,14 +122,29 @@ const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
                   aria-hidden="true"
                 />
               </div>
-              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-[#FFD58B]/40 via-transparent to-transparent"></div>
+              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-[#FFD58B]/40 via-transparent to-transparent" />
               <h2 className={`${text.h3} mb-3 relative`}>Tuition & Payments</h2>
               <p className={`${text.body} relative`}>
                 {tuitionParagraph ||
                   "We offer clear, flexible tuition and payment options. Contact us for details."}
               </p>
+
+              {tuitionButtons.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-3">
+                  {tuitionButtons.map((b) => (
+                    <a
+                      key={b.key}
+                      href={b.url || "#"}
+                      className={buttonClasses("link", "sm", "lg")}>
+                      {b.text}
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </a>
+                  ))}
+                </div>
+              )}
             </section>
 
+            {/* Financial Aid Cards */}
             <section id="financial-aid" className="space-y-6">
               {data.financialAid?.map((fa) => (
                 <div
@@ -137,9 +168,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
                       aria-hidden="true"
                     />
                   </div>
-                  <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-[#FFD58B]/40 via-transparent to-transparent"></div>
-
-                  {/* Changed from h3 to h2 to match the tuition card */}
+                  <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-[#FFD58B]/40 via-transparent to-transparent" />
                   <h2 className={`${text.h3} mb-3 relative`}>{fa.title}</h2>
                   <p className={`${text.body} mb-4 relative`}>
                     {fa.description}
@@ -158,7 +187,10 @@ const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
           </aside>
         </div>
       </div>
+      {programsData && <TuitionRatesSection data={programsData} />}
 
+
+      {/* CTA Section */}
       {cta && (
         <section className="py-20 bg-[#86AF61]">
           <div className="max-w-4xl mx-auto px-6 text-center">
@@ -168,13 +200,23 @@ const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
                 {cta.description}
               </p>
             )}
-            {cta.button?.text && (
-              <a
-                href={cta.button.url || "#"}
-                className={buttonClasses("secondary", "lg", "full")}>
-                {cta.button.text}
-              </a>
-            )}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              {cta.button?.text && (
+                <a
+                  href={cta.button.url || "#"}
+                  className="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors">
+                  {cta.button.text}
+                </a>
+              )}
+              {cta.secondButton?.text && (
+                <a
+                  href={cta.secondButton.url || "#"}
+                  target="_blank"
+                  className="bg-[#FFD58B] text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#ffc966] transition-colors">
+                  {cta.secondButton.text}
+                </a>
+              )}
+            </div>
           </div>
         </section>
       )}
@@ -183,5 +225,3 @@ const EnrollmentPageClient: React.FC<Props> = ({ data }) => {
 };
 
 export default EnrollmentPageClient;
-
-

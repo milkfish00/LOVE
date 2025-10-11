@@ -85,7 +85,7 @@ export default async function Home() {
       <ProgramsSectionWrapper />
 
       {/* About Section */}
-      <div className="bg-[#81AA8E] min-h-screen flex items-center justify-center p-4">
+      <div className="bg-[#81AA8E] py-32 flex items-center justify-center p-4">
         <div className="mx-auto max-w-7xl w-full">
           <div className="relative isolate overflow-hidden bg-white shadow-2xl rounded-3xl flex flex-col lg:flex-row lg:gap-x-8">
             {/* Text Section */}

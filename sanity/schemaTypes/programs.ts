@@ -85,6 +85,13 @@ export const program = defineType({
                 },
               ],
             }),
+            defineField({
+              name: "tuitionRates",
+              title: "Tuition Rates",
+              type: "string",
+              description: 'e.g., "$200/month"',
+              validation: (Rule) => Rule.required(),
+            }),
 
             defineField({
               name: "classSize",

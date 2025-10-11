@@ -1,6 +1,8 @@
 import { defineField, defineType } from "sanity";
 import { CogIcon } from "@sanity/icons";
 import { DocumentsIcon } from "@sanity/icons";
+import {LinkIcon} from '@sanity/icons'
+
 import {
   Twitter,
   Linkedin,
@@ -30,6 +32,10 @@ export const settings = defineType({
     {
       name: "social",
       title: "Social Media",
+    },
+    {
+      name: "banner",
+      title: "Banner",
     },
     {
       name: "branding",
@@ -153,6 +159,71 @@ export const settings = defineType({
       ],
     }),
 
+    //Banner
+
+    defineField({
+      name: "banner",
+      title: "Banner",
+      type: "array",
+      group: "banner",
+      icon: LinkIcon,
+      of: [
+        {
+          name: "banner",
+          title: "Banner",
+          type: "object",
+          fields: [
+            defineField({
+              name: "text",
+              title: "Text",
+              type: "string",
+              description: "Text to display in the banner",
+              validation: (Rule) => Rule.required().max(100),
+            }),
+            defineField({
+              name: "subtitle",
+              title: "Subtitle",
+              type: "string",
+              description: "Subtitle to display in the banner",
+              validation: (Rule) => Rule.required().max(100),
+            }),
+            defineField({
+              name: "buttonText",
+              title: "Button Text",
+              type: "string",
+              description: "Text to display in the button",
+              validation: (Rule) => Rule.required().max(100),
+            }),
+            defineField({
+              name: "link",
+              title: "Link",
+              type: "url",
+              description: "URL the banner text links to",
+              validation: (Rule) =>
+                Rule.uri({
+                  allowRelative: true,
+                  scheme: ["http", "https", "mailto", "tel"],
+                }),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "text",
+              subtitle: "link",
+
+            },
+            prepare({ title, subtitle }) {
+              return {
+                title: title || "Banner",
+                subtitle: subtitle || "No link provided",
+                media: LinkIcon,
+              };
+            },
+          },
+        },
+      ],
+    }),
+
     // Branding Section
     defineField({
       name: "navLogo",
@@ -160,7 +231,7 @@ export const settings = defineType({
       type: "image",
       options: { hotspot: true },
       description:
-      "Main logo for the website. Recommended: SVG preferred. For raster, 1024×1024 PNG with transparent background.",
+        "Main logo for the website. Recommended: SVG preferred. For raster, 1024×1024 PNG with transparent background.",
       group: "branding",
     }),
     defineField({
@@ -169,7 +240,7 @@ export const settings = defineType({
       type: "image",
       options: { hotspot: true },
       description:
-      "Main logo for the website. Recommended: SVG preferred. For raster, 1024×1024 PNG with transparent background.",
+        "Main logo for the website. Recommended: SVG preferred. For raster, 1024×1024 PNG with transparent background.",
       group: "branding",
     }),
     defineField({
@@ -177,10 +248,9 @@ export const settings = defineType({
       title: "Favicon",
       type: "file",
       options: {
-      accept: '.ico'
+        accept: ".ico",
       },
-      description:
-      "Small icon shown in browser tabs. Upload a .ico file.",
+      description: "Small icon shown in browser tabs. Upload a .ico file.",
       group: "branding",
     }),
 

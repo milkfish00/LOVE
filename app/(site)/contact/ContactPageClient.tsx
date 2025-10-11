@@ -112,6 +112,8 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
     }
   );
 
+  const cta = contactData?.ctaSection?.[0];
+
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
@@ -247,6 +249,24 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
               );
             })}
           </div>
+        </div>
+      </section>
+      {/* CTA Section */}
+      <section className="bg-gradient-to-br from-orange-50 to-white py-16 border-t border-orange-100">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold mb-6">
+            {cta?.title || "Join Our Team"}
+          </h2>
+          <p className="text-xl  mb-10 max-w-2xl mx-auto">
+            {cta?.description ||
+              "Explore rewarding career opportunities with Love and Learning Child Care Center."}
+          </p>
+          <a
+            href={cta?.button?.url || "#"}
+            className=" bg-[#f48573]  px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#e37664]  text-white transition-colors">
+            {" "}
+            {cta?.button?.text || "View Open Positions"}
+          </a>
         </div>
       </section>
     </div>

@@ -3,7 +3,7 @@ import { SparklesIcon } from "@sanity/icons";
 
 export const tuition = defineType({
   name: "tuition",
-  title: "Enrollment & Tuition",
+  title: "Tuition & Enrollment",
   type: "document",
   icon: SparklesIcon,
   fields: [
@@ -11,7 +11,7 @@ export const tuition = defineType({
       name: "title",
       title: "Page Title",
       type: "string",
-      initialValue: "Enrollment & Tuition",
+      initialValue: "Tuition & Enrollmen",
     }),
     defineField({
       name: "description",
@@ -78,6 +78,23 @@ export const tuition = defineType({
               title: "Description",
               type: "text",
               rows: 2,
+            }),
+            defineField({
+              name: "button",
+              title: "Button",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "text",
+                  title: "Button Text",
+                  type: "string",
+                }),
+                defineField({
+                  name: "url",
+                  title: "Button URL",
+                  type: "string",
+                }),
+              ],
             }),
           ],
           preview: {
@@ -171,6 +188,23 @@ export const tuition = defineType({
             defineField({
               name: "button",
               title: "Button",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "text",
+                  title: "Button Text",
+                  type: "string",
+                }),
+                defineField({
+                  name: "url",
+                  title: "Button URL",
+                  type: "string",
+                }),
+              ],
+            }),
+            defineField({
+              name: "secondButton",
+              title: "Second Button",
               type: "object",
               fields: [
                 defineField({

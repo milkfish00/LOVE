@@ -1,5 +1,9 @@
 import { defineType, defineField } from "sanity";
 import { HomeIcon } from "@sanity/icons";
+import {AddCommentIcon} from '@sanity/icons'
+import { HelpCircleIcon } from "@sanity/icons";
+
+
 
 export const home = defineType({
   name: "home",
@@ -96,7 +100,6 @@ export const home = defineType({
               title: "Section Subtitle",
               type: "text",
               rows: 2,
-     
             },
             {
               name: "button",
@@ -320,6 +323,7 @@ export const home = defineType({
                     select: {
                       title: "author",
                       subtitle: "quote",
+                      media: "media",
                     },
                     prepare({ title, subtitle }) {
                       return {
@@ -327,7 +331,7 @@ export const home = defineType({
                         subtitle: subtitle
                           ? subtitle.substring(0, 50) + "..."
                           : "",
-                          media: HomeIcon,
+                        media: AddCommentIcon,
                       };
                     },
                   },
@@ -339,8 +343,13 @@ export const home = defineType({
           preview: {
             select: {
               title: "title",
-              subtitle: "subtitle",
-           
+              media: "media",
+            },
+            prepare(selection) {
+              return {
+                ...selection,
+                media: AddCommentIcon,
+              };
             },
           },
         },
@@ -402,6 +411,7 @@ export const home = defineType({
                     select: {
                       title: "question",
                       subtitle: "answer",
+                      media: "media",
                     },
                     prepare({ title, subtitle }) {
                       return {
@@ -409,7 +419,9 @@ export const home = defineType({
                         subtitle: subtitle
                           ? subtitle.substring(0, 50) + "..."
                           : "",
+                        media: HelpCircleIcon,
                       };
+
                     },
                   },
                 },
@@ -420,8 +432,13 @@ export const home = defineType({
           preview: {
             select: {
               title: "title",
-              subtitle: "subtitle",
-                  
+              media: "media",
+            },
+            prepare(selection) {
+              return {
+                ...selection,
+                media: HelpCircleIcon,
+              };
             },
           },
         },

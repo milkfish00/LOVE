@@ -6,9 +6,30 @@ export type CareersListJob = {
   key: string;
   title: string;
   location?: string;
-  descriptionText?: string;
+  // Rich text blocks from Sanity (portable text)
+  description?: any[]; 
+  // Fallback plain text if already extracted server-side
+  descriptionText?: string; 
   slug: string;
 };
+
+function portableTextToPlainText(blocks: any[] = []): string {
+  try {
+    return blocks
+      .filter((b: any) => b?._type === "block" && Array.isArray(b.children))
+      .map((b: any) => b.children.map((c: any) => c.text).join(""))
+      .join("\n")
+      .trim();
+  } catch {
+    return "";
+  }
+}
+
+function truncateWords(text: string, maxWords = 24): string {
+  if (!text) return "";
+  const words = text.trim().split(/\s+/);
+  return words.length <= maxWords ? text : words.slice(0, maxWords).join(" ") + "…";
+}
 
 export default function CareersPageClient({
   title,
@@ -91,9 +112,19 @@ export default function CareersPageClient({
                     </button>
                   </div>
 
-                  {job.descriptionText && (
-                    <p className="text-gray-600 mb-4">{job.descriptionText}</p>
-                  )}
+                  {/*
+                    Excerpt: prefer plain text passed in, else derive from portable text.
+                    Limit to 24 words (adjust as needed).
+                  */}
+                  {(() => {
+                    const fullText =
+                      (job.descriptionText?.trim() || "") ||
+                      portableTextToPlainText(job.description);
+                    const excerpt = truncateWords(fullText, 24);
+                    return excerpt ? (
+                      <p className="text-gray-600 mb-4">{excerpt}</p>
+                    ) : null;
+                  })()}
 
                   <div className="flex justify-between items-center">
                     <span className="text-xs text-gray-500"></span>

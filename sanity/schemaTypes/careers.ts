@@ -41,7 +41,7 @@ export const careers = defineType({
               title: "Location",
               type: "string",
             }),
-      
+
             defineField({
               name: "description",
               type: "array",
@@ -53,6 +53,18 @@ export const careers = defineType({
               ],
             }),
           ],
+          preview: {
+            select: {
+              title: "title",
+              media: "media",
+            },
+            prepare(selection) {
+              return {
+                ...selection,
+                media: CaseIcon,
+              };
+            },
+          },
         },
       ],
     }),

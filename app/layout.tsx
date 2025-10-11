@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     const defaultTitle = "Love & Learning Child Care Center";
     const defaultDescription =
-      "Nature-based child care in Fletcher, NC. Love and Learning serves infants through pre-K with outdoor-focused learning. ";
+      "A licensed childcare center in Fletcher, NC, offering infant-to-preschool programs with small groups and a strong focus on nature-based learning";
     const defaultKeywords = [
       "child care",
       "daycare",
@@ -65,7 +65,7 @@ export async function generateMetadata(): Promise<Metadata> {
       metadataBase: new URL("https://www.loveandlearningchildcare.com"),
       title: {
         default: "Love & Learning Child Care Center",
-        template: "%s | Love & Learning Child Care Center",
+        template: "Love & Learning Child Care Center",
       },
       description:
         "Nature-based child care in Fletcher, NC. Love and Learning serves infants through pre-K with outdoor-focused learning. ",

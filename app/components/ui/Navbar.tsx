@@ -154,7 +154,7 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
               {
                 name: "Fours & Fives",
                 href: "/programs/fours-and-fives",
-                description: "Ages 4 - 6 years",
+                description: "Ages 4 - 5 years",
               },
             ],
           },

@@ -11,6 +11,8 @@ import { DisableDraftMode } from "../components/DisableDraftMode";
 import { footerSettingsQuery } from "../lib/queries";
 import { sanityClient } from "../lib/sanity";
 
+const revalidate = 60; // revalidate every 60 seconds
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,7 +24,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Love and Learning Child Care Center",
+  title: "",
   description: "",
 };
 
@@ -38,6 +40,7 @@ export default async function RootLayout({
   } catch (error) {
     console.error("Failed to load footer settings", error);
   }
+
 
   // draftMode is async in Next 15
   const dm = await draftMode();
