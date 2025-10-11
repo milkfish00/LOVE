@@ -200,7 +200,7 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center group">
+              <Link href="/home" className="flex items-center group">
                 {settings?.navLogo && (
                   <div className="relative h-7 w-auto" style={{ width: "auto" }}>
                     <Image

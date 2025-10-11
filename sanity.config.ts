@@ -10,6 +10,8 @@ import { structureTool } from "sanity/structure";
 import { presentationTool } from "sanity/presentation";
 import { myTheme } from "./sanity/lib/theme";
 import { Logo } from "./sanity/components/Logo";
+import { media } from "sanity-plugin-media";
+
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "./sanity/env";
@@ -39,6 +41,7 @@ export default defineConfig({
         },
       },
     }),
+    media(),
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),

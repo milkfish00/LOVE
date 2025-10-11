@@ -135,6 +135,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                     <a
                       key={b.key}
                       href={b.url || "#"}
+                      target="_blank"
                       className={buttonClasses("link", "sm", "lg")}>
                       {b.text}
                       <ArrowRight className="ml-2 w-5 h-5" />
@@ -176,6 +177,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                   {fa.button?.text && (
                     <a
                       href={fa.button.url || "#"}
+                      target="_blank"
                       className={buttonClasses("link", "sm", "lg")}>
                       {fa.button.text}
                       <ArrowRight className="ml-2 w-5 h-5" />
@@ -188,7 +190,6 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
         </div>
       </div>
       {programsData && <TuitionRatesSection data={programsData} />}
-
 
       {/* CTA Section */}
       {cta && (
