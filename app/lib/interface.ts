@@ -1,3 +1,4 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Key } from "readline";
 
 //home
@@ -98,8 +99,8 @@ export interface homeInterface {
 export interface About {
   _createdAt: string;
   _id: string;
-  _originalId: string;
-  _rev: string;
+  _rev?: string;
+  _originalId?: string;
   _type: "about";
   _updatedAt: string;
   heroSections: {
@@ -126,9 +127,34 @@ export interface About {
     headline: string;
     subtitle: string;
   }[];
+  owners: {
+    _key: string;
+    bio: {
+      _key: string;
+      _type: "block";
+      children: {
+        _key: string;
+        _type: "span";
+        marks: string[];
+        text: string;
+      }[];
+      markDefs: any[];
+      style: string;
+    }[];
+    image: {
+      _type: "image";
+      asset: {
+        url: string | StaticImport;
+        _ref: string;
+        _type: "reference";
+      };
+    };
+    name: string;
+    role: string;
+  }[];
   staffSections: {
     _key: string;
-    bio: string;
+    bio?: string;
     image: {
       _type: "image";
       asset: {

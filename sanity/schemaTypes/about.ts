@@ -82,6 +82,52 @@ export const about = defineType({
       ],
       validation: (Rule) => Rule.min(1).max(3),
     }),
+
+    defineField({
+      name: 'owners',
+      title: 'Owners',
+      type: 'array',
+      description: 'List of owners for the organization',
+      of: [
+        {
+          type: 'object',
+          title: 'Owners',
+          fields: [
+            defineField({
+              name: 'name',
+              title: 'Name',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'role',
+              title: 'Role',
+              type: 'string',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              description:
+                'Recommended: 1200×1200 (1:1) square. Keep the subject centered and use hotspot for optimal crops.',
+              options: { hotspot: true },
+            }),
+            defineField({
+              name: 'bio',
+              title: 'Bio',
+              type: 'array',
+              of: [
+                {
+                  type: 'block',
+                },
+              ],
+              description: 'Short biography of the owners',
+            }),
+          ],
+        },
+      ],
+    }),
+
     defineField({
       name: "staffSections",
       title: "Staff Sections",

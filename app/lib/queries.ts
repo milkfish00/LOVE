@@ -97,6 +97,7 @@ export const homeQuery = `
 `;
 
 // About page query
+
 export const aboutQuery = `
   *[_type == "about"][0] {
     _id,
@@ -127,6 +128,30 @@ export const aboutQuery = `
       headline,
       subtitle
     },
+    owners[] {
+      _key,
+      bio[] {
+        _key,
+        _type,
+        children[] {
+          _key,
+          _type,
+          marks,
+          text
+        },
+        markDefs,
+        style
+      },
+      image {
+        _type,
+        asset {
+          _ref,
+          _type
+        }
+      },
+      name,
+      role
+    },
     staffSections[] {
       _key,
       bio,
@@ -142,6 +167,7 @@ export const aboutQuery = `
     }
   }
 `;
+
 
 // Programs query
 export const programsQuery = `
