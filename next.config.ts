@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     // Remove console logs in production
     removeConsole: process.env.NODE_ENV === "production",
   },
+    productionBrowserSourceMaps: true,
+
   // swcMinify is enabled by default in Next.js 15, no need to specify
   images: {
     formats: ["image/avif", "image/webp"],

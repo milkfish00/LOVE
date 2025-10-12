@@ -158,11 +158,11 @@ export default async function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
         {/* Preconnect to external domains for faster loading */}
+        <link rel="canonical" />
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="preconnect" href="https://6jqzfkhy.apicdn.sanity.io" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <link rel="dns-prefetch" href="https://6jqzfkhy.apicdn.sanity.io" />
-
         {/* Preload critical fonts if you have custom fonts in /public/fonts */}
         {/* <link
           rel="preload"
@@ -171,7 +171,6 @@ export default async function RootLayout({
           type="font/otf"
           crossOrigin="anonymous"
         /> */}
-
         {/* Structured Data - Organization */}
         <script
           type="application/ld+json"
