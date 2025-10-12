@@ -50,9 +50,9 @@ export async function generateMetadata(): Promise<Metadata> {
     ? urlFor(settings.openGraphImage).width(1200).height(630).quality(90).url()
     : `${siteUrl}/og-image.jpg`; // Fallback image
 
-  // Get favicon URL
+  // Get favicon URL - handle file assets differently than images
   const faviconUrl = settings?.favicon?.asset?._ref
-    ? urlFor(settings.favicon).url()
+    ? `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "6jqzfkhy"}/${process.env.NEXT_PUBLIC_SANITY_DATASET || "production"}/${settings.favicon.asset._ref.replace("file-", "").replace("-ico", ".ico")}`
     : "/favicon.ico";
 
   return {

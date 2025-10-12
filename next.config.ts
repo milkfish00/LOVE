@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     // Remove console logs in production
     removeConsole: process.env.NODE_ENV === "production",
   },
-  swcMinify: true,
+  // swcMinify is enabled by default in Next.js 15, no need to specify
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
@@ -36,7 +36,7 @@ const nextConfig: NextConfig = {
   },
   // Enable features for better performance
   serverExternalPackages: ["@sanity/client"],
-
+  
   // Configure headers for better caching and performance
   async headers() {
     return [
@@ -118,7 +118,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-
+  
   // Configure redirects if needed
   async redirects() {
     return [];
@@ -160,8 +160,7 @@ const nextConfig: NextConfig = {
 
   // Production URL for sitemap and metadata
   env: {
-    NEXT_PUBLIC_SITE_URL:
-      process.env.NEXT_PUBLIC_SITE_URL || "https://www.loveandlearning.net",
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || "https://www.loveandlearning.net",
   },
 };
 
