@@ -14,14 +14,23 @@ import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
 // Enable ISR with 60 second revalidation
 export const revalidate = 60;
 
+// Use page-level metadata to set the correct canonical for /home
 export const metadata: Metadata = {
   title: "Love & Learning Child Care Center | Quality Early Learning in Charlotte, NC",
   description:
     "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC. Experienced educators, age-appropriate programs, and nurturing care for your child.",
   alternates: {
-    canonical: "https://www.loveandlearning.net",
+    // With metadataBase set in layout, this relative path resolves to:
+    // https://www.loveandlearning.net/home
+    canonical: "/home",
   },
-
+  openGraph: {
+    title: "Love & Learning Child Care Center | Quality Early Learning in Charlotte, NC",
+    description:
+      "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC.",
+    url: "https://www.loveandlearning.net/home",
+    type: "website",
+  },
 };
 
 export default async function Home() {
@@ -36,18 +45,19 @@ export default async function Home() {
   // Optimize image URLs with proper dimensions and quality
   const getOptimizedImageUrl = (image: any, width: number, quality = 75) => {
     if (!image) return null;
-    return urlFor(image).width(width).quality(quality).format('webp').auto('format').url();
+    return urlFor(image).width(width).quality(quality).format("webp").auto("format").url();
   };
+
+  // Fallback link texts to satisfy "Links have descriptive text"
+  const aboutBtnText = data?.aboutSections?.[0]?.button?.text || "Learn more about us";
+  const cta1Text = data?.cta1Sections?.[0]?.Button?.text || "Get enrollment details";
+  const cta2Text = data?.cta2Sections?.[0]?.Button?.text || "Contact us";
 
   return (
     <div>
-      {/* Preconnect to Sanity CDN for faster image loading */}
-      <link rel="preconnect" href="https://cdn.sanity.io" />
-      <link rel="dns-prefetch" href="https://6jqzfkhy.apicdn.sanity.io" />
-
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
-        {/* Decorative flowers - converted to Next/Image with blur placeholder */}
+        {/* Decorative flowers */}
         <div className="absolute top-0 right-0 z-30 w-38 md:w-64 lg:w-80">
           <Image
             src="/svg/flower3.svg"
@@ -70,18 +80,13 @@ export default async function Home() {
           />
         </div>
 
-        <div
-          className="absolute inset-0 bg-black/50 z-10"
-          aria-hidden="true"></div>
+        <div className="absolute inset-0 bg-black/50 z-10" aria-hidden="true"></div>
 
         {data?.heroSections?.[0]?.backgroundImage ? (
           <Image
             src={
-              getOptimizedImageUrl(
-                data.heroSections[0].backgroundImage,
-                1920,
-                85
-              ) || urlFor(data.heroSections[0].backgroundImage).url()
+              getOptimizedImageUrl(data.heroSections[0].backgroundImage, 1920, 85) ||
+              urlFor(data.heroSections[0].backgroundImage).url()
             }
             alt="Children playing at Love & Learning Child Care Center"
             fill
@@ -115,9 +120,10 @@ export default async function Home() {
               {data?.heroSections?.[0]?.description}
             </p>
             <a
-              href={data?.heroSections?.[0]?.Button?.link}
+              href={data?.heroSections?.[0]?.Button?.link || "#programs"}
               className="bg-white cursor-pointer text-[#000000] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-              aria-label="Explore our childcare programs">
+              aria-label="Explore our childcare programs"
+            >
               Explore Our Programs
             </a>
           </div>
@@ -129,14 +135,16 @@ export default async function Home() {
       {/* About Section */}
       <section
         className="bg-[#81AA8E] py-32 flex items-center justify-center p-4"
-        aria-labelledby="about-heading">
+        aria-labelledby="about-heading"
+      >
         <div className="mx-auto max-w-7xl w-full">
           <div className="relative isolate overflow-hidden bg-white shadow-2xl rounded-3xl flex flex-col lg:flex-row lg:gap-x-8">
             {/* Text Section */}
             <div className="flex-1 max-w-xl mx-auto text-center px-6 py-12 lg:py-24 lg:mx-0 lg:text-left lg:pl-16 lg:pr-8">
               <h2
                 id="about-heading"
-                className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight"
+              >
                 {data?.aboutSections?.[0]?.title}
               </h2>
               <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
@@ -144,17 +152,17 @@ export default async function Home() {
               </p>
               <div className="mt-8 flex items-center justify-center lg:justify-start">
                 <a
-                  href={data?.aboutSections?.[0]?.button?.link}
+                  href={data?.aboutSections?.[0]?.button?.link || "/about"}
                   rel="noopener noreferrer"
-                  aria-label="Read more about Love & Learning Child Care Center"
+                  aria-label={aboutBtnText}
                   className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-black bg-[#FAB391] hover:bg-[#f9a27d] transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FAB391]"
                 >
-                  {data?.aboutSections?.[0]?.button?.text}
+                  {aboutBtnText}
                 </a>
               </div>
             </div>
 
-            {/* Image Section - Optimized with blur placeholder */}
+            {/* Image Section */}
             <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-[32rem] relative">
               <Image
                 alt="Love & Learning Child Care Center environment"
@@ -185,11 +193,8 @@ export default async function Home() {
                   <div className="relative h-[300px]">
                     <Image
                       src={
-                        getOptimizedImageUrl(
-                          data?.cta1Sections?.[0]?.image,
-                          600,
-                          70
-                        ) || urlFor(data?.cta1Sections?.[0]?.image).url()
+                        getOptimizedImageUrl(data?.cta1Sections?.[0]?.image, 600, 70) ||
+                        urlFor(data?.cta1Sections?.[0]?.image).url()
                       }
                       alt="Students learning in classroom at Love & Learning"
                       fill
@@ -201,35 +206,25 @@ export default async function Home() {
                       className="object-cover md:rounded-2xl"
                     />
                   </div>
-                  {/* Flower decoration */}
-                  <div
-                    className="absolute -bottom-6 -left-6 w-32 h-32"
-                    aria-hidden="true">
-                    <Image
-                      src="/svg/flower4.svg"
-                      alt=""
-                      loading="lazy"
-                      width={128}
-                      height={128}
-                      className="w-full h-auto"
-                    />
+                  <div className="absolute -bottom-6 -left-6 w-32 h-32" aria-hidden="true">
+                    <Image src="/svg/flower4.svg" alt="" loading="lazy" width={128} height={128} className="w-full h-auto" />
                   </div>
                 </div>
               </div>
 
               <div className="lg:w-1/2 mt-12 lg:mt-0">
-                <h2
-                  id="cta1-heading"
-                  className="text-4xl md:text-5xl font-bold mb-6">
+                <h2 id="cta1-heading" className="text-4xl md:text-5xl font-bold mb-6">
                   {data?.cta1Sections?.[0]?.title}
                 </h2>
                 <p className="text-xl text-gray-600 mb-8 leading-relaxed">
                   {data?.cta1Sections?.[0]?.subtitle}
                 </p>
                 <a
-                  href={data?.cta1Sections?.[0]?.Button?.link}
-                  className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-white bg-[#264f71] hover:opacity-90 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#264f71]">
-                  {data?.cta1Sections?.[0]?.Button?.text}
+                  href={data?.cta1Sections?.[0]?.Button?.link || "/enroll"}
+                  aria-label={cta1Text}
+                  className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-white bg-[#264f71] hover:opacity-90 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#264f71]"
+                >
+                  {cta1Text}
                 </a>
               </div>
             </div>
@@ -243,9 +238,7 @@ export default async function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="lg:flex items-center gap-16">
               <div className="lg:w-1/2">
-                <h2
-                  id="cta2-heading"
-                  className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                <h2 id="cta2-heading" className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                   {data?.cta2Sections?.[0]?.title}
                 </h2>
                 <p className="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -253,8 +246,9 @@ export default async function Home() {
                 </p>
                 <a
                   href={data?.cta2Sections?.[0]?.Button?.link}
-                  className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-white bg-[#F48573] hover:opacity-90 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F48573]">
-                  {data?.cta2Sections?.[0]?.Button?.text}
+                  className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-white bg-[#F48573] hover:opacity-90 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F48573]"
+                >
+                  {cta2Text}
                 </a>
               </div>
 
@@ -263,11 +257,8 @@ export default async function Home() {
                   <div className="relative h-[500px]">
                     <Image
                       src={
-                        getOptimizedImageUrl(
-                          data?.cta2Sections?.[0]?.image,
-                          800,
-                          70
-                        ) || urlFor(data?.cta2Sections?.[0]?.image).url()
+                        getOptimizedImageUrl(data?.cta2Sections?.[0]?.image, 800, 70) ||
+                        urlFor(data?.cta2Sections?.[0]?.image).url()
                       }
                       alt="Children playing and learning at Love & Learning"
                       fill
@@ -279,18 +270,8 @@ export default async function Home() {
                       className="object-cover rounded-2xl"
                     />
                   </div>
-                  {/* Flower decoration */}
-                  <div
-                    className="absolute -top-6 -right-6 w-28 h-28"
-                    aria-hidden="true">
-                    <Image
-                      src="/svg/flower5.svg"
-                      alt=""
-                      loading="lazy"
-                      width={112}
-                      height={112}
-                      className="w-full h-auto"
-                    />
+                  <div className="absolute -top-6 -right-6 w-28 h-28" aria-hidden="true">
+                    <Image src="/svg/flower5.svg" alt="" loading="lazy" width={112} height={112} className="w-full h-auto" />
                   </div>
                 </div>
               </div>
