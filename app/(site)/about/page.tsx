@@ -8,7 +8,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About U",
   description:
     "Learn about Love & Learning Child Care Center – our mission, team, and approach to early childhood education.",
 };
