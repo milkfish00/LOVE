@@ -5,9 +5,7 @@ const nextConfig: NextConfig = {
     // Remove console logs in production
     removeConsole: process.env.NODE_ENV === "production",
   },
-    productionBrowserSourceMaps: true,
-
-  // swcMinify is enabled by default in Next.js 15, no need to specify
+  swcMinify: true,
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
@@ -23,23 +21,13 @@ const nextConfig: NextConfig = {
     ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Optimize image loading
-    minimumCacheTTL: 31536000, // 1 year for static images
-    dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "@heroicons/react"],
-    // Note: optimizeCss requires 'critters' package to be installed
-    // Run: npm install critters --save-dev
-    // Commented out to avoid deployment errors if not installed
-    // optimizeCss: true,
   },
   // Enable features for better performance
   serverExternalPackages: ["@sanity/client"],
-  
-  // Configure headers for better caching and performance
+  // Configure headers for better caching
   async headers() {
     return [
       {
@@ -62,53 +50,8 @@ const nextConfig: NextConfig = {
             value:
               "frame-ancestors 'self' https://www.loveandlearning.net https://loveandlearning.net",
           },
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
         ],
       },
-      // Cache static assets aggressively
-      {
-        source: "/_next/static/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      // Cache images
-      {
-        source: "/_next/image(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      // Cache fonts
-      {
-        source: "/fonts/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      // Cache SVGs
-      {
-        source: "/svg/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      // No cache for API routes
       {
         source: "/api/(.*)",
         headers: [
@@ -120,49 +63,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
   // Configure redirects if needed
   async redirects() {
     return [];
-  },
-
-  // Optimize webpack bundle
-  webpack: (config, { isServer }) => {
-    // Optimize bundle splitting
-    if (!isServer) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: "all",
-          cacheGroups: {
-            default: false,
-            vendors: false,
-            // Vendor chunk for node_modules
-            vendor: {
-              name: "vendor",
-              chunks: "all",
-              test: /node_modules/,
-              priority: 20,
-            },
-            // Commons chunk for shared code
-            common: {
-              name: "common",
-              minChunks: 2,
-              chunks: "all",
-              priority: 10,
-              reuseExistingChunk: true,
-              enforce: true,
-            },
-          },
-        },
-      };
-    }
-    return config;
-  },
-
-  // Production URL for sitemap and metadata
-  env: {
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || "https://www.loveandlearning.net",
   },
 };
 
