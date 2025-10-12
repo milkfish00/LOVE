@@ -140,6 +140,7 @@ export default async function Home() {
               <div className="mt-8 flex items-center justify-center lg:justify-start">
                 <a
                   href={data?.aboutSections?.[0]?.button?.link}
+                  rel="noopener noreferrer"
                   aria-label="Read more about Love & Learning Child Care Center"
                   className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-black bg-[#FAB391] hover:bg-[#f9a27d] transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FAB391]"
                 >
