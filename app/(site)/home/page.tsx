@@ -124,7 +124,7 @@ export default async function Home() {
               className="bg-white cursor-pointer text-[#000000] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
               aria-label="Explore our childcare programs"
             >
-              Explore Our Programs
+        {data.heroSections?.[0]?.Button?.text || "Explore our programs"}
             </a>
           </div>
         </div>
