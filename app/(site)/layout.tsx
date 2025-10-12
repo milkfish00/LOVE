@@ -158,7 +158,6 @@ export default async function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
         {/* Preconnect to external domains for faster loading */}
-        <link rel="canonical" href="https://www.loveandlearning.net/home" />
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="preconnect" href="https://6jqzfkhy.apicdn.sanity.io" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />

@@ -15,9 +15,13 @@ import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Home | Love & Learning Child Care Center",
+  title: "Love & Learning Child Care Center | Quality Early Learning in Charlotte, NC",
   description:
-    "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC.",
+    "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC. Experienced educators, age-appropriate programs, and nurturing care for your child.",
+  alternates: {
+    canonical: "https://www.loveandlearning.net",
+  },
+
 };
 
 export default async function Home() {
@@ -40,7 +44,6 @@ export default async function Home() {
       {/* Preconnect to Sanity CDN for faster image loading */}
       <link rel="preconnect" href="https://cdn.sanity.io" />
       <link rel="dns-prefetch" href="https://6jqzfkhy.apicdn.sanity.io" />
-
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
