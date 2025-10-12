@@ -35,7 +35,7 @@ export const about = defineType({
               name: "headline",
               title: "Main Headline",
               type: "string",
-          
+
               description: "Main headline text",
               validation: (Rule) => Rule.required(),
             },
@@ -84,44 +84,47 @@ export const about = defineType({
     }),
 
     defineField({
-      name: 'owners',
-      title: 'Owners',
-      type: 'array',
-      description: 'List of owners for the organization',
+      name: "owners",
+      title: "Owners",
+      type: "array",
+      description: "List of owners for the organization",
       of: [
         {
-          type: 'object',
-          title: 'Owners',
+          type: "object",
+          title: "Owners",
           fields: [
             defineField({
-              name: 'name',
-              title: 'Name',
-              type: 'string',
+              name: "name",
+              title: "Name",
+              type: "string",
               validation: (Rule) => Rule.required(),
             }),
             defineField({
-              name: 'role',
-              title: 'Role',
-              type: 'string',
+              name: "role",
+              title: "Role",
+              type: "string",
             }),
             defineField({
-              name: 'image',
-              title: 'Image',
-              type: 'image',
+              name: "image",
+              title: "Image",
+              type: "image",
               description:
-                'Recommended: 1200×1200 (1:1) square. Keep the subject centered and use hotspot for optimal crops.',
+                "Recommended: 1200×1200 (1:1) square. Keep the subject centered and use hotspot for optimal crops.",
               options: { hotspot: true },
             }),
             defineField({
-              name: 'bio',
-              title: 'Bio',
-              type: 'array',
+              name: "bio",
+              title: "Bio",
+              type: "array",
               of: [
                 {
-                  type: 'block',
+                  type: "block",
+                },
+                {
+                  type: "image",
                 },
               ],
-              description: 'Short biography of the owners',
+              description: "Short biography of the owners",
             }),
           ],
         },

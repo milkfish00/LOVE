@@ -92,12 +92,12 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
 
         {/* Text Content */}
         <div className="relative h-full flex items-center">
-          <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-2xl space-y-6">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
                 {data?.heroSections?.[0]?.headline || "About Us"}
               </h1>
-              <p className="text-xl md:text-2xl text-white/95 leading-relaxed font-light">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/95 leading-relaxed font-light">
                 {data?.heroSections?.[0]?.subtitle || ""}
               </p>
             </div>
@@ -106,81 +106,80 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
       </section>
 
       {/* Owners Section - Split Screen */}
-      <section className="relative min-h-screen flex items-center mt-16 md:m-24">
-        <div className="w-full grid md:grid-cols-2">
-          {/* Owner Image Side */}
-          <div className="relative h-[50vh] md:h-screen">
-            {!ownerImageLoaded && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 z-10">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-[#81AA8E] rounded-full animate-bounce"></div>
-                  <div
-                    className="w-3 h-3 bg-[#FAB391] rounded-full animate-bounce"
-                    style={{ animationDelay: "0.1s" }}></div>
-                  <div
-                    className="w-3 h-3 bg-[#80739C] rounded-full animate-bounce"
-                    style={{ animationDelay: "0.2s" }}></div>
+      <section className="relative w-full py-12 lg:py-16 bg-white">
+        <div className="px-4 sm:px-6 lg:px-12 max-w-9xl mx-auto">
+          <div className="w-full flex flex-col 2xl:flex-row lg:items-stretch lg:min-h-[80vh] gap-8 lg:gap-12">
+            {/* Owner Image Side - Left on desktop, below on mobile */}
+            <div className="relative w-full lg:w-1/2 h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-auto min-h-[400px] lg:min-h-[600px] order-2 lg:order-1 rounded-2xl overflow-hidden">
+              {!ownerImageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 z-10">
+                  <div className="flex space-x-2">
+                    <div className="w-3 h-3 bg-[#81AA8E] rounded-full animate-bounce"></div>
+                    <div
+                      className="w-3 h-3 bg-[#FAB391] rounded-full animate-bounce"
+                      style={{ animationDelay: "0.1s" }}></div>
+                    <div
+                      className="w-3 h-3 bg-[#80739C] rounded-full animate-bounce"
+                      style={{ animationDelay: "0.2s" }}></div>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {data?.owners?.[0]?.image?.asset?._ref ? (
-              (() => {
-                const ownerSrc = urlFor(data.owners[0].image)
-                  .width(1200)
-                  .quality(85)
-                  .url();
-                const ownerBlur = urlFor(data.owners[0].image)
-                  .width(24)
-                  .quality(20)
-                  .url();
-                return (
-                  <Image
-                    src={ownerSrc}
-                    alt={data.owners[0].name}
-                    fill
-                    placeholder="blur"
-                    blurDataURL={ownerBlur}
-                    onLoad={() => setOwnerImageLoaded(true)}
-                    className={`object-cover transition-all duration-700 ease-out rounded-md ${
-                      ownerImageLoaded ? "opacity-100" : "opacity-0"
-                    }`}
-                    sizes="50vw"
-                  />
-                );
-              })()
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-[#81AA8E]/20 to-[#FAB391]/20 flex items-center justify-center">
-                <span className="text-gray-400 text-xl">Owner Image</span>
-              </div>
-            )}
-          </div>
-
-          {/* Owner Bio Side */}
-          <div className=" flex items-center py-16 md:py-24">
-            <div className="px-6 md:px-12 lg:px-16 max-w-2xl">
-              <div className="space-y-8">
-                <div>
-                  <p className="text-sm uppercase tracking-widest text-gray-600 mb-4">
-                    Meet the Owners
-                  </p>
-                  <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
-                    {data?.owners?.[0]?.name}
-                  </h2>
-                  <p className="text-xl text-gray-600 font-medium">
-                    {data?.owners?.[0]?.role}
-                  </p>
+              {data?.owners?.[0]?.image?.asset?._ref ? (
+                <Image
+                  src={urlFor(data.owners[0].image).url()}
+                  alt={data.owners[0].name}
+                  fill
+                  placeholder="blur"
+                  blurDataURL={urlFor(data.owners[0].image)
+                    .width(24)
+                    .height(24)
+                    .quality(20)
+                    .url()}
+                  onLoad={() => setOwnerImageLoaded(true)}
+                  className={`object-cover transition-all duration-700 ease-out ${
+                    ownerImageLoaded
+                      ? "opacity-100 scale-100"
+                      : "opacity-0 scale-105"
+                  }`}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-[#81AA8E]/20 to-[#FAB391]/20 flex items-center justify-center">
+                  <span className="text-gray-400 text-lg md:text-xl">
+                    Owner Image
+                  </span>
                 </div>
+              )}
+            </div>
 
-                <div className="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed prose prose-lg max-w-none">
-                  {data?.owners?.[0]?.bio ? (
-                    <PortableText value={data.owners[0].bio} />
-                  ) : (
-                    <p>
-                      Owner biography is currently being updated. Please check
-                      back soon!
+            {/* Owner Bio Side - Right on desktop, above on mobile */}
+            <div className="flex items-center justify-center px-0 sm:px-4 py-8 sm:py-12 lg:py-0 order-1 lg:order-2 lg:w-1/2">
+              <div className="w-full h-full flex items-center">
+                <div className="space-y-6 sm:space-y-8 lg:space-y-10 w-full">
+                  <div className="text-center lg:text-left">
+                    <p className="text-xs sm:text-sm uppercase tracking-[0.2em] text-gray-600 mb-3 sm:mb-4 font-medium">
+                      Meet the Owners
                     </p>
-                  )}
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+                      {data?.owners?.[0]?.name}
+                    </h2>
+                    <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-medium">
+                      {data?.owners?.[0]?.role}
+                    </p>
+                  </div>
+
+                  <div className="space-y-4 sm:space-y-5 text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed prose prose-base sm:prose-lg md:prose-xl max-w-none prose-p:text-gray-700 prose-headings:text-gray-900">
+                    {data?.owners?.[0]?.bio ? (
+                      <PortableText value={data.owners[0].bio} />
+                    ) : (
+                      <p className="text-gray-500 text-center lg:text-left">
+                        Biography is currently being updated. Please check back
+                        soon!
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -189,25 +188,25 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
       </section>
 
       {/* Staff Section */}
-      <section className="bg-[#ffd48b7e] py-20 md:py-28 lg:py-32 px-6 mt-12 md:mt-16 lg:mt-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold mb-4 text-gray-900">
+      <section className="bg-[#ffd48b7e] py-16 md:py-24 lg:py-28 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 md:mb-20">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-gray-900">
               Meet Our Team
             </h2>
             <div className="w-16 h-0.5 bg-gray-900 mx-auto"></div>
           </div>
 
           {data?.staffSections && data.staffSections.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-start justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16 items-start justify-center">
               {data.staffSections.map((member, index) => (
                 <div
                   key={member._key}
                   className={`text-center group transition-all duration-300 ease-out ${scatteredStyles[index % scatteredStyles.length]}`}
                   style={{ willChange: "transform" }}>
-                  <div className="relative overflow-hidden mb-8 transition-transform duration-300 ease-out group-hover:scale-105">
+                  <div className="relative overflow-hidden mb-6 md:mb-8 transition-transform duration-300 ease-out group-hover:scale-105">
                     {!staffImagesLoaded[member._key] && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 w-full h-[30rem]">
+                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 w-full h-[25rem] sm:h-[28rem] md:h-[30rem]">
                         <div className="flex space-x-2">
                           <div className="w-3 h-3 bg-[#81AA8E] rounded-full animate-bounce"></div>
                           <div
@@ -221,36 +220,29 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
                     )}
 
                     {member.image?.asset?._ref ? (
-                      (() => {
-                        const staffSrc = urlFor(member.image)
-                          .width(800)
-                          .quality(80)
-                          .url();
-                        const staffBlur = urlFor(member.image)
-                          .width(24)
-                          .quality(20)
-                          .url();
-                        return (
-                          <Image
-                            src={staffSrc}
-                            alt={member.name}
-                            width={800}
-                            height={800}
-                            placeholder="blur"
-                            blurDataURL={staffBlur}
-                            onLoad={() => handleStaffImageLoad(member._key)}
-                            className={`w-full h-[30rem] object-contain transition-all duration-500 group-hover:opacity-90 ${
-                              staffImagesLoaded[member._key]
-                                ? "opacity-100"
-                                : "opacity-0"
-                            }`}
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                            loading="lazy"
-                          />
-                        );
-                      })()
+                      <div className="relative w-full h-[25rem] sm:h-[28rem] md:h-[30rem]">
+                        <Image
+                          src={urlFor(member.image).url()}
+                          alt={member.name}
+                          fill
+                          placeholder="blur"
+                          blurDataURL={urlFor(member.image)
+                            .width(24)
+                            .height(24)
+                            .quality(20)
+                            .url()}
+                          onLoad={() => handleStaffImageLoad(member._key)}
+                          className={`object-contain transition-all duration-500 group-hover:opacity-90 ${
+                            staffImagesLoaded[member._key]
+                              ? "opacity-100"
+                              : "opacity-0"
+                          }`}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          loading="lazy"
+                        />
+                      </div>
                     ) : (
-                      <div className="w-full h-[30rem] bg-gray-200 rounded-lg flex items-center justify-center">
+                      <div className="w-full h-[25rem] sm:h-[28rem] md:h-[30rem] bg-gray-200 rounded-lg flex items-center justify-center">
                         <span className="text-gray-500 text-lg">
                           {member.name}
                         </span>
@@ -258,30 +250,30 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
                     )}
                   </div>
 
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold text-gray-900">
+                  <div className="space-y-3 md:space-y-4 px-2">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
                       {member.name}
                     </h3>
-                    <p className="text-gray-700 font-medium text-lg">
+                    <p className="text-gray-700 font-medium text-base sm:text-lg md:text-xl">
                       {member.role}
                     </p>
 
                     {member.bio &&
                       (expanded === member._key ? (
                         <>
-                          <p className="text-gray-800 leading-relaxed text-base max-w-sm mx-auto">
+                          <p className="text-gray-800 leading-relaxed text-sm sm:text-base max-w-sm mx-auto">
                             {member.bio}
                           </p>
                           <button
                             onClick={() => setExpanded(null)}
-                            className="text-gray-900 font-semibold hover:text-gray-700 transition-colors duration-300 underline decoration-2 underline-offset-4">
+                            className="text-gray-900 font-semibold hover:text-gray-700 transition-colors duration-300 underline decoration-2 underline-offset-4 text-sm sm:text-base">
                             Show less
                           </button>
                         </>
                       ) : (
                         <button
                           onClick={() => setExpanded(member._key)}
-                          className="text-gray-900 font-semibold hover:text-gray-700 transition-colors duration-300 underline decoration-2 underline-offset-4">
+                          className="text-gray-900 font-semibold hover:text-gray-700 transition-colors duration-300 underline decoration-2 underline-offset-4 text-sm sm:text-base">
                           Read more
                         </button>
                       ))}
@@ -290,8 +282,8 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
               ))}
             </div>
           ) : (
-            <div className="text-center">
-              <p className="text-gray-600 text-lg">
+            <div className="text-center py-12">
+              <p className="text-gray-600 text-lg sm:texts-xl">
                 Staff information is currently being updated. Please check back
                 soon!
               </p>
