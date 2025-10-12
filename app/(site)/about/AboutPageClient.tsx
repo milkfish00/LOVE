@@ -110,7 +110,7 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
         <div className="px-4 sm:px-6 lg:px-12 max-w-9xl mx-auto">
           <div className="w-full flex flex-col 2xl:flex-row lg:items-stretch lg:min-h-[80vh] gap-8 lg:gap-12">
             {/* Owner Image Side - Left on desktop, below on mobile */}
-            <div className="relative w-full lg:w-1/2 h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-auto min-h-[400px] lg:min-h-[600px] order-2 lg:order-1 rounded-2xl overflow-hidden">
+            <div className="relative w-full lg:w-1/2 h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-auto min-h-[400px] lg:max-h-[600px] order-2 lg:order-1 rounded-2xl overflow-hidden">
               {!ownerImageLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 z-10">
                   <div className="flex space-x-2">
