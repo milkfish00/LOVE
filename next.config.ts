@@ -29,8 +29,10 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "@heroicons/react"],
-    // Enable CSS optimization
-    optimizeCss: true,
+    // Note: optimizeCss requires 'critters' package to be installed
+    // Run: npm install critters --save-dev
+    // Commented out to avoid deployment errors if not installed
+    // optimizeCss: true,
   },
   // Enable features for better performance
   serverExternalPackages: ["@sanity/client"],
