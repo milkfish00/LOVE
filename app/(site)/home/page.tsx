@@ -32,7 +32,7 @@ export default async function Home() {
   // Optimize image URLs with proper dimensions and quality
   const getOptimizedImageUrl = (image: any, width: number, quality = 75) => {
     if (!image) return null;
-    return urlFor(image).width(width).quality(quality).format('webp').url();
+    return urlFor(image).width(width).quality(quality).format('webp').auto('format').url();
   };
 
   return (
@@ -44,27 +44,25 @@ export default async function Home() {
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
-        {/* Decorative flowers - load lazily */}
+        {/* Decorative flowers - converted to Next/Image with blur placeholder */}
         <div className="absolute top-0 right-0 z-30 w-38 md:w-64 lg:w-80">
-          <img
+          <Image
             src="/svg/flower3.svg"
             alt=""
             loading="lazy"
-            decoding="async"
-            width="320"
-            height="320"
+            width={320}
+            height={320}
             className="w-full h-auto hover:rotate-180"
           />
         </div>
 
         <div className="absolute bottom-0 left-0 z-30 w-48 md:w-64 lg:w-80">
-          <img
+          <Image
             src="/svg/flower2.svg"
             alt=""
             loading="lazy"
-            decoding="async"
-            width="320"
-            height="320"
+            width={320}
+            height={320}
             className="w-full h-auto hover:rotate-45"
           />
         </div>
@@ -78,15 +76,17 @@ export default async function Home() {
             src={
               getOptimizedImageUrl(
                 data.heroSections[0].backgroundImage,
-                1920
+                1920,
+                85
               ) || urlFor(data.heroSections[0].backgroundImage).url()
             }
             alt="Children playing at Love & Learning Child Care Center"
             fill
             priority
-            fetchPriority="high"
             sizes="100vw"
-            quality={80}
+            quality={85}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
             className="object-cover"
           />
         ) : (
@@ -95,9 +95,10 @@ export default async function Home() {
             alt="Children playing at Love & Learning Child Care Center"
             fill
             priority
-            fetchPriority="high"
             sizes="100vw"
-            quality={80}
+            quality={85}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
             className="object-cover"
           />
         )}
@@ -150,19 +151,20 @@ export default async function Home() {
               </div>
             </div>
 
-            {/* Image Section - Optimized */}
+            {/* Image Section - Optimized with blur placeholder */}
             <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-[32rem] relative">
               <Image
                 alt="Love & Learning Child Care Center environment"
                 src={
-                  getOptimizedImageUrl(data?.aboutSections?.[0]?.image, 800) ||
+                  getOptimizedImageUrl(data?.aboutSections?.[0]?.image, 800, 70) ||
                   urlFor(data?.aboutSections?.[0]?.image).url()
                 }
                 fill
                 loading="lazy"
-                decoding="async"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                quality={75}
+                quality={70}
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                 className="object-cover lg:object-center rounded-b-3xl lg:rounded-r-3xl lg:rounded-bl-none"
               />
             </div>
@@ -182,15 +184,17 @@ export default async function Home() {
                       src={
                         getOptimizedImageUrl(
                           data?.cta1Sections?.[0]?.image,
-                          600
+                          600,
+                          70
                         ) || urlFor(data?.cta1Sections?.[0]?.image).url()
                       }
                       alt="Students learning in classroom at Love & Learning"
                       fill
                       loading="lazy"
-                      decoding="async"
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={75}
+                      quality={70}
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                       className="object-cover md:rounded-2xl"
                     />
                   </div>
@@ -198,13 +202,12 @@ export default async function Home() {
                   <div
                     className="absolute -bottom-6 -left-6 w-32 h-32"
                     aria-hidden="true">
-                    <img
+                    <Image
                       src="/svg/flower4.svg"
                       alt=""
                       loading="lazy"
-                      decoding="async"
-                      width="128"
-                      height="128"
+                      width={128}
+                      height={128}
                       className="w-full h-auto"
                     />
                   </div>
@@ -259,15 +262,17 @@ export default async function Home() {
                       src={
                         getOptimizedImageUrl(
                           data?.cta2Sections?.[0]?.image,
-                          800
+                          800,
+                          70
                         ) || urlFor(data?.cta2Sections?.[0]?.image).url()
                       }
                       alt="Children playing and learning at Love & Learning"
                       fill
                       loading="lazy"
-                      decoding="async"
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={75}
+                      quality={70}
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                       className="object-cover rounded-2xl"
                     />
                   </div>
@@ -275,13 +280,12 @@ export default async function Home() {
                   <div
                     className="absolute -top-6 -right-6 w-28 h-28"
                     aria-hidden="true">
-                    <img
+                    <Image
                       src="/svg/flower5.svg"
                       alt=""
                       loading="lazy"
-                      decoding="async"
-                      width="112"
-                      height="112"
+                      width={112}
+                      height={112}
                       className="w-full h-auto"
                     />
                   </div>
