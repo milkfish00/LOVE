@@ -73,7 +73,7 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
                   placeholder="blur"
                   blurDataURL={blurSrc}
                   onLoad={() => setHeroImageLoaded(true)}
-                  className={`object-cover transition-all duration-700 ease-out ${
+                  className={`object-cover transition-all duration-700 ease-out object-top ${
                     heroImageLoaded ? "opacity-100" : "opacity-0"
                   }`}
                   sizes="100vw"
