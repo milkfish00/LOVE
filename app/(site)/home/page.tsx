@@ -40,7 +40,7 @@ export default async function Home() {
       {/* Preconnect to Sanity CDN for faster image loading */}
       <link rel="preconnect" href="https://cdn.sanity.io" />
       <link rel="dns-prefetch" href="https://6jqzfkhy.apicdn.sanity.io" />
-      <link rel="canonical" href="https://www.loveandlearning.net" />
+      <link rel="canonical" href="https://www.loveandlearning.net/home" />
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
