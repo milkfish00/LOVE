@@ -188,7 +188,7 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
       </section>
 
       {/* Staff Section */}
-      <section className="bg-[#ffd48b7e] py-16 md:py-24 lg:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#ffd48b7e] py-16 md:py-24 lg:py-28 px-4 sm:px-6 lg:px-8" id="staff">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-gray-900">

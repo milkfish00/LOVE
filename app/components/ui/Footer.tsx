@@ -76,7 +76,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
               </li>
               <li>
                 <Link
-                  href="/staff"
+                  href="/about#staff"
                   className="text-white/80 hover:text-white text-sm">
                   Meet Our Staff
                 </Link>
