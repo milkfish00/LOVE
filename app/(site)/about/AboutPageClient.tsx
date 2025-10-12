@@ -106,11 +106,11 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
       </section>
 
       {/* Owners Section - Split Screen */}
-      <section className="relative w-full py-12 lg:py-16 bg-white">
-        <div className="px-4 sm:px-6 lg:px-12 max-w-9xl mx-auto">
-          <div className="w-full flex flex-col 2xl:flex-row lg:items-stretch lg:min-h-[80vh] gap-8 lg:gap-12">
+      <section className="relative w-full py-20 lg:py-32 bg-white">
+        <div className="px-6 sm:px-8 lg:px-16 max-w-[1600px] mx-auto">
+          <div className="w-full flex flex-col lg:flex-row lg:items-center gap-16 lg:gap-24">
             {/* Owner Image Side - Left on desktop, below on mobile */}
-            <div className="relative w-full lg:w-1/2 h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-auto min-h-[400px] lg:max-h-[600px] order-2 lg:order-1 rounded-2xl overflow-hidden">
+            <div className="relative w-full lg:w-[45%] h-[55vh] sm:h-[65vh] md:h-[75vh] lg:h-[70vh] min-h-[500px] max-h-[700px] order-2 lg:order-1 rounded-sm overflow-hidden shadow-sm">
               {!ownerImageLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 z-10">
                   <div className="flex space-x-2">
@@ -155,26 +155,26 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
             </div>
 
             {/* Owner Bio Side - Right on desktop, above on mobile */}
-            <div className="flex items-center justify-center px-0 sm:px-4 py-8 sm:py-12 lg:py-0 order-1 lg:order-2 lg:w-1/2">
-              <div className="w-full h-full flex items-center">
-                <div className="space-y-6 sm:space-y-8 lg:space-y-10 w-full">
-                  <div className="text-center lg:text-left">
-                    <p className="text-xs sm:text-sm uppercase tracking-[0.2em] text-gray-600 mb-3 sm:mb-4 font-medium">
-                      Meet the Owners
+            <div className="flex items-center order-1 lg:order-2 lg:w-[55%]">
+              <div className="w-full max-w-2xl mx-auto lg:mx-0">
+                <div className="space-y-10 lg:space-y-12">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6 font-light">
+                      Meet the Owner
                     </p>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-light text-gray-900 mb-5 tracking-tight">
                       {data?.owners?.[0]?.name}
                     </h2>
-                    <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-medium">
+                    <p className="text-xl sm:text-2xl text-gray-500 font-light">
                       {data?.owners?.[0]?.role}
                     </p>
                   </div>
 
-                  <div className="space-y-4 sm:space-y-5 text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed prose prose-base sm:prose-lg md:prose-xl max-w-none prose-p:text-gray-700 prose-headings:text-gray-900">
+                  <div className="space-y-6 text-lg text-gray-600 leading-relaxed font-light prose prose-lg max-w-none prose-p:text-gray-600 prose-p:leading-relaxed prose-headings:text-gray-900 prose-headings:font-light">
                     {data?.owners?.[0]?.bio ? (
                       <PortableText value={data.owners[0].bio} />
                     ) : (
-                      <p className="text-gray-500 text-center lg:text-left">
+                      <p className="text-gray-400">
                         Biography is currently being updated. Please check back
                         soon!
                       </p>
