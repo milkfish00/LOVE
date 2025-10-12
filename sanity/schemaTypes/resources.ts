@@ -231,6 +231,7 @@ export const resources = defineType({
         },
       ],
     }),
+    
   ],
   preview: {
     select: {

@@ -18,6 +18,7 @@ interface DropdownLink {
   name: string;
   href: string;
   description?: string;
+  target?: string;
 }
 
 interface DropdownSection {
@@ -171,6 +172,11 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
             title: "ENROLLMENT INFO",
             links: [
               {
+                name: "Financial Aid",
+                target: "_blank",
+                href: "https://www.ncdhhs.gov/assistance/childrens-services/child-care-subsidy-help-paying-child-care",
+              },
+              {
                 name: "First Day Checklist",
                 href: "/resources/first-day-checklist",
               },
@@ -253,6 +259,7 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
                                         <li key={linkIndex}>
                                           <Link
                                             href={link.href}
+                                            target={link.target || "_self"}
                                             className="group flex flex-col p-3 rounded-lg  transition-all duration-200">
                                             <span className="text-sm font-medium text-gray-900 group-hover:text-yellow-600 transition-colors duration-200">
                                               {link.name}
