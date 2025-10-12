@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
   };
 
   return (
-    <footer className="bg-[#4c4164] text-white">
+    <footer className="bg-[#4c4164] text-white" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Logo and Description */}
@@ -44,9 +44,10 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
             )}
 
             {/* Social Media Links */}
-            <div className="flex space-x-4">
-              {settings?.socialLinks && settings.socialLinks.length > 0
-                ? settings.socialLinks
+            {settings?.socialLinks && settings.socialLinks.length > 0 && (
+              <nav aria-label="Social media links">
+                <div className="flex space-x-4">
+                  {settings.socialLinks
                     .map((s) => ({ ...s, Icon: getIcon(s.platform) }))
                     .filter((s) => s.Icon && s.url)
                     .map(({ platform, url, Icon }) => (
@@ -55,130 +56,140 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/80 hover:text-white transition-colors duration-200">
-                        {Icon && <Icon className="w-5 h-5" />}
+                        className="text-white/80 hover:text-white transition-colors duration-200"
+                        aria-label={`Visit our ${platform} page`}>
+                        {Icon && (
+                          <Icon className="w-5 h-5" aria-hidden="true" />
+                        )}
                       </Link>
-                    ))
-                : null}
-            </div>
+                    ))}
+                </div>
+              </nav>
+            )}
           </div>
 
           {/* Company Links */}
           <div className="lg:col-span-1">
-            <h3 className="text-lg font-semibold text-white mb-6">COMPANY</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/about"
-                  className="text-white/80 hover:text-white text-sm">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about#staff"
-                  className="text-white/80 hover:text-white text-sm">
-                  Meet Our Staff
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources"
-                  className="text-white/80 hover:text-white text-sm">
-                  Resources
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-white/80 hover:text-white text-sm">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/careers"
-                  className="text-white/80 hover:text-white text-sm">
-                  Careers
-                </Link>
-              </li>
-            </ul>
+            <h2 className="text-lg font-semibold text-white mb-6">COMPANY</h2>
+            <nav aria-label="Company">
+              <ul className="space-y-3">
+                <li>
+                  <Link
+                    href="/about"
+                    className="text-white/80 hover:text-white text-sm">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/about#staff"
+                    className="text-white/80 hover:text-white text-sm">
+                    Meet Our Staff
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/resources"
+                    className="text-white/80 hover:text-white text-sm">
+                    Resources
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="text-white/80 hover:text-white text-sm">
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/careers"
+                    className="text-white/80 hover:text-white text-sm">
+                    Careers
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
 
           {/* Programs Links */}
           <div className="lg:col-span-1">
-            <h3 className="text-lg font-semibold text-white mb-6">PROGRAMS</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/programs/infants"
-                  className="text-white/80 hover:text-white text-sm">
-                  Infants
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/programs/toddlers"
-                  className="text-white/80 hover:text-white text-sm">
-                  Toddlers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/programs/twos"
-                  className="text-white/80 hover:text-white text-sm">
-                  Two's
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/programs/threes"
-                  className="text-white/80 hover:text-white text-sm">
-                  Three's
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/programs/fours-and-fives"
-                  className="text-white/80 hover:text-white text-sm">
-                  Four's & Five's
-                </Link>
-              </li>
-            </ul>
+            <h2 className="text-lg font-semibold text-white mb-6">PROGRAMS</h2>
+            <nav aria-label="Programs">
+              <ul className="space-y-3">
+                <li>
+                  <Link
+                    href="/programs/infants"
+                    className="text-white/80 hover:text-white text-sm">
+                    Infants
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/programs/toddlers"
+                    className="text-white/80 hover:text-white text-sm">
+                    Toddlers
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/programs/twos"
+                    className="text-white/80 hover:text-white text-sm">
+                    Two's
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/programs/threes"
+                    className="text-white/80 hover:text-white text-sm">
+                    Three's
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/programs/fours-and-fives"
+                    className="text-white/80 hover:text-white text-sm">
+                    Four's & Five's
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
 
           <div className="lg:col-span-1">
-            <h3 className="text-lg font-semibold text-white mb-6">RESOURCES</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/enrollment"
-                  className="text-white/80 hover:text-white text-sm">
-                  Enrollment & Tuition
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources/first-day-checklist"
-                  className="text-white/80 hover:text-white text-sm">
-                  First Day Checklist
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources/staff-file-checklist"
-                  className="text-white/80 hover:text-white text-sm">
-                  Staff Checklist
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources/gallery"
-                  className="text-white/80 hover:text-white text-sm">
-                  Our Facility
-                </Link>
-              </li>
-            </ul>
+            <h2 className="text-lg font-semibold text-white mb-6">RESOURCES</h2>
+            <nav aria-label="Resources">
+              <ul className="space-y-3">
+                <li>
+                  <Link
+                    href="/enrollment"
+                    className="text-white/80 hover:text-white text-sm">
+                    Enrollment & Tuition
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/resources/first-day-checklist"
+                    className="text-white/80 hover:text-white text-sm">
+                    First Day Checklist
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/resources/staff-file-checklist"
+                    className="text-white/80 hover:text-white text-sm">
+                    Staff Checklist
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/resources/gallery"
+                    className="text-white/80 hover:text-white text-sm">
+                    Our Facility
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
 
@@ -191,42 +202,44 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
             </div>
 
             {/* Legal Documents Links */}
-            <div className="flex flex-wrap justify-center md:justify-end items-center gap-x-4 gap-y-2 text-sm">
-              {settings?.legalDocuments &&
-              settings.legalDocuments.length > 0 ? (
-                settings.legalDocuments.map((doc) => (
-                  <Link
-                    key={doc._key}
-                    href={`/legal/${doc.slug.current}`}
-                    className="text-white/80 hover:text-white">
-                    {doc.title}
-                  </Link>
-                ))
-              ) : (
-                <>
-                  <Link
-                    href="/legal/privacy"
-                    className="text-white/80 hover:text-white">
-                    Privacy Policy
-                  </Link>
-                  <Link
-                    href="/legal/terms"
-                    className="text-white/80 hover:text-white">
-                    Terms and Conditions
-                  </Link>
-                  <Link
-                    href="/legal/accessibility"
-                    className="text-white/80 hover:text-white">
-                    Accessibility
-                  </Link>
-                  <Link
-                    href="/legal/cookies"
-                    className="text-white/80 hover:text-white">
-                    Cookie Settings
-                  </Link>
-                </>
-              )}
-            </div>
+            <nav aria-label="Legal">
+              <div className="flex flex-wrap justify-center md:justify-end items-center gap-x-4 gap-y-2 text-sm">
+                {settings?.legalDocuments &&
+                settings.legalDocuments.length > 0 ? (
+                  settings.legalDocuments.map((doc) => (
+                    <Link
+                      key={doc._key}
+                      href={`/legal/${doc.slug.current}`}
+                      className="text-white/80 hover:text-white">
+                      {doc.title}
+                    </Link>
+                  ))
+                ) : (
+                  <>
+                    <Link
+                      href="/legal/privacy"
+                      className="text-white/80 hover:text-white">
+                      Privacy Policy
+                    </Link>
+                    <Link
+                      href="/legal/terms"
+                      className="text-white/80 hover:text-white">
+                      Terms and Conditions
+                    </Link>
+                    <Link
+                      href="/legal/accessibility"
+                      className="text-white/80 hover:text-white">
+                      Accessibility
+                    </Link>
+                    <Link
+                      href="/legal/cookies"
+                      className="text-white/80 hover:text-white">
+                      Cookie Settings
+                    </Link>
+                  </>
+                )}
+              </div>
+            </nav>
           </div>
         </div>
       </div>

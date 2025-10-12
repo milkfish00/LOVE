@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import ConditionalLayout from "../components/ConditionalLayout";
-import ClientPageLoader from "../components/ui/ClientPageLoader";
 import SanityClientProviders from "../components/SanityClientProviders";
 import { SanityLive } from "@/sanity/lib/live";
 import { draftMode } from "next/headers";
