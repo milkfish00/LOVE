@@ -70,7 +70,7 @@ Quality child care with transparent, family-friendly rates
             return (
               <div
                 key={program._key}
-                className="bg-white rounded-2xl  transition-all duration-300 overflow-hidden group">
+                className="bg-white rounded-2xl shadow-md transition-all duration-300 overflow-hidden group">
                 {/* Colored Header */}
                 <div
                   className={`bg-gradient-to-br ${colors.gradient} p-6 text-white`}>
