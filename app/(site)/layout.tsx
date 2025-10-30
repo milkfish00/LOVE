@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://www.loveandlearning.net";
-  const title = settings?.title || "Love & Learning Child Care Center";
+  const title = settings?.title || "Love & Learning Child Care Cente";
   const description =
     settings?.description ||
     "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC.";
