@@ -51,7 +51,7 @@ const IndividualProgramPage = async ({
   // Handle case where program is not found
   if (!currentProgram) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">
             Program Not Found
@@ -75,7 +75,7 @@ const IndividualProgramPage = async ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Header */}
-      <section className={`${colors.color} ${colors.textColor} py-10`}>
+      <section className={`${colors.color} ${colors.textColor} py-10 `}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <a
             href="/programs"
@@ -148,42 +148,70 @@ const IndividualProgramPage = async ({
       </section>
 
       {/* Daily Schedule */}
-      <section className="py-14 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-10">
+      <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
             Daily Schedule
           </h2>
           {Array.isArray(currentProgram?.dailyActivities) &&
           currentProgram.dailyActivities.length > 0 ? (
-            <div className="divide-y divide-gray-200 rounded-xl bg-white shadow-sm border border-gray-100">
+            <div className="space-y-4">
               {currentProgram.dailyActivities.map((activity: any) => (
                 <div
                   key={
                     activity?._key ?? `${activity?.time}-${activity?.activity}`
                   }
-                  className="p-5">
-                  <div className="flex items-start justify-between gap-6">
-                    <div>
-                      <div className="font-semibold text-gray-800">
+                  className="p-6 rounded-2xl bg-white  border border-gray-200">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-8">
+                    {/* Time Section */}
+                    <div className="flex-shrink-0">
+                      <div className="text-gray-600 bg-gray-100 px-4 py-2 rounded-lg border border-gray-200 min-w-[120px] text-center">
+                        <span className="text-sm font-semibold">
+                          {activity?.time || "Time TBD"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Activity Section */}
+                    <div className="flex-1">
+                      <div className="text-lg font-normal text-gray-800 mb-2">
                         {activity?.activity || "Activity"}
                       </div>
                       {activity?.description ? (
-                        <div className="text-sm text-gray-600 mt-1">
+                        <div className="text-gray-600 leading-relaxed">
                           {activity?.description}
                         </div>
                       ) : null}
-                    </div>
-                    <div className="text-sm text-gray-600 whitespace-nowrap">
-                      {activity?.time || "Time TBD"}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-center text-gray-600">
-              Daily schedule coming soon.
-            </p>
+            <div className="text-center py-12">
+              <div className="bg-gray-100 rounded-2xl p-8 max-w-md mx-auto">
+                <div className="text-gray-400 mb-3">
+                  <svg
+                    className="w-12 h-12 mx-auto"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <p className="text-gray-600 font-medium">
+                  Daily schedule coming soon
+                </p>
+                <p className="text-gray-500 text-sm mt-1">
+                  Check back later for updates
+                </p>
+              </div>
+            </div>
           )}
         </div>
       </section>
