@@ -134,7 +134,6 @@ export const program = defineType({
                       title: "Activity Description",
                       type: "text",
                       rows: 2,
-                      validation: (Rule) => Rule.required(),
                     },
                   ],
                   preview: {
