@@ -42,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = settings?.title || "Love & Learning Child Care Center";
   const description =
     settings?.description ||
-    "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC.";
+    "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Fletcher, NC.";
 
   const ogImage = settings?.openGraphImage
     ? urlFor(settings.openGraphImage).width(1200).height(630).quality(90).url()
@@ -63,7 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "child care",
       "daycare",
       "preschool",
-      "Charlotte NC",
+      "Fletcher NC",
       "early learning",
       "childcare center",
     ],
@@ -155,7 +155,7 @@ export default async function RootLayout({
               name: "Love & Learning Child Care Center",
               description:
                 settings?.description ||
-                "A safe, loving environment for early learning in Charlotte, NC.",
+                "A safe, loving environment for early learning in Fletcher, NC. ",
               url: "https://www.loveandlearning.net",
               logo: settings?.navLogo
                 ? urlFor(settings.navLogo).url()
@@ -166,7 +166,7 @@ export default async function RootLayout({
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Your Street Address",
-                addressLocality: "Charlotte",
+                addressLocality: "Fletcher",
                 addressRegion: "NC",
                 postalCode: "Your Postal Code",
                 addressCountry: "US",

@@ -13,17 +13,17 @@ import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Love & Learning Child Care Center | Quality Early Learning in Charlotte, NC",
+  title: "Love & Learning Child Care Center | Quality Early Learning in Fletcher, NC",
   description:
-    "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC. Experienced educators, age-appropriate programs, and nurturing care for your child.",
+    "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Fletcher, NC. Experienced educators, age-appropriate programs, and nurturing care for your child.",
   alternates: {
 
     canonical: "/home",
   },
   openGraph: {
-    title: "Love & Learning Child Care Center | Quality Early Learning in Charlotte, NC",
+    title: "Love & Learning Child Care Center | Quality Early Learning in Fletcher, NC",
     description:
-      "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC.",
+      "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Fletcher, NC.",
     url: "https://www.loveandlearning.net/home",
     type: "website",
   },
@@ -55,7 +55,7 @@ export default async function Home() {
         <div className="absolute top-0 right-0 z-30 w-38 md:w-64 lg:w-80">
           <Image
             src="/svg/flower3.svg"
-            alt=""
+            alt="Decorative flower"
             loading="lazy"
             width={320}
             height={320}
@@ -66,7 +66,7 @@ export default async function Home() {
         <div className="absolute bottom-0 left-0 z-30 w-48 md:w-64 lg:w-80">
           <Image
             src="/svg/flower2.svg"
-            alt=""
+            alt="Decorative flower"
             loading="lazy"
             width={320}
             height={320}
@@ -213,7 +213,7 @@ export default async function Home() {
                     aria-hidden="true">
                     <Image
                       src="/svg/flower4.svg"
-                      alt=""
+                        alt="Decorative flower"
                       loading="lazy"
                       width={128}
                       height={128}
@@ -291,7 +291,7 @@ export default async function Home() {
                     aria-hidden="true">
                     <Image
                       src="/svg/flower5.svg"
-                      alt=""
+                      alt="Decorative flower"
                       loading="lazy"
                       width={112}
                       height={112}

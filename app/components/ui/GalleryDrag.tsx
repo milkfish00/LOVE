@@ -317,7 +317,7 @@ const DraggableGallery: React.FC<DraggableGalleryProps> = ({ images }) => {
           <img src="/svg/flower2.svg" alt="Decorative flower" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />
         </div>
         <div className="absolute -top-2 left-6 w-16 md:w-24 opacity-20">
-          <img src="/svg/flower1.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />
+          <img src="/svg/flower1.svg" alt="Decorative flower" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />
         </div>
         <div className="absolute bottom-6 right-10 w-20 md:w-28 opacity-20">
           <img src="/svg/flower5.svg" alt="Decorative flower" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto" />

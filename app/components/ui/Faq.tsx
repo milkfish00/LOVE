@@ -53,9 +53,9 @@ export default function FAQAccordion({ data }: FAQAccordionProps) {
       <div className="max-w-4xl mx-auto px-6 py-20">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h3 className="text-4xl md:text-5xl font-bold mb-4">
             {faqSection.title || "Frequently Asked Questions"}
-          </h1>
+          </h3>
         </div>
 
         {/* FAQ Items */}

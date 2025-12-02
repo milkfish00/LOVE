@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "child care",
       "daycare",
       "preschool",
-      "Charlotte NC",
+      "Fletcher NC",
       "early childhood education",
       "enrollment",
     ];
@@ -73,7 +73,7 @@ export async function generateMetadata(): Promise<Metadata> {
         "child care",
         "daycare",
         "preschool",
-        "Charlotte NC",
+        "Fletcher NC",
         "early childhood education",
         "enrollment",
       ],
