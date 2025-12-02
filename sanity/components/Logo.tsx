@@ -5,7 +5,7 @@ export function Logo() {
   return (
     <img
       src={logoUrl.src}
-      alt=""
+      alt=" Logo"
       style={{
         height: "1.5rem",
         width: "3rem",

@@ -1,4 +1,4 @@
-import{r as p,j as C,c2 as P}from"./sanity-DHfocECl.js";/**
+import{r as p,j as C,c2 as P}from"./sanity-jZn-6O3L.js";/**
  * \@license QR Code generator library (TypeScript)
  * Copyright (c) Project Nayuki.
  * SPDX-License-Identifier: MIT

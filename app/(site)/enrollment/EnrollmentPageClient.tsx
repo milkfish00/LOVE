@@ -37,7 +37,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
         <div className="absolute top-10 right-10 w-32 h-32 opacity-20">
           <img
             src="/svg/flower1.svg"
-            alt=""
+            alt="Decorative flower"
             loading="lazy"
             decoding="async"
             aria-hidden="true"
@@ -46,7 +46,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
         <div className="absolute top-32 left-20 w-20 h-20 opacity-15">
           <img
             src="/svg/flower3.svg"
-            alt=""
+            alt="Decorative flower"
             loading="lazy"
             decoding="async"
             aria-hidden="true"
@@ -55,7 +55,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
         <div className="absolute bottom-20 right-32 w-24 h-24 opacity-10">
           <img
             src="/svg/flower5.svg"
-            alt=""
+            alt="Decorative flower"
             loading="lazy"
             decoding="async"
             aria-hidden="true"
@@ -107,7 +107,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
               <div className="pointer-events-none absolute -right-6 -top-6 w-24 opacity-10">
                 <img
                   src="/svg/flower1.svg"
-                  alt=""
+                  alt="Decorative flower"
                   loading="lazy"
                   decoding="async"
                   aria-hidden="true"
@@ -116,7 +116,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
               <div className="pointer-events-none absolute -left-8 -bottom-8 w-20 opacity-10">
                 <img
                   src="/svg/flower3.svg"
-                  alt=""
+                  alt="Decorative flower"
                   loading="lazy"
                   decoding="async"
                   aria-hidden="true"
@@ -136,6 +136,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                       key={b.key}
                       href={b.url || "#"}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className={buttonClasses("link", "sm", "lg")}>
                       {b.text}
                       <ArrowRight className="ml-2 w-5 h-5" />
@@ -154,7 +155,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                   <div className="pointer-events-none absolute -right-6 -top-6 w-24 opacity-10">
                     <img
                       src="/svg/flower1.svg"
-                      alt=""
+                      alt="Decorative flower"
                       loading="lazy"
                       decoding="async"
                       aria-hidden="true"
@@ -163,7 +164,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                   <div className="pointer-events-none absolute -left-8 -bottom-8 w-20 opacity-10">
                     <img
                       src="/svg/flower3.svg"
-                      alt=""
+                      alt="Decorative flower"
                       loading="lazy"
                       decoding="async"
                       aria-hidden="true"
@@ -178,6 +179,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                     <a
                       href={fa.button.url || "#"}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className={buttonClasses("link", "sm", "lg")}>
                       {fa.button.text}
                       <ArrowRight className="ml-2 w-5 h-5" />
@@ -213,6 +215,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                 <a
                   href={cta.secondButton.url || "#"}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="bg-[#FFD58B] text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#ffc966] transition-colors">
                   {cta.secondButton.text}
                 </a>

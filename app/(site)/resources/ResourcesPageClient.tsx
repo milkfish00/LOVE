@@ -168,10 +168,10 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
               </div>
               {/* Floating elements */}
               <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center     animate-bounce">
-                <img src="/svg/flower1.svg" alt="" loading="lazy" />
+                <img src="/svg/flower1.svg" alt="Decorative flower" loading="lazy" />
               </div>
               <div className="absolute -bottom-4 -left-4 w-12 h-12  rounded-full flex items-center justify-center     animate-pulse">
-                <img src="/svg/flower4.svg" alt="" loading="lazy" />
+                <img src="/svg/flower4.svg" alt="Decorative flower" loading="lazy" />
               </div>
             </div>
           </div>
@@ -240,6 +240,7 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
                           href={resource.downloadHref}
                           className="bg-white/80 p-2 rounded-full   duration-300"
                           target="_blank"
+                          
                           rel="noreferrer"
                           download>
                           <Download

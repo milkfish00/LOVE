@@ -7,7 +7,7 @@ const Hero = () => {
       <div className="absolute top-0 right-0 z-30 w-38 md:w-64 lg:w-80">
         <img
           src="/svg/flower3.svg"
-          alt=""
+          alt="Decorative flower"
           aria-hidden="true"
           loading="lazy"
           decoding="async"
@@ -18,7 +18,7 @@ const Hero = () => {
       <div className="absolute bottom-0 left-0 z-30 w-48 md:w-64 lg:w-80">
         <img
           src="/svg/flower2.svg"
-          alt=""
+          alt="Decorative flower"
           aria-hidden="true"
           loading="lazy"
           decoding="async"

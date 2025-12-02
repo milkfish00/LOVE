@@ -40,7 +40,7 @@ const CTA2 = () => {
                 </div>
                 {/* Flower decoration */}
                 <div className="absolute -top-6 -right-6 w-28 h-28">
-                  <img src="/svg/flower5.svg" alt="" loading="lazy" decoding="async" className="w-full h-auto" />
+                  <img src="/svg/flower5.svg" alt="Decorative flower" loading="lazy" decoding="async" className="w-full h-auto" />
                 </div>
               </div>
             </div>

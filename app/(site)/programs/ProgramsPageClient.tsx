@@ -132,6 +132,7 @@ const ProgramsPageClient = ({
                   <img
                     src={currentProgram.image}
                     alt={currentProgram.title}
+                
                     className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 object-contain filter"
                   />
                 </div>
