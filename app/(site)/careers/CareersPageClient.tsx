@@ -6,9 +6,7 @@ export type CareersListJob = {
   key: string;
   title: string;
   location?: string;
-  // Rich text blocks from Sanity (portable text)
   description?: any[]; 
-  // Fallback plain text if already extracted server-side
   descriptionText?: string; 
   slug: string;
 };

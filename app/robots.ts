@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/studio/'], // Disallow Sanity Studio if you have it
+      disallow: ['/api/', '/studio/'], 
     },
     sitemap: 'https://www.loveandlearning.net/sitemap.xml',
   }

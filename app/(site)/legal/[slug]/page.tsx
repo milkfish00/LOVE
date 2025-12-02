@@ -1,13 +1,11 @@
-// app/legal/[slug]/page.tsx
 
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/lib/client";
 import { PortableText } from "@portabletext/react";
 import { sanityFetch } from "@/sanity/lib/live";
 
-export const revalidate = 60; // Revalidate every 60 seconds
+export const revalidate = 60; 
 
-// Query to get legal document by slug
 const legalDocumentQuery = `
   *[_type == "settings"][0] {
     legalDocuments[slug.current == $slug][0] {
@@ -40,7 +38,6 @@ const legalDocumentQuery = `
   }
 `;
 
-// Query to get all legal document slugs for static generation
 const allLegalSlugsQuery = `
   *[_type == "settings"][0] {
     legalDocuments[] {
@@ -62,7 +59,6 @@ interface LegalDocument {
   content: any[];
 }
 
-// Generate static params for all legal documents
 export async function generateStaticParams() {
   const data = await client.fetch(allLegalSlugsQuery);
 
@@ -75,7 +71,6 @@ export async function generateStaticParams() {
   }));
 }
 
-// Custom components for PortableText rendering
 const portableTextComponents = {
   block: {
     normal: ({ children }: any) => (
@@ -141,13 +136,11 @@ const portableTextComponents = {
   },
 };
 
-// Update the component to accept Promise<params>
 export default async function LegalDocumentPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  // Await the params Promise
   const { slug } = await params;
 
   const { data } = await sanityFetch({
@@ -164,7 +157,6 @@ export default async function LegalDocumentPage({
   return (
     <div className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
       <div className="mx-auto max-w-7xl px-8">
-        {/* Legal Document Content - Centered */}
         <div className="mx-auto max-w-3xl">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-12 text-center">
             {document.title}
@@ -191,7 +183,6 @@ export default async function LegalDocumentPage({
   );
 }
 
-// Update metadata generation to handle Promise params
 export async function generateMetadata({
   params,
 }: {

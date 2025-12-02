@@ -4,7 +4,6 @@ import ContactPageClient from "./ContactPageClient";
 import { sanityFetch } from "@/sanity/lib/live";
 import { contactQuery } from "@/app/lib/queries";
 
-// Enable ISR with 60 second revalidation
 export const revalidate = 60;
 
 export const metadata: Metadata = {

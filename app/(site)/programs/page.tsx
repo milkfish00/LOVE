@@ -10,7 +10,6 @@ import ProgramsPageClient from "@/app/(site)/programs/ProgramsPageClient";
 import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
 
-// Enable ISR with 60 second revalidation
 export const revalidate = 60;
 
 export const metadata: Metadata = {
@@ -33,7 +32,6 @@ const ProgramsPage = async () => {
     );
   }
 
-  // Transform Sanity data to match the expected format
   const transformedPrograms = data.programSections.map((program: { slug: { current: string; }; programTitle: any; ageRange: any; description: any[]; image: { asset: { _ref: any; }; }; classSize: any; schedule: any; dailyActivities: any; }) => {
     const colors = getProgramColors(program.slug.current);
     return {

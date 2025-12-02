@@ -1,10 +1,10 @@
 import { MetadataRoute } from "next";
-import { client } from "@/sanity/lib/client"; // Adjust path to your Sanity client
+import { client } from "@/sanity/lib/client"; 
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.loveandlearning.net";
 
-  // Fetch all your resource pages from Sanity
+
   const resources = await client.fetch(`
     *[_type == "resources" && !(_id in path("drafts.**"))]{
       "slug": slug.current,
@@ -12,7 +12,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   `);
 
-  // Fetch other content types if you have them (programs, etc.)
   const programs = await client.fetch(`
     *[_type == "program" && !(_id in path("drafts.**"))]{
       "slug": slug.current,
@@ -20,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   `);
 
-  // Map resources to sitemap entries
+
   const resourceUrls = resources.map((resource: any) => ({
     url: `${baseUrl}/resources/${resource.slug}`,
     lastModified: new Date(resource._updatedAt),
@@ -28,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // Map programs to sitemap entries
+
   const programUrls = programs.map((program: any) => ({
     url: `${baseUrl}/programs/${program.slug}`,
     lastModified: new Date(program._updatedAt),
@@ -36,7 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // Static pages
   const staticPages = [
     {
       url: baseUrl,

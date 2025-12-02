@@ -1,4 +1,3 @@
-// app/careers/page.tsx
 import React from "react";
 import { careersQuery } from "@/app/lib/queries";
 import { Careers } from "@/app/lib/interface";
@@ -16,7 +15,6 @@ export const metadata: Metadata = {
 
 const JobsPage = async () => {
   try {
-    // ✅ Use only sanityFetch for visual editor to work
         const { data } = (await sanityFetch({
           query: careersQuery,
           params: {},

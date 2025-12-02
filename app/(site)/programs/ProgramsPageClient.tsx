@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 
-// Define the interface for age group objects
 interface AgeGroup {
   slug: any;
   id: string;
@@ -33,7 +32,6 @@ const ProgramsPageClient = ({
 }: ProgramsPageClientProps) => {
   const [activeAgeGroup, setActiveAgeGroup] = useState(programs[0]?.id || "");
 
-  // Color mapping to match ProgramsSection
   const programColors: Record<string, { color: string; textColor: string }> = {
     infants: { color: "bg-[#E68978]", textColor: "text-white" },
     toddlers: { color: "bg-[#EB9D73]", textColor: "text-white" },
@@ -54,7 +52,6 @@ const ProgramsPageClient = ({
 
   const currentProgram = programs.find((g) => g.id === activeAgeGroup);
 
-  // Add a fallback if currentProgram is undefined
   if (!currentProgram) {
     return <div>Program not found</div>;
   }

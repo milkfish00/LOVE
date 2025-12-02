@@ -1,4 +1,3 @@
-// Server Component (remove "use client")
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -11,17 +10,14 @@ import ProgramsSection from "@/app/components/Home/Tabs";
 import { sanityFetch } from "@/sanity/lib/live";
 import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
 
-// Enable ISR with 60 second revalidation
 export const revalidate = 60;
 
-// Use page-level metadata to set the correct canonical for /home
 export const metadata: Metadata = {
   title: "Love & Learning Child Care Center | Quality Early Learning in Charlotte, NC",
   description:
     "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC. Experienced educators, age-appropriate programs, and nurturing care for your child.",
   alternates: {
-    // With metadataBase set in layout, this relative path resolves to:
-    // https://www.loveandlearning.net/home
+
     canonical: "/home",
   },
   openGraph: {
@@ -42,13 +38,11 @@ export default async function Home() {
 
   const programsData: Programs = await sanityClient.fetch(programsQuery);
 
-  // Optimize image URLs with proper dimensions and quality
   const getOptimizedImageUrl = (image: any, width: number, quality = 75) => {
     if (!image) return null;
     return urlFor(image).width(width).quality(quality).format("webp").auto("format").url();
   };
 
-  // Fallback link texts to satisfy "Links have descriptive text"
   const aboutBtnText = data?.aboutSections?.[0]?.button?.text || "Learn more about us";
   const cta1Text = data?.cta1Sections?.[0]?.Button?.text || "Get enrollment details";
   const cta2Text = data?.cta2Sections?.[0]?.Button?.text || "Contact us";

@@ -1,5 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
+import Image from "next/image";
 import {
   Download,
   FileText,
@@ -40,25 +41,23 @@ type Props = {
   tabs: string[];
 };
 
-const iconComponentMap: Record<
-  string,
-  React.ComponentType<{ size?: number }>
-> = {
-  FileText,
-  Shield,
-  DollarSign,
-  CheckSquare,
-  Heart,
-  Users,
-  BookOpen,
-  Palette,
-  Star,
-  Baby,
+const iconComponentMap: Record<string, React.ComponentType<{ size?: number }>> = {
+  FileText: FileText,
+  Shield: Shield,
+  DollarSign: DollarSign,
+  CheckSquare: CheckSquare,
+  Heart: Heart,
+  Users: Users,
+  BookOpen: BookOpen,
+  Palette: Palette,
+  Star: Star,
+  Baby: Baby,
 };
 
 const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0] || "Parents");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
 
   const filteredResources = useMemo(() => {
     if (!resources || resources.length === 0) return [];
@@ -138,23 +137,34 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
             </div>
             <div className="lg:col-span-6 relative">
               <div className="relative rounded-3xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-500 bg-gradient-to-br from-purple-100 to-pink-100">
-                {hero?.backgroundImageUrl ? (
-                  <img
-                    src={hero.backgroundImageUrl}
-                    alt="Resources hero"
-                    className="w-full h-80 object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <img
-                    src="https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Happy children learning and playing"
-                    className="w-full h-80 object-cover"
-                    loading="eager"
-                    decoding="async"
-                  />
+                {!heroImageLoaded && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 z-10">
+                    <div className="flex space-x-2" role="status" aria-label="Loading">
+                      <div className="w-3 h-3 bg-[#81AA8E] rounded-full animate-bounce"></div>
+                      <div className="w-3 h-3 bg-[#FAB391] rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
+                      <div className="w-3 h-3 bg-[#80739C] rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                    </div>
+                  </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent"></div>
+
+                <div className="relative w-full h-80">
+                  <Image
+                    src={
+                      hero?.backgroundImageUrl
+                        ? hero.backgroundImageUrl
+                        : "https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    }
+                    alt={hero?.backgroundImageUrl ? "Resources hero" : "Happy children learning and playing"}
+                    fill
+                    priority
+                    onLoad={() => setHeroImageLoaded(true)}
+                    className={`object-cover transition-opacity duration-700 ${
+                      heroImageLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent" aria-hidden="true"></div>
               </div>
               {/* Floating elements */}
               <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center     animate-bounce">

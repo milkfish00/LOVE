@@ -9,10 +9,9 @@ import {
 } from "@/app/lib/program-utils";
 import { sanityFetch } from "@/sanity/lib/live";
 
-// Enable ISR with 60 second revalidation
+ 
 export const revalidate = 60;
 
-// Generate static paths for all programs
 export async function generateStaticParams() {
   try {
     const data: Programs = await sanityClient.fetch(allProgramSlugsQuery);
@@ -36,19 +35,16 @@ const IndividualProgramPage = async ({
 }) => {
   const { slug } = await params;
 
-  // Fetch program data by slug using sanityFetch for visual editing
   const { data } = await sanityFetch({
     query: programBySlugQuery,
     params: { slug },
   });
 
-  // Support both shapes: object (from slug query) or array (from full doc)
   const rawProgramSections = data?.programSections;
   const currentProgram = Array.isArray(rawProgramSections)
     ? rawProgramSections.find((p: any) => p?.slug?.current === slug)
     : rawProgramSections;
 
-  // Handle case where program is not found
   if (!currentProgram) {
     return (
       <div className="flex items-center justify-center">

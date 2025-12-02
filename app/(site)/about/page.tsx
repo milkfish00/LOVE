@@ -4,7 +4,6 @@ import AboutPageClient from "./AboutPageClient";
 import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
 
-// Enable ISR with 60 second revalidation
 export const revalidate = 60;
 
 export const metadata: Metadata = {

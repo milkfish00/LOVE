@@ -12,7 +12,7 @@ import { sanityClient } from "../lib/sanity";
 import { urlFor } from "@/sanity/lib/image";
 import { Settings } from "../lib/interface";
 
-const revalidate = 60; // revalidate every 60 seconds
+const revalidate = 60;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +28,6 @@ const geistMono = Geist_Mono({
   preload: true,
 });
 
-// Generate metadata from Sanity settings
 export async function generateMetadata(): Promise<Metadata> {
   let settings: Settings | null = null;
 
@@ -45,12 +44,10 @@ export async function generateMetadata(): Promise<Metadata> {
     settings?.description ||
     "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Charlotte, NC.";
 
-  // Get Open Graph image URL
   const ogImage = settings?.openGraphImage
     ? urlFor(settings.openGraphImage).width(1200).height(630).quality(90).url()
-    : `${siteUrl}/og-image.jpg`; // Fallback image
+    : `${siteUrl}/og-image.jpg`;
 
-  // Get favicon URL - handle file assets differently than images
   const faviconUrl = settings?.favicon?.asset?._ref
     ? `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "6jqzfkhy"}/${process.env.NEXT_PUBLIC_SANITY_DATASET || "production"}/${settings.favicon.asset._ref.replace("file-", "").replace("-ico", ".ico")}`
     : "/favicon.ico";
@@ -74,7 +71,6 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: "Love & Learning Child Care Center",
     publisher: "Love & Learning Child Care Center",
 
-    // Open Graph
     openGraph: {
       type: "website",
       locale: "en_US",
@@ -92,16 +88,14 @@ export async function generateMetadata(): Promise<Metadata> {
       ],
     },
 
-    // Twitter Card
     twitter: {
       card: "summary_large_image",
       title,
       description,
       images: [ogImage],
-      creator: "@loveandlearning", // Update with actual Twitter handle if available
+      creator: "@loveandlearning",
     },
 
-    // Additional metadata
     robots: {
       index: true,
       follow: true,
@@ -114,24 +108,16 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
 
-    // Verification (add your verification codes)
-    verification: {
-      // google: "your-google-verification-code",
-      // yandex: "your-yandex-verification-code",
-      // bing: "your-bing-verification-code",
-    },
+    verification: {},
 
-    // Icons
     icons: {
       icon: faviconUrl,
       shortcut: faviconUrl,
       apple: faviconUrl,
     },
 
-    // Manifest
     manifest: "/site.webmanifest",
 
-    // Other
     alternates: {
       canonical: siteUrl,
     },
@@ -143,7 +129,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Fetch settings server-side for instant navbar/footer loading
   let settings: Settings | null = null;
   try {
     settings = await sanityClient.fetch(settingsQuery);
@@ -151,26 +136,16 @@ export default async function RootLayout({
     console.error("Failed to load footer settings", error);
   }
 
-  // draftMode is async in Next 15
   const dm = await draftMode();
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* Preconnect to external domains for faster loading */}
         <link rel="preconnect" href="https://cdn.sanity.io" />
         <link rel="preconnect" href="https://6jqzfkhy.apicdn.sanity.io" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <link rel="dns-prefetch" href="https://6jqzfkhy.apicdn.sanity.io" />
-        {/* Preload critical fonts if you have custom fonts in /public/fonts */}
-        {/* <link
-          rel="preload"
-          href="/fonts/Pally/Pally-Bold.otf"
-          as="font"
-          type="font/otf"
-          crossOrigin="anonymous"
-        /> */}
-        {/* Structured Data - Organization */}
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -233,7 +208,7 @@ export default async function RootLayout({
           )}
         </ConditionalLayout>
         <SanityLive />
-        {/* Only mount providers when draft mode is enabled */}
+
         {dm.isEnabled ? <SanityClientProviders /> : null}
       </body>
     </html>

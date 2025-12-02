@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-// Import Lottie with no SSR to prevent document errors
+
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
   loading: () => null,
@@ -19,7 +19,7 @@ export default function Home() {
     setIsActive(true);
     setWindowHeight(window.innerHeight);
 
-    // Update window height on resize
+
     const handleResize = () => {
       setWindowHeight(window.innerHeight);
     };
@@ -36,12 +36,11 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Handle animation load
+
   const handleAnimationLoad = () => {
     setAnimationLoaded(true);
   };
 
-  // Defer loading heavy Lottie JSON until idle to reduce main-thread work and first load JS
   useEffect(() => {
     const load = () => {
       fetch("/childern2.json")
@@ -53,7 +52,6 @@ export default function Home() {
     if ("requestIdleCallback" in window) {
       (window as any).requestIdleCallback(load, { timeout: 2000 });
     } else {
-      // Slight delay to avoid blocking TTI
       setTimeout(load, 800);
     }
   }, []);
@@ -207,7 +205,7 @@ export default function Home() {
             animationData={animationData}
             loop={false}
             autoplay={true}
-            onDOMLoaded={handleAnimationLoad} // Add this event handler
+            onDOMLoaded={handleAnimationLoad}
             style={{
               width: "100%",
               height: "auto",
