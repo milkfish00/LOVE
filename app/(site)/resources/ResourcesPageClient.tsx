@@ -40,7 +40,7 @@ type Props = {
   tabs: string[];
 };
 
-const iconComponentMap: Record<
+const iconComponentMap: Record
   string,
   React.ComponentType<{ size?: number }>
 > = {
@@ -60,39 +60,38 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0] || "Parents");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-const filteredResources = useMemo(() => {
-  if (!resources || resources.length === 0) return [];
+  const filteredResources = useMemo(() => {
+    if (!resources || resources.length === 0) return [];
 
-  const clean = (str: string) =>
-    str
-      ?.toLowerCase()
-      .replace(/[\u200B-\u200D\uFEFF\u202A-\u202E\u2060-\u206F\u00A0]/g, "") // strip invisible Unicode
-      .trim();
+    const clean = (str: string) =>
+      str
+        ?.toLowerCase()
+        .replace(/[\u200B-\u200D\uFEFF\u202A-\u202E\u2060-\u206F\u00A0]/g, "") // strip invisible Unicode
+        .trim();
 
-  const normalized = clean(activeTab);
+    const normalized = clean(activeTab);
 
-  const byTab =
-    activeTab === "All"
-      ? resources
-      : resources.filter((r) =>
-          (r.tags || []).some((t) => clean(t) === normalized)
-        );
+    const byTab =
+      activeTab === "All"
+        ? resources
+        : resources.filter((r) =>
+            (r.tags || []).some((t) => clean(t) === normalized)
+          );
 
-  const query = clean(searchQuery);
-  const byQuery = !query
-    ? byTab
-    : byTab.filter((r) => {
-        const title = clean(r.title || "");
-        const description = clean(r.description || "");
-        return title.includes(query) || description.includes(query);
-      });
+    const query = clean(searchQuery);
+    const byQuery = !query
+      ? byTab
+      : byTab.filter((r) => {
+          const title = clean(r.title || "");
+          const description = clean(r.description || "");
+          return title.includes(query) || description.includes(query);
+        });
 
-  const order: Record<string, number> = { checklist: 0, guide: 1, file: 2 };
-  return [...byQuery].sort(
-    (a, b) => (order[a.type || ""] ?? 1) - (order[b.type || ""] ?? 1)
-  );
-}, [resources, activeTab, searchQuery]);
-
+    const order: Record<string, number> = { checklist: 0, guide: 1, file: 2 };
+    return [...byQuery].sort(
+      (a, b) => (order[a.type || ""] ?? 1) - (order[b.type || ""] ?? 1)
+    );
+  }, [resources, activeTab, searchQuery]);
 
   const checklists = useMemo(
     () => filteredResources.filter((r) => r.type === "checklist"),
@@ -137,7 +136,7 @@ const filteredResources = useMemo(() => {
                 </p>
               )}
             </div>
-  <div className="lg:col-span-6 relative">
+            <div className="lg:col-span-6 relative">
               <div className="relative rounded-3xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-500 bg-gradient-to-br from-purple-100 to-pink-100">
                 {hero?.backgroundImageUrl ? (
                   <img
@@ -165,6 +164,8 @@ const filteredResources = useMemo(() => {
                 <img src="/svg/flower4.svg" alt="" loading="lazy" />
               </div>
             </div>
+          </div>
+        </div>
       </section>
 
       {/* Navigation Tabs + Search */}
@@ -225,7 +226,7 @@ const filteredResources = useMemo(() => {
                         <Icon size={isFile ? 22 : 28} />
                       </div>
                       {resource.downloadHref && (
-                        <a
+                        
                           href={resource.downloadHref}
                           className="bg-white/80 p-2 rounded-full   duration-300"
                           target="_blank"
@@ -249,7 +250,7 @@ const filteredResources = useMemo(() => {
                     )}
                     {resource.detailHref && (
                       <div className="flex items-center gap-4">
-                        <a
+                        
                           href={resource.detailHref}
                           className="text-gray-700 text-sm underline underline-offset-4">
                           Learn More
@@ -289,7 +290,7 @@ const filteredResources = useMemo(() => {
                         <Icon size={isFile ? 22 : 28} />
                       </div>
                       {resource.downloadHref && (
-                        <a
+                        
                           href={resource.downloadHref}
                           className="bg-white/80 p-2 rounded-full   duration-300"
                           target="_blank"
@@ -313,7 +314,7 @@ const filteredResources = useMemo(() => {
                     )}
                     {resource.detailHref && (
                       <div className="flex items-center gap-4">
-                        <a
+                        
                           href={resource.detailHref}
                           className="text-gray-700 text-sm underline underline-offset-4">
                           Learn More
@@ -351,7 +352,7 @@ const filteredResources = useMemo(() => {
                         <Icon size={isFile ? 22 : 28} />
                       </div>
                       {resource.downloadHref && (
-                        <a
+                        
                           href={resource.downloadHref}
                           className="bg-white/80 p-2 rounded-full   duration-300"
                           target="_blank"
@@ -375,7 +376,7 @@ const filteredResources = useMemo(() => {
                     )}
                     {resource.detailHref && (
                       <div className="flex items-center gap-4">
-                        <a
+                        
                           href={resource.detailHref}
                           className="text-gray-700 text-sm underline underline-offset-4">
                           Learn More
