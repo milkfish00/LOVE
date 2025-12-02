@@ -137,33 +137,34 @@ const filteredResources = useMemo(() => {
                 </p>
               )}
             </div>
-            <div className="lg:col-span-6 relative">
-              <div className="relative rounded-3xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-500">
+         <div className="lg:col-span-6 relative">
+              <div className="relative rounded-3xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-500 bg-gradient-to-br from-purple-100 to-pink-100">
                 {hero?.backgroundImageUrl ? (
                   <img
                     src={hero.backgroundImageUrl}
                     alt="Resources hero"
                     className="w-full h-80 object-cover"
+                    loading="lazy"
                   />
                 ) : (
                   <img
-                    src="https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg"
+                    src="https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=800"
                     alt="Happy children learning and playing"
                     className="w-full h-80 object-cover"
+                    loading="eager"
+                    decoding="async"
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent"></div>
               </div>
               {/* Floating elements */}
               <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center     animate-bounce">
-                <img src="/svg/flower1.svg" alt="" />
+                <img src="/svg/flower1.svg" alt="" loading="lazy" />
               </div>
               <div className="absolute -bottom-4 -left-4 w-12 h-12  rounded-full flex items-center justify-center     animate-pulse">
-                <img src="/svg/flower4.svg" alt="" />
+                <img src="/svg/flower4.svg" alt="" loading="lazy" />
               </div>
             </div>
-          </div>
-        </div>
       </section>
 
       {/* Navigation Tabs + Search */}
