@@ -120,7 +120,7 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
         <div className="px-6 sm:px-8 lg:px-16 max-w-[1600px] mx-auto">
           <div className="w-full flex flex-col lg:flex-row lg:items-center gap-16 lg:gap-24">
             {/* Owner Image Side - Left on desktop, below on mobile */}
-            <div className="relative w-full lg:w-[45%] h-[55vh] sm:h-[65vh] md:h-[75vh] lg:h-[70vh] min-h-[500px] max-h-[700px] order-2 lg:order-1 rounded-sm overflow-hidden shadow-sm">
+            <div className="relative w-full lg:w-[45%] h-[55vh] sm:h-[65vh] md:h-[75vh] lg:h-[70vh] min-h-[500px] max-h-[700px] order-2 lg:order-1 overflow-hidden">
               {!ownerImageLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 z-10">
                   <div
@@ -154,7 +154,7 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
                     .quality(20)
                     .url()}
                   onLoad={() => setOwnerImageLoaded(true)}
-                  className={`object-cover transition-all duration-700 ease-out ${
+                  className={`object-contain transition-all duration-700 ease-out ${
                     ownerImageLoaded
                       ? "opacity-100 scale-100"
                       : "opacity-0 scale-105"
