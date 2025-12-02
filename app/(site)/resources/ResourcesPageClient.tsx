@@ -137,7 +137,7 @@ const filteredResources = useMemo(() => {
                 </p>
               )}
             </div>
-         <div className="lg:col-span-6 relative">
+  <div className="lg:col-span-6 relative">
               <div className="relative rounded-3xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-500 bg-gradient-to-br from-purple-100 to-pink-100">
                 {hero?.backgroundImageUrl ? (
                   <img
