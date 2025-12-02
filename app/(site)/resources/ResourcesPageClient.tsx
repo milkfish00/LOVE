@@ -40,7 +40,7 @@ type Props = {
   tabs: string[];
 };
 
-const iconComponentMap: Record
+const iconComponentMap: Record<
   string,
   React.ComponentType<{ size?: number }>
 > = {
@@ -226,7 +226,7 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
                         <Icon size={isFile ? 22 : 28} />
                       </div>
                       {resource.downloadHref && (
-                        
+                        <a
                           href={resource.downloadHref}
                           className="bg-white/80 p-2 rounded-full   duration-300"
                           target="_blank"
@@ -250,7 +250,7 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
                     )}
                     {resource.detailHref && (
                       <div className="flex items-center gap-4">
-                        
+                        <a
                           href={resource.detailHref}
                           className="text-gray-700 text-sm underline underline-offset-4">
                           Learn More
@@ -290,7 +290,7 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
                         <Icon size={isFile ? 22 : 28} />
                       </div>
                       {resource.downloadHref && (
-                        
+                        <a
                           href={resource.downloadHref}
                           className="bg-white/80 p-2 rounded-full   duration-300"
                           target="_blank"
@@ -314,7 +314,7 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
                     )}
                     {resource.detailHref && (
                       <div className="flex items-center gap-4">
-                        
+                        <a
                           href={resource.detailHref}
                           className="text-gray-700 text-sm underline underline-offset-4">
                           Learn More
@@ -352,7 +352,7 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
                         <Icon size={isFile ? 22 : 28} />
                       </div>
                       {resource.downloadHref && (
-                        
+                        <a
                           href={resource.downloadHref}
                           className="bg-white/80 p-2 rounded-full   duration-300"
                           target="_blank"
@@ -376,7 +376,7 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
                     )}
                     {resource.detailHref && (
                       <div className="flex items-center gap-4">
-                        
+                        <a
                           href={resource.detailHref}
                           className="text-gray-700 text-sm underline underline-offset-4">
                           Learn More
@@ -399,4 +399,5 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
     </div>
   );
 };
+
 export default ResourcesPageClient;

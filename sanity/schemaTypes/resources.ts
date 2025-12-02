@@ -137,7 +137,6 @@ export const resources = defineType({
                   { title: "Staff", value: "staff" },
                   { title: "Parents", value: "parents" },
                   { title: "Forms", value: "forms" },
-                  { title: "Health & Safety", value: "health-safety" },
                 ],
               },
             }),
