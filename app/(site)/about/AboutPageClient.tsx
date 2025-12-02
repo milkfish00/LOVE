@@ -177,7 +177,7 @@ export default function AboutPageClient({ data }: AboutPageClientProps) {
                 <div className="space-y-10 lg:space-y-12">
                   <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6 font-light">
-                      Meet the Owner
+                      Meet the Owners
                     </p>
                     <h2
                       id="owner-heading"
