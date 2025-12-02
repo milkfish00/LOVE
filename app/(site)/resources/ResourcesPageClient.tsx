@@ -399,5 +399,4 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
     </div>
   );
 };
-
 export default ResourcesPageClient;
