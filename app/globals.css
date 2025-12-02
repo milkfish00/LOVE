@@ -56,7 +56,7 @@
 h1,
 h2,
 .pally {
-  font-family: Pally-bold;
+  font-family: Pally-bold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 input {

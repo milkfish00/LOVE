@@ -152,16 +152,19 @@ const ResourcesPageClient: React.FC<Props> = ({ hero, resources, tabs }) => {
                     src={
                       hero?.backgroundImageUrl
                         ? hero.backgroundImageUrl
-                        : "https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                        : "https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb"
                     }
                     alt={hero?.backgroundImageUrl ? "Resources hero" : "Happy children learning and playing"}
                     fill
                     priority
+                    quality={75}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                     onLoad={() => setHeroImageLoaded(true)}
-                    className={`object-cover transition-opacity duration-700 ${
+                    className={`object-cover transition-opacity duration-500 ease-out ${
                       heroImageLoaded ? "opacity-100" : "opacity-0"
                     }`}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="100vw"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent" aria-hidden="true"></div>

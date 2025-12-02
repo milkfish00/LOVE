@@ -117,6 +117,8 @@ export default async function RootLayout({
       <head>
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="" />
         <link rel="dns-prefetch" href="//cdn.sanity.io" />
+        <link rel="preconnect" href="https://images.pexels.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="//images.pexels.com" />
       </head>
       <body className={openSans.className}>
         {children}
