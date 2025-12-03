@@ -25,7 +25,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
           {/* Logo and Description */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <Link href="/home" className="flex items-center mb-3">
+              <Link href="/" className="flex items-center mb-3">
                 {settings?.footerLogo && (
                   <img
                     src={urlFor(settings.footerLogo).url()}

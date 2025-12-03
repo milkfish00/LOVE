@@ -4,6 +4,7 @@ import { openSans } from "@/app/fonts";
 import { sanityClient } from "@/app/lib/sanity";
 import { settingsQuery } from "@/app/lib/queries";
 import { urlFor } from "@/app/lib/sanity";
+// Navbar and Footer are rendered in segment layout: app/(site)/layout.tsx
 
 
 
@@ -121,6 +122,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="//images.pexels.com" />
       </head>
       <body className={openSans.className}>
+        
         {children}
      
       </body>

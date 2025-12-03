@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import ConditionalLayout from "../components/ConditionalLayout";
 import SanityClientProviders from "../components/SanityClientProviders";
 import { SanityLive } from "@/sanity/lib/live";
 import { draftMode } from "next/headers";
@@ -11,6 +10,9 @@ import { settingsQuery } from "../lib/queries";
 import { sanityClient } from "../lib/sanity";
 import { urlFor } from "@/sanity/lib/image";
 import { Settings } from "../lib/interface";
+import Navbar from "../components/ui/Navbar";
+import Footer from "../components/ui/Footer";
+import Banner from "../components/ui/Banner";
 
 const revalidate = 60;
 
@@ -198,15 +200,17 @@ export default async function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ConditionalLayout settings={settings}>
+          <Banner />
+          <Navbar settings={settings as any} />
+          
           {children}
+          <Footer settings={settings as any} />
           {dm.isEnabled && (
             <>
               <VisualEditing />
               <DisableDraftMode />
             </>
           )}
-        </ConditionalLayout>
         <SanityLive />
 
         {dm.isEnabled ? <SanityClientProviders /> : null}

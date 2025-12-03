@@ -8,7 +8,7 @@ export default function ClientPageLoader() {
 
   useEffect(() => {
     // Only show loader on /home route, exclude homepage (/)
-    if (pathname !== "/home") {
+    if (pathname !== "/") {
       setShowLoader(false);
       return;
     }

@@ -118,7 +118,7 @@ export default function NotFound() {
          {/* Action Buttons */}
          <div className="space-y-2 md:space-y-4">
            <Link
-             href="/home"
+             href="/"
              className="inline-block w-full bg-[#000000] text-white font-semibold py-2 px-4 md:py-4 md:px-8 rounded-full transition duration-300 transform hover:bg-white/80 hover:text-black text-sm md:text-base">
              Go Back Home
            </Link>
