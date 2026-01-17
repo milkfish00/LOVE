@@ -9,6 +9,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Photo Gallery',
   description: 'Browse photos from our classrooms and community at Love & Learning.',
+  alternates: {
+    canonical: 'https://lovelearningcenter.com/resources/gallery',
+  },
 };
 
 const page = async () => {

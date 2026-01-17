@@ -202,8 +202,13 @@ export async function generateMetadata({
     };
   }
 
+  const canonicalUrl = `https://lovelearningcenter.com/legal/${slug}`;
+
   return {
     title: `${document.title} | Love & Learning Child Care Center`,
     description: `Read our ${document.title} to learn about our policies and procedures.`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
   };
 }

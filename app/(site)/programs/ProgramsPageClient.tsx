@@ -63,9 +63,9 @@ const ProgramsPageClient = ({
       {/* Header */}
       <section className="py-16 md:py-20">
         <div className="max-w-xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             {programPageTitle}
-          </h2>
+          </h1>
           <p className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed ">
             Developmentally appropriate programs that nurture curiosity,
             creativity, and growth.
