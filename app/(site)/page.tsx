@@ -8,19 +8,21 @@ import { sanityClient } from "@/app/lib/sanity";
 import FAQAccordion from "@/app/components/ui/Faq";
 import { sanityFetch } from "@/sanity/lib/live";
 import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
+import HeroSection from "@/app/components/Home/Hero";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Love & Learnin Child Care Center | Quality Early Learning in Fletcher, NC",
+  title:
+    "Love & Learnin Child Care Center | Quality Early Learning in Fletcher, NC",
   description:
     "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Fletcher, NC. Experienced educators, age-appropriate programs, and nurturing care for your child.",
   alternates: {
-
     canonical: "https://www.loveandlearning.net",
   },
   openGraph: {
-    title: "Love & Learning Child Care Center | Quality Early Learning in Fletcher, NC",
+    title:
+      "Love & Learning Child Care Center | Quality Early Learning in Fletcher, NC",
     description:
       "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Fletcher, NC.",
     url: "https://www.loveandlearning.net",
@@ -39,94 +41,24 @@ export default async function Home() {
 
   const getOptimizedImageUrl = (image: any, width: number, quality = 75) => {
     if (!image) return null;
-    return urlFor(image).width(width).quality(quality).format("webp").auto("format").url();
+    return urlFor(image)
+      .width(width)
+      .quality(quality)
+      .format("webp")
+      .auto("format")
+      .url();
   };
 
-  const aboutBtnText = data?.aboutSections?.[0]?.button?.text || "Learn more about us";
-  const cta1Text = data?.cta1Sections?.[0]?.Button?.text || "Get enrollment details";
+  const aboutBtnText =
+    data?.aboutSections?.[0]?.button?.text || "Learn more about us";
+  const cta1Text =
+    data?.cta1Sections?.[0]?.Button?.text || "Get enrollment details";
   const cta2Text = data?.cta2Sections?.[0]?.Button?.text || "Contact us";
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
-        {/* Decorative flowers */}
-        <div className="absolute top-0 right-0 z-30 w-38 md:w-64 lg:w-80">
-          <Image
-            src="/svg/flower3.svg"
-            alt="Decorative flower"
-            loading="lazy"
-            width={320}
-            height={320}
-            className="w-full h-auto hover:rotate-180"
-          />
-        </div>
-
-        <div className="absolute bottom-0 left-0 z-30 w-48 md:w-64 lg:w-80">
-          <Image
-            src="/svg/flower2.svg"
-            alt="Decorative flower"
-            loading="lazy"
-            width={320}
-            height={320}
-            className="w-full h-auto hover:rotate-45"
-          />
-        </div>
-
-        <div
-          className="absolute inset-0 bg-black/50 z-10"
-          aria-hidden="true"></div>
-
-        {data?.heroSections?.[0]?.backgroundImage ? (
-          <Image
-            src={
-              getOptimizedImageUrl(
-                data.heroSections[0].backgroundImage,
-                1920,
-                85
-              ) || urlFor(data.heroSections[0].backgroundImage).url()
-            }
-            alt="Children playing at Love & Learning Child Care Center"
-            fill
-            priority
-            sizes="100vw"
-            quality={85}
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
-            className="object-cover"
-          />
-        ) : (
-          <Image
-            src="/hero.jpeg"
-            alt="Children playing at Love & Learning Child Care Center"
-            fill
-            priority
-            sizes="100vw"
-            quality={85}
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
-            className="object-cover"
-          />
-        )}
-
-        <div className="absolute inset-0 flex items-center justify-center text-center z-20">
-          <div className="max-w-3xl px-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-              {data?.heroSections?.[0]?.headline}
-            </h1>
-            <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-white">
-              {data?.heroSections?.[0]?.description}
-            </p>
-            <a
-              href={data?.heroSections?.[0]?.Button?.link || "#programs"}
-              className="bg-white cursor-pointer text-[#000000] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-              aria-label="Explore our childcare programs">
-              {data.heroSections?.[0]?.Button?.text || "Explore our programs"}
-              <span className="screen-reader-text">Hidden</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section - Now a Client Component */}
+    <HeroSection data={data} /> 
 
       <ProgramsSectionWrapper />
 
@@ -165,7 +97,7 @@ export default async function Home() {
                   getOptimizedImageUrl(
                     data?.aboutSections?.[0]?.image,
                     800,
-                    70
+                    70,
                   ) || urlFor(data?.aboutSections?.[0]?.image).url()
                 }
                 fill
@@ -194,7 +126,7 @@ export default async function Home() {
                         getOptimizedImageUrl(
                           data?.cta1Sections?.[0]?.image,
                           600,
-                          70
+                          70,
                         ) || urlFor(data?.cta1Sections?.[0]?.image).url()
                       }
                       alt="Students learning in classroom at Love & Learning"
@@ -212,7 +144,7 @@ export default async function Home() {
                     aria-hidden="true">
                     <Image
                       src="/svg/flower4.svg"
-                        alt="Decorative flower"
+                      alt="Decorative flower"
                       loading="lazy"
                       width={128}
                       height={128}
@@ -272,7 +204,7 @@ export default async function Home() {
                         getOptimizedImageUrl(
                           data?.cta2Sections?.[0]?.image,
                           800,
-                          70
+                          70,
                         ) || urlFor(data?.cta2Sections?.[0]?.image).url()
                       }
                       alt="Children playing and learning at Love & Learning"
