@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { heartImages } from "./heartImages";
 
 interface Photo {
   id: string;
@@ -65,12 +66,18 @@ const DraggableGallery: React.FC<DraggableGalleryProps> = ({ images }) => {
     };
   }, []);
 
-  // Initialize photos from props
+  // Initialize photos from props and hearts
   useEffect(() => {
     if (containerDimensions.width === 0 || containerDimensions.height === 0)
       return;
 
-    if (!images || images.length === 0) {
+    // Combine gallery images and hearts
+    const allImages = [
+      ...(images || []),
+      ...heartImages.map((h, i) => ({ ...h, isHeart: true, heartIndex: i })),
+    ];
+
+    if (!allImages || allImages.length === 0) {
       setPhotos([]);
       return;
     }
@@ -80,20 +87,22 @@ const DraggableGallery: React.FC<DraggableGalleryProps> = ({ images }) => {
     const centerY = containerDimensions.height / 2;
     const radius = isMobile ? 200 : 350;
 
-    const initialPhotos: Photo[] = images.map((item, index) => {
-      const photoSize = isMobile ? 200 : 400;
+    const initialPhotos: Photo[] = allImages.map((item, index) => {
+      // Hearts are always 100x100, others use default
+      const isHeart = (item as any).isHeart;
+      const photoSize = isHeart ? 100 : isMobile ? 200 : 400;
 
       let x =
-        centerX + (Math.random() - 0.5) * radius * 2 - (isMobile ? 100 : 200);
+        centerX + (Math.random() - 0.5) * radius * 2 - photoSize / 2;
       let y =
-        centerY + (Math.random() - 0.5) * radius * 2 - (isMobile ? 100 : 200);
+        centerY + (Math.random() - 0.5) * radius * 2 - photoSize / 2;
 
       // Ensure within bounds
       x = Math.max(0, Math.min(x, containerDimensions.width - photoSize));
       y = Math.max(0, Math.min(y, containerDimensions.height - photoSize));
 
       return {
-        id: `photo-${index}`,
+        id: isHeart ? `heart-${(item as any).heartIndex}` : `photo-${index}`,
         src: item.src,
         alt: item.alt || `Photo ${index + 1}`,
         x,
@@ -367,7 +376,12 @@ const DraggableGallery: React.FC<DraggableGalleryProps> = ({ images }) => {
             <img
               src={photo.src}
               alt={photo.alt || "Gallery photo"}
-              className={`object-cover rounded-lg pointer-events-none w-48 h-48 sm:w-56 sm:h-56 md:w-96 md:h-96`}
+              className={
+                photo.id.startsWith("heart-")
+                  ? "object-contain pointer-events-none w-[100px] h-[100px] bg-transparent"
+                  : "object-cover rounded-lg pointer-events-none w-48 h-48 sm:w-56 sm:h-56 md:w-96 md:h-96"
+              }
+              style={photo.id.startsWith("heart-") ? { width: 100, height: 100, borderRadius: 0, background: 'transparent' } : {}}
               draggable={false}
               loading="lazy"
               decoding="async"
