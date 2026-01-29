@@ -42,10 +42,13 @@ export const gallery = defineType({
               title: "Alt",
               type: "string",
               description: "Alt text for the image",
+              initialValue: () =>
+                "Love & Learning Child Care Center - Photo Gallery",
             }),
           ],
         },
       ],
+     
       description: "List of gallery images",
     }),
   ],

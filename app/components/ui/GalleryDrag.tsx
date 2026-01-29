@@ -305,7 +305,7 @@ const DraggableGallery: React.FC<DraggableGalleryProps> = ({ images }) => {
         <div className="text-gray-100 text-6xl sm:text-8xl md:text-9xl font-light tracking-widest">
           <img
             src="/navlogo.svg"
-            alt="Navigation Logo"
+            alt="Love & Learning Child Care Center Logo"
             aria-hidden="true"
             loading="lazy"
             decoding="async"
