@@ -6,8 +6,8 @@ export type CareersListJob = {
   key: string;
   title: string;
   location?: string;
-  description?: any[]; 
-  descriptionText?: string; 
+  description?: any[];
+  descriptionText?: string;
   slug: string;
 };
 
@@ -26,7 +26,9 @@ function portableTextToPlainText(blocks: any[] = []): string {
 function truncateWords(text: string, maxWords = 24): string {
   if (!text) return "";
   const words = text.trim().split(/\s+/);
-  return words.length <= maxWords ? text : words.slice(0, maxWords).join(" ") + "…";
+  return words.length <= maxWords
+    ? text
+    : words.slice(0, maxWords).join(" ") + "…";
 }
 
 export default function CareersPageClient({
@@ -60,7 +62,9 @@ export default function CareersPageClient({
             )}
           </h1>
           {description ? (
-            <p className="text-lg lg:text-xl text-white/90 max-w-2xl mx-auto">{description}</p>
+            <p className="text-lg lg:text-xl text-white/90 max-w-2xl mx-auto">
+              {description}
+            </p>
           ) : (
             <p className="text-lg lg:text-xl text-white/90 max-w-2xl mx-auto">
               Explore current openings and grow your career with us.
@@ -70,14 +74,15 @@ export default function CareersPageClient({
       </section>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Open Positions</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          Open Positions
+        </h2>
 
         <div className="space-y-6">
           {jobs.map((job) => (
             <div
               key={job.key}
-              className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow duration-300"
-            >
+              className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow duration-300">
               <div className="flex flex-col md:flex-row gap-6">
                 <div className="flex-shrink-0">
                   <div className="bg-[#86AF61]/10 p-6 rounded-xl w-20 h-20 flex items-center justify-center">
@@ -88,7 +93,9 @@ export default function CareersPageClient({
                 <div className="flex-grow">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">{job.title}</h3>
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">
+                        {job.title}
+                      </h3>
                       <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 mb-4">
                         {job.location && (
                           <span className="flex items-center gap-1">
@@ -100,8 +107,7 @@ export default function CareersPageClient({
                     <button
                       onClick={() => handleCopyLink(job.slug)}
                       className="p-2 rounded-full text-gray-400 hover:text-[#86AF61] transition"
-                      aria-label="Copy job link"
-                    >
+                      aria-label="Copy job link">
                       {copiedSlug === job.slug ? (
                         <Check className="w-5 h-5 text-[#86AF61]" />
                       ) : (
@@ -116,7 +122,8 @@ export default function CareersPageClient({
                   */}
                   {(() => {
                     const fullText =
-                      (job.descriptionText?.trim() || "") ||
+                      job.descriptionText?.trim() ||
+                      "" ||
                       portableTextToPlainText(job.description);
                     const excerpt = truncateWords(fullText, 24);
                     return excerpt ? (
@@ -128,9 +135,8 @@ export default function CareersPageClient({
                     <span className="text-xs text-gray-500"></span>
                     <a
                       href={`/careers/${job.slug}`}
-                      className="bg-[#86AF61] hover:bg-[#769A51] text-white px-6 py-2 rounded-full font-medium transition-colors"
-                    >
-                      Apply Now
+                      className="bg-[#86AF61] hover:bg-[#769A51] text-white px-6 py-2 rounded-full font-medium transition-colors">
+                      Learn More
                     </a>
                   </div>
                 </div>
@@ -144,13 +150,15 @@ export default function CareersPageClient({
             <div className="mx-auto h-24 w-24 text-gray-400 mb-4">
               <Briefcase className="w-full h-full" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-1">No jobs available</h3>
-            <p className="text-gray-500 max-w-md mx-auto">Please check back later.</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-1">
+              No jobs available
+            </h3>
+            <p className="text-gray-500 max-w-md mx-auto">
+              Please check back later.
+            </p>
           </div>
         )}
       </div>
     </div>
   );
 }
-
-
