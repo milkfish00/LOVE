@@ -1,28 +1,15 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { urlFor } from "@/sanity/lib/image";
 import { homeQuery, programsQuery, testimonialsQuery } from "@/app/lib/queries";
 import { Programs, Testimonials } from "@/app/lib/interface";
 import { sanityClient } from "@/app/lib/sanity";
+import FAQAccordion from "@/app/components/ui/Faq";
 import { sanityFetch } from "@/sanity/lib/live";
-
-// Dynamically import client components that use browser APIs
-const FAQAccordion = dynamic(() => import("@/app/components/ui/Faq"), {
-  ssr: false,
-});
-const ProgramsSectionWrapper = dynamic(
-  () => import("@/app/components/ProgramsSectionWrapper"),
-  { ssr: false },
-);
-const HeroSection = dynamic(() => import("@/app/components/Home/Hero"), {
-  ssr: false,
-});
-const TestimonialsSlider = dynamic(
-  () => import("@/app/components/ui/Testimonials"),
-  { ssr: false },
-);
+import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
+import HeroSection from "@/app/components/Home/Hero";
+import TestimonialsSlider from "@/app/components/ui/Testimonials";
 
 export const revalidate = 60;
 
@@ -106,7 +93,7 @@ export default async function Home() {
             </div>
 
             {/* Image Section */}
-            <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-128 relative">
+            <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-[32rem] relative">
               <Image
                 alt="Love & Learning Child Care Center environment"
                 src={
@@ -119,7 +106,7 @@ export default async function Home() {
                 fill
                 loading="lazy"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                quality={90}
+                quality={70}
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                 className="object-cover lg:object-center rounded-b-3xl lg:rounded-r-3xl lg:rounded-bl-none"
@@ -136,7 +123,7 @@ export default async function Home() {
             <div className="lg:flex items-center gap-16">
               <div className="lg:w-1/2">
                 <div className="relative">
-                  <div className="relative h-125">
+                  <div className="relative h-[500px]">
                     <Image
                       src={
                         getOptimizedImageUrl(
@@ -149,7 +136,7 @@ export default async function Home() {
                       fill
                       loading="lazy"
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={90}
+                      quality={70}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                       className="object-cover md:rounded-2xl"
@@ -214,7 +201,7 @@ export default async function Home() {
 
               <div className="lg:w-1/2 mt-12 lg:mt-0">
                 <div className="relative">
-                  <div className="relative h-125">
+                  <div className="relative h-[500px]">
                     <Image
                       src={
                         getOptimizedImageUrl(
@@ -227,7 +214,7 @@ export default async function Home() {
                       fill
                       loading="lazy"
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={90}
+                      quality={70}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                       className="object-cover rounded-2xl"
@@ -251,9 +238,13 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
       <FAQAccordion data={data} />
 
-      <TestimonialsSlider testimonials={testimonialsData} />
+      <TestimonialsSlider
+        testimonials={testimonialsData}
+        backgroundImage="https://images.pexels.com/photos/5278801/pexels-photo-5278801.jpeg"
+      />
     </div>
   );
 }
