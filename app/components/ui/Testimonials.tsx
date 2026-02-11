@@ -59,8 +59,15 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
             <div key={testimonial._id}>
               <div className="flex justify-center lg:justify-start items-center">
                 {/* Testimonial Card */}
-                <div className="bg-[#5a80ae] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 w-full max-w-3xl min-h-75 flex flex-col justify-between border-2 sm:border-4 border-[#5a80ae] ">
-                  <div className="space-y-4 sm:space-y-6">
+                <div className="bg-[#5a80ae] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 w-full max-w-3xl min-h-75 flex flex-col justify-between border-2 sm:border-4 border-[#5a80ae] relative overflow-hidden">
+                  {/* Flower Image - Bottom Right */}
+                  <img
+                    src="/svg/flower6.svg"
+                    alt="Decorative flower"
+                    className="absolute bottom-4 right-4 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-contain opacity-10"
+                  />
+
+                  <div className="space-y-4 sm:space-y-6 relative z-10">
                     {/* Star Rating */}
                     <div
                       className="flex gap-1"
@@ -83,7 +90,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
                     </blockquote>
                   </div>
 
-                  <div>
+                  <div className="relative z-10">
                     {/* Author Info */}
                     <div className="pt-6 sm:pt-8 border-t-2 border-[#ffffff32]">
                       <div className="font-bold text-2xl md:text-3xl text-[#ffffff]">
