@@ -43,7 +43,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
   };
 
   return (
-      <div
+    <div
       className="w-full py-12 sm:py-16 md:py-20 lg:py-32 bg-cover bg-center relative overflow-hidden"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
