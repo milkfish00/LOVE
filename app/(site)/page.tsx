@@ -93,7 +93,7 @@ export default async function Home() {
             </div>
 
             {/* Image Section */}
-            <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-[32rem] relative">
+            <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-128 relative">
               <Image
                 alt="Love & Learning Child Care Center environment"
                 src={
@@ -123,7 +123,7 @@ export default async function Home() {
             <div className="lg:flex items-center gap-16">
               <div className="lg:w-1/2">
                 <div className="relative">
-                  <div className="relative h-[500px]">
+                  <div className="relative h-125">
                     <Image
                       src={
                         getOptimizedImageUrl(
@@ -201,7 +201,7 @@ export default async function Home() {
 
               <div className="lg:w-1/2 mt-12 lg:mt-0">
                 <div className="relative">
-                  <div className="relative h-[500px]">
+                  <div className="relative h-125">
                     <Image
                       src={
                         getOptimizedImageUrl(
