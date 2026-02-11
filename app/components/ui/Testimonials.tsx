@@ -1,175 +1,124 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Quote } from "lucide-react";
+"use client";
+import React, { useRef } from "react";
+import Slider from "react-slick";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const TestimonialsMarquee = () => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number | null>(null);
+interface Testimonial {
+  _id: string;
+  _type: "testimonials";
+  _createdAt: string;
+  _updatedAt: string;
+  name: string;
+  rating: number;
+  role: string;
+  testimonial: string;
+}
 
-  const testimonials = [
-    {
-      quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      name: "Lorem Ipsum",
-      title: "Parent, Two's Program",
-    },
-    {
-      quote:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      name: "Consectetur Elit",
-      title: "Parent, Toddler Program",
-    },
-    {
-      quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-      name: "Adipiscing Amet",
-      title: "Parent, Infant Program",
-    },
-    {
-      quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      name: "Lorem Ipsum",
-      title: "Parent, Two's Program",
-    },
-    {
-      quote:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      name: "Consectetur Elit",
-      title: "Parent, Toddler Program",
-    },
-    {
-      quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-      name: "Adipiscing Amet",
-      title: "Parent, Infant Program",
-    },
-  ];
+interface TestimonialsSliderProps {
+  testimonials?: Testimonial[];
+  backgroundImage?: string;
+}
 
-  const startAnimation = () => {
-    const animate = () => {
-      if (!isDragging && !isHovered && containerRef.current) {
-        containerRef.current.scrollLeft += 0.5;
-        if (
-          containerRef.current.scrollLeft >=
-          containerRef.current.scrollWidth / 2
-        ) {
-          containerRef.current.scrollLeft = 0;
-        }
-      }
-      animationRef.current = requestAnimationFrame(animate);
-    };
-    animationRef.current = requestAnimationFrame(animate);
-  };
+const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
+  testimonials = [],
+  backgroundImage = "https://images.pexels.com/photos/5278801/pexels-photo-5278801.jpeg",
+}) => {
+  const sliderRef = useRef<Slider>(null);
 
-  const stopAnimation = () => {
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
-    }
-  };
+  // If no testimonials, don't render the component
+  if (!testimonials || testimonials.length === 0) {
+    return null;
+  }
 
-  useEffect(() => {
-    startAnimation();
-    return stopAnimation;
-  }, [isDragging, isHovered]);
-
-  // Mouse events
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    setIsDragging(true);
-    setStartX(e.pageX - containerRef.current.offsetLeft);
-    setScrollLeft(containerRef.current.scrollLeft);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !containerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    containerRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleMouseUp = () => setIsDragging(false);
-
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-    setIsHovered(false);
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-
-  // Touch events for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!containerRef.current) return;
-    setIsDragging(true);
-    const touch = e.touches[0];
-    setStartX(touch.pageX - containerRef.current.offsetLeft);
-    setScrollLeft(containerRef.current.scrollLeft);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || !containerRef.current) return;
-    e.preventDefault();
-    const touch = e.touches[0];
-    const x = touch.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    containerRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
+  const settings = {
+    dots: false,
+    infinite: testimonials.length > 1,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    fade: true,
   };
 
   return (
-    <div className="w-full py-16 overflow-hidden bg-white">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
-          Lorem ipsum dolor sit amet.
-        </h2>
-      </div>
+    <div
+      className="w-full py-20 sm:py-32 bg-cover bg-center bg-fixed relative"
+      style={{
+        backgroundImage: `url('${backgroundImage}')`,
+      }}>
+      {/* Black Overlay */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
 
-      <div className="relative px-6 md:px-0">
-        <div
-          ref={containerRef}
-          className="flex space-x-6 overflow-x-hidden cursor-grab active:cursor-grabbing select-none "
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
-          onMouseEnter={handleMouseEnter}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-            touchAction: "pan-x",
-          }}>
-          {[...testimonials, ...testimonials].map((testimonial, index) => (
-            <div
-              key={index}
-              className="rounded-2xl p-4 sm:p-6 lg:p-8 flex-shrink-0 w-72 sm:w-80 lg:w-96 xl:w-[420px] h-auto min-h-[200px] relative "
-              style={{ backgroundColor: "#3A5F8A" }}>
-              <div className="relative z-10 space-y-4 sm:space-y-6">
-                <blockquote className="text-base sm:text-lg lg:text-xl leading-relaxed font-normal text-white">
-                  "{testimonial.quote}"
-                </blockquote>
+      {/* Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <Slider ref={sliderRef} {...settings}>
+          {testimonials.map((testimonial) => (
+            <div key={testimonial._id}>
+              <div className="flex justify-center lg:justify-start items-center">
+                {/* Text Content - Fixed Width */}
+                <div
+                  className="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 w-full max-w-3xl min-h-75 flex flex-col justify-between"
+                  style={{ backgroundColor: "#ffffff" }}>
+                  <div className="space-y-6">
+                    {/* Star Rating */}
+                    <div
+                      className="flex gap-1"
+                      aria-label={`${testimonial.rating} out of 5 stars`}>
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                            i < testimonial.rating
+                              ? "fill-[#edc35c] text-[#edc35c]"
+                              : "fill-gray-200 text-gray-200"
+                          }`}
+                        />
+                      ))}
+                    </div>
 
-                <div className="pt-3 sm:pt-4 border-t border-white/30 border-opacity-20">
-                  <div className="font-bold text-base sm:text-lg lg:text-xl text-white">
-                    {testimonial.name}
+                    <blockquote className="text-xl text-gray-600 leading-relaxed line-clamp-6 pb-4">
+                      "{testimonial.testimonial}"
+                    </blockquote>
                   </div>
-                  <div className="text-sm sm:text-base mt-1 text-blue-200">
-                    {testimonial.title}
+
+                  <div>
+                    <div className="pt-8 border-t border-gray-200">
+                      <div className="font-bold text-2xl md:text-3xl text-gray-900">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-base md:text-lg font-semibold text-gray-600 mt-1">
+                        {testimonial.role}
+                      </div>
+                    </div>
+
+                    {/* Navigation Arrows - Only show if more than 1 testimonial */}
+                    {testimonials.length > 1 && (
+                      <div className="flex items-center gap-4 pt-6">
+                        <button
+                          onClick={() => sliderRef.current?.slickPrev()}
+                          className="p-2 sm:p-3 cursor-pointer bg-[#F48573] hover:bg-[#e7725f] rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#81AA8E]"
+                          aria-label="Previous testimonial">
+                          <ChevronLeft className="w-6 h-6 text-white" />
+                        </button>
+                        <button
+                          onClick={() => sliderRef.current?.slickNext()}
+                          className="p-2 sm:p-3 cursor-pointer bg-[#F48573] hover:bg-[#e7725f] rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F48573]"
+                          aria-label="Next testimonial">
+                          <ChevronRight className="w-6 h-6 text-white" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           ))}
-        </div>
+        </Slider>
       </div>
     </div>
   );
 };
 
-export default TestimonialsMarquee;
+export default TestimonialsSlider;

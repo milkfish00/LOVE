@@ -351,7 +351,6 @@ export interface Gallery {
   title: string;
 }
 
-
 //careers
 export interface Careers {
   _createdAt: string;
@@ -526,8 +525,7 @@ export interface Program {
   textColor: string;
 }
 
-
-//settings 
+//settings
 export interface FooterSettings {
   _createdAt: string;
   _id: string;
@@ -557,8 +555,7 @@ export interface FooterSettings {
   }[];
 }
 
-
-//settings 
+//settings
 export interface NavSettings {
   _createdAt: string;
   _id: string;
@@ -586,4 +583,17 @@ export interface NavSettings {
       current: string;
     };
   }[];
+}
+
+export interface Testimonials {
+  _createdAt: string;
+  _id: string;
+  _originalId: string;
+  _rev: string;
+  _type: "testimonials";
+  _updatedAt: string;
+  name: string;
+  rating: number;
+  role: string;
+  testimonial: string;
 }

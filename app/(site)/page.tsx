@@ -2,13 +2,14 @@ import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import { homeQuery, programsQuery } from "@/app/lib/queries";
-import { Programs } from "@/app/lib/interface";
+import { homeQuery, programsQuery, testimonialsQuery } from "@/app/lib/queries";
+import { Programs, Testimonials } from "@/app/lib/interface";
 import { sanityClient } from "@/app/lib/sanity";
 import FAQAccordion from "@/app/components/ui/Faq";
 import { sanityFetch } from "@/sanity/lib/live";
 import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
 import HeroSection from "@/app/components/Home/Hero";
+import TestimonialsSlider from "@/app/components/ui/Testimonials";
 
 export const revalidate = 60;
 
@@ -38,6 +39,8 @@ export default async function Home() {
   });
 
   const programsData: Programs = await sanityClient.fetch(programsQuery);
+  const testimonialsData: Testimonials[] =
+    await sanityClient.fetch(testimonialsQuery);
 
   const getOptimizedImageUrl = (image: any, width: number, quality = 75) => {
     if (!image) return null;
@@ -58,7 +61,7 @@ export default async function Home() {
   return (
     <div>
       {/* Hero Section - Now a Client Component */}
-    <HeroSection data={data} /> 
+      <HeroSection data={data} />
 
       <ProgramsSectionWrapper />
 
@@ -90,7 +93,7 @@ export default async function Home() {
             </div>
 
             {/* Image Section */}
-            <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-[32rem] relative">
+            <div className="flex-1 w-full h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-128 relative">
               <Image
                 alt="Love & Learning Child Care Center environment"
                 src={
@@ -103,7 +106,7 @@ export default async function Home() {
                 fill
                 loading="lazy"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                quality={70}
+                quality={90}
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                 className="object-cover lg:object-center rounded-b-3xl lg:rounded-r-3xl lg:rounded-bl-none"
@@ -120,7 +123,7 @@ export default async function Home() {
             <div className="lg:flex items-center gap-16">
               <div className="lg:w-1/2">
                 <div className="relative">
-                  <div className="relative h-[300px]">
+                  <div className="relative h-125">
                     <Image
                       src={
                         getOptimizedImageUrl(
@@ -133,7 +136,7 @@ export default async function Home() {
                       fill
                       loading="lazy"
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={70}
+                      quality={90}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                       className="object-cover md:rounded-2xl"
@@ -198,7 +201,7 @@ export default async function Home() {
 
               <div className="lg:w-1/2 mt-12 lg:mt-0">
                 <div className="relative">
-                  <div className="relative h-[500px]">
+                  <div className="relative h-125">
                     <Image
                       src={
                         getOptimizedImageUrl(
@@ -211,7 +214,7 @@ export default async function Home() {
                       fill
                       loading="lazy"
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={70}
+                      quality={90}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                       className="object-cover rounded-2xl"
@@ -235,8 +238,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
       <FAQAccordion data={data} />
+
+      <TestimonialsSlider testimonials={testimonialsData} />
     </div>
   );
 }

@@ -168,7 +168,6 @@ export const aboutQuery = `
   }
 `;
 
-
 // Programs query
 export const programsQuery = `
   *[_type == "programs"][0] {
@@ -765,5 +764,19 @@ export const footerSettingsQuery = `
         current
       }
     }
+  }
+`;
+
+// Testimonials query
+export const testimonialsQuery = `
+  *[_type == "testimonials"] | order(_createdAt desc) {
+    _id,
+    _type,
+    _createdAt,
+    _updatedAt,
+    name,
+    rating,
+    role,
+    testimonial
   }
 `;
