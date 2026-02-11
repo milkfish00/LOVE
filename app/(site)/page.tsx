@@ -15,7 +15,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title:
-    "Love & Learnin Child Care Center | Quality Early Learning in Fletcher, NC",
+    "Love & Learnin Child Care Center | Qualit Early Learning in Fletcher, NC",
   description:
     "Welcome to Love & Learning Child Care Center. A safe, loving environment for early learning in Fletcher, NC. Experienced educators, age-appropriate programs, and nurturing care for your child.",
   alternates: {
