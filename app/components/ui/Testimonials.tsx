@@ -102,7 +102,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
                     </div>
 
                     {/* Testimonial Text */}
-                    <blockquote className="text-xl text-white leading-relaxed line-clamp-6 pb-4 font-medium">
+                    <blockquote className="text-xl text-white leading-relaxed  pb-4 font-medium">
                       "{testimonial.testimonial}"
                     </blockquote>
                   </div>
