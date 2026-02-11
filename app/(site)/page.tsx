@@ -1,15 +1,28 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { urlFor } from "@/sanity/lib/image";
 import { homeQuery, programsQuery, testimonialsQuery } from "@/app/lib/queries";
 import { Programs, Testimonials } from "@/app/lib/interface";
 import { sanityClient } from "@/app/lib/sanity";
-import FAQAccordion from "@/app/components/ui/Faq";
 import { sanityFetch } from "@/sanity/lib/live";
-import ProgramsSectionWrapper from "@/app/components/ProgramsSectionWrapper";
-import HeroSection from "@/app/components/Home/Hero";
-import TestimonialsSlider from "@/app/components/ui/Testimonials";
+
+// Dynamically import client components that use browser APIs
+const FAQAccordion = dynamic(() => import("@/app/components/ui/Faq"), {
+  ssr: false,
+});
+const ProgramsSectionWrapper = dynamic(
+  () => import("@/app/components/ProgramsSectionWrapper"),
+  { ssr: false },
+);
+const HeroSection = dynamic(() => import("@/app/components/Home/Hero"), {
+  ssr: false,
+});
+const TestimonialsSlider = dynamic(
+  () => import("@/app/components/ui/Testimonials"),
+  { ssr: false },
+);
 
 export const revalidate = 60;
 
