@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "createdAt": "2025-12-02T20:16:19.291Z",
+  "version": 3,
+  "createdAt": "2026-02-11T06:20:44.792Z",
   "workspaces": [
     {
       "name": "default",
@@ -8,12 +8,13 @@
       "basePath": "/studio",
       "projectId": "6jqzfkhy",
       "dataset": "production",
-      "icon": "<img alt=\"\" style=\"height:1.5rem;width:3rem;object-fit:contain\">",
+      "icon": "<img alt=\"Logo\" style=\"height:1.5rem;width:3rem;object-fit:contain\">",
       "mediaLibrary": {
         "enabled": false
       },
-      "schema": "a674d43b.create-schema.json",
-      "tools": "345ec4dc.create-tools.json"
+      "schema": "1ca00a11.create-schema.json",
+      "tools": "2b58f6e4.create-tools.json"
     }
-  ]
+  ],
+  "studioVersion": "4.22.0"
 }
