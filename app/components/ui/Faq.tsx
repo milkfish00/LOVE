@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { homeQuery } from "@/app/lib/queries";
@@ -78,7 +78,7 @@ export default function FAQAccordion({ data }: FAQAccordionProps) {
                   <span className="text-lg font-semibold text-gray-800 pr-6 group-hover:text-[#81aa8e] transition-colors duration-200">
                     {item.question}
                   </span>
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#86AF61] flex items-center justify-center group-hover:bg-[#aed788] transition-colors duration-200">
+                  <div className="flex-shrink-0 w-10 h-10 cursor-pointer rounded-full bg-[#86AF61] flex items-center justify-center group-hover:bg-[#aed788] transition-colors duration-200">
                     {isOpen ? (
                       <ChevronUp className="h-5 w-5 text-white" />
                     ) : (
@@ -125,6 +125,6 @@ export default function FAQAccordion({ data }: FAQAccordionProps) {
 export async function FAQAccordionWrapper() {
   const query = homeQuery;
   const data: homeInterface = await client.fetch(query);
-  
+
   return <FAQAccordion data={data} />;
 }
