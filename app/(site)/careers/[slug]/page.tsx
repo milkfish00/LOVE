@@ -8,6 +8,7 @@ import { extractTextFromRichText } from "@/app/lib/program-utils";
 import { slugify } from "@/app/lib/slug";
 import type { Metadata } from "next";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import { CopyEmailButton } from "@/app/components/ui/CopyEmailButton";
 
 export async function generateMetadata({
   params,
@@ -160,6 +161,19 @@ const JobDetailPage = async ({
                 />
               </div>
             )}
+          </div>
+
+          <div className="border-t pt-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+              How to Apply
+            </h2>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              To apply for this position, please email us and please include
+              your name, phone number, email address and resume.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <CopyEmailButton />
+            </div>
           </div>
         </div>
       </div>

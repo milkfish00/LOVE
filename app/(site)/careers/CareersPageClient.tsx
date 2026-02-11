@@ -84,13 +84,13 @@ export default function CareersPageClient({
               key={job.key}
               className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow duration-300">
               <div className="flex flex-col md:flex-row gap-6">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="bg-[#86AF61]/10 p-6 rounded-xl w-20 h-20 flex items-center justify-center">
                     <Briefcase className="w-8 h-8 text-[#86AF61]" />
                   </div>
                 </div>
 
-                <div className="flex-grow">
+                <div className="grow">
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-xl font-bold text-gray-900 mb-1">
