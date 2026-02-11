@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import "slick-carousel/slick/slick.css";
@@ -26,6 +26,23 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
   backgroundImage = "https://images.pexels.com/photos/5278801/pexels-photo-5278801.jpeg",
 }) => {
   const sliderRef = useRef<Slider>(null);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  // Handle window resize to determine background attachment
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // If no testimonials, don't render the component
   if (!testimonials || testimonials.length === 0) {
@@ -47,7 +64,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
       className="w-full py-12 sm:py-16 md:py-20 lg:py-32 bg-cover bg-center relative overflow-hidden"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
-        backgroundAttachment: window.innerWidth > 768 ? "fixed" : "scroll",
+        backgroundAttachment: isLargeScreen ? "fixed" : "scroll",
       }}>
       {/* Black Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
