@@ -21,7 +21,7 @@ export default function Banner() {
         );
         setSettings(settingsData);
       } catch (err) {
-        console.error("Failed to loa settings:", err);
+        console.error("Failed to load settings:", err);
       }
     }
 
