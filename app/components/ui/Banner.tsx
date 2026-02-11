@@ -6,8 +6,6 @@ import { sanityClient } from "../../lib/sanity";
 import { settingsQuery } from "../../lib/queries";
 import { Settings } from "../../lib/interface";
 
-
-
 export default function Banner() {
   const [open, setOpen] = useState(true);
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -19,11 +17,11 @@ export default function Banner() {
         const settingsData: Settings = await sanityClient.fetch(
           settingsQuery,
           {},
-          { next: { revalidate: 60 } }
+          { next: { revalidate: 60 } },
         );
         setSettings(settingsData);
       } catch (err) {
-        console.error("Failed to load settings:", err);
+        console.error("Failed to loa settings:", err);
       }
     }
 
