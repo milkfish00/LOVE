@@ -58,7 +58,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
           )}
 
           {/* Main Container */}
-          <div className="relative overflow-hidden rounded-2xl w-full bg-[#5a80ae] flex-1 py-10 ">
+          <div className="relative overflow-hidden rounded-2xl w-full bg-[#5a80ae] flex-1 py-6 md:py-10">
             {/* Huge SVG flower bottom right */}
 
             {/* Huge SVG flower top left */}
@@ -73,10 +73,10 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
               <Slider ref={sliderRef} {...settings}>
                 {testimonialItems.map((testimonial) => (
                   <div key={testimonial._key}>
-                    <div className="flex flex-col items-center text-center min-h-105 md:min-h-95 h-full grow justify-center px-4 py-0 flex-1">
+                    <div className="flex flex-col items-center text-center justify-center px-4 py-0">
                       {/* Star Rating */}
                       <div
-                        className="flex gap-1 mb-8"
+                        className="flex gap-1 mb-4 md:mb-8"
                         aria-label={`${testimonial.rating} out of 5 stars`}>
                         {[...Array(5)].map((_, i) => (
                           <Star
@@ -92,10 +92,10 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
 
                       {/* Testimonial Text and Author Info */}
                       <div className="flex flex-col items-center justify-center w-full">
-                        <blockquote className="text-lg md:text-xl text-white leading-relaxed max-w-3xl mb-8">
+                        <blockquote className="text-lg md:text-xl text-white leading-relaxed max-w-3xl mb-4 md:mb-8">
                           "{testimonial.testimonial}"
                         </blockquote>
-                        <div className="pt-6 border-t border-white/20 w-full max-w-md">
+                        <div className="pt-4 md:pt-6 border-t border-white/20 w-full max-w-md">
                           <div className="font-bold text-xl md:text-2xl text-white">
                             {testimonial.name}
                           </div>
@@ -104,9 +104,6 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
                           </div>
                         </div>
                       </div>
-
-                      {/* Pagination Dots (mobile only, placeholder for spacing) */}
-                      {testimonialItems.length > 1 && <div className=" " />}
                     </div>
                   </div>
                 ))}
