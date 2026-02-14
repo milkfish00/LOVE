@@ -122,7 +122,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                   aria-hidden="true"
                 />
               </div>
-              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-[#FFD58B]/40 via-transparent to-transparent" />
+              <div className="absolute left-0 right-0 top-0 h-px bg-linear-to-rrom-[#FFD58B]/40 via-transparent to-transparent" />
               <h2 className={`${text.h3} mb-3 relative`}>Tuition & Payments</h2>
               <p className={`${text.body} relative`}>
                 {tuitionParagraph ||
@@ -170,7 +170,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                       aria-hidden="true"
                     />
                   </div>
-                  <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-[#FFD58B]/40 via-transparent to-transparent" />
+                  <div className="absolute left-0 right-0 top-0 h-px bg-linear-to-r from-[#FFD58B]/40 via-transparent to-transparent" />
                   <h2 className={`${text.h3} mb-3 relative`}>{fa.title}</h2>
                   <p className={`${text.body} mb-4 relative`}>
                     {fa.description}

@@ -77,7 +77,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
               <Slider ref={sliderRef} {...settings}>
                 {testimonials.map((testimonial) => (
                   <div key={testimonial._id}>
-                    <div className="flex flex-col items-center text-center min-h-[420px] md:min-h-[380px] h-full grow justify-center px-4 py-0 flex-1">
+                    <div className="flex flex-col items-center text-center min-h-105 md:min-h-95 h-full grow justify-center px-4 py-0 flex-1">
                       {/* Star Rating */}
                       <div
                         className="flex gap-1 mb-8"

@@ -1,5 +1,5 @@
-import React from 'react'
-import Image from 'next/image'
+import React from "react";
+import Image from "next/image";
 
 const CTA1 = () => {
   return (
@@ -14,6 +14,7 @@ const CTA1 = () => {
                     src="https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg"
                     alt="Students learning in classroom"
                     fill
+                    quality={90}
                     loading="lazy"
                     decoding="async"
                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -22,7 +23,13 @@ const CTA1 = () => {
                 </div>
                 {/* Flower decoration */}
                 <div className="absolute -bottom-6 -left-6 w-32 h-32">
-                  <img src="/svg/flower4.svg" alt="Decorative flower" loading="lazy" decoding="async" className="w-full h-auto" />
+                  <img
+                    src="/svg/flower4.svg"
+                    alt="Decorative flower"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-auto"
+                  />
                 </div>
               </div>
             </div>
@@ -42,6 +49,6 @@ const CTA1 = () => {
       </div>
     </section>
   );
-}
+};
 
-export default CTA1
+export default CTA1;

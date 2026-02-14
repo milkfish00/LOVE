@@ -252,7 +252,7 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
         </div>
       </section>
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-orange-50 to-white py-16 border-t border-orange-100">
+      <section className="bg-linear-to-br from-orange-50 to-white py-16 border-t border-orange-100">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-6">
             {cta?.title || "Join Our Team"}

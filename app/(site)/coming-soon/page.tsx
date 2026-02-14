@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
   loading: () => null,
@@ -19,7 +18,6 @@ export default function Home() {
     setIsActive(true);
     setWindowHeight(window.innerHeight);
 
-
     const handleResize = () => {
       setWindowHeight(window.innerHeight);
     };
@@ -35,7 +33,6 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
-
 
   const handleAnimationLoad = () => {
     setAnimationLoaded(true);
@@ -63,7 +60,7 @@ export default function Home() {
       }`}
       style={{ height: `${windowHeight}px` }}>
       <div className="absolute top-30 md:top-0 left-0 w-full flex flex-col items-center justify-center justify-items-center pt-6 z-50">
-        <div className="object-fit w-[19rem] md:w-[40rem] md:h-60 p-8 active">
+        <div className="object-fit w-76 md:w-160 md:h-60 p-8 active">
           <svg
             className={isActive ? "active" : ""}
             viewBox="0 0 1842 519"
@@ -202,21 +199,21 @@ export default function Home() {
         <div className="w-full">
           {animationData && (
             <Lottie
-            animationData={animationData}
-            loop={false}
-            autoplay={true}
-            onDOMLoaded={handleAnimationLoad}
-            style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-            }}
-            rendererSettings={{
-              preserveAspectRatio: "xMidYMid slice",
-              progressiveLoad: false,
-              hideOnTransparent: true,
-            }}
-          />
+              animationData={animationData}
+              loop={false}
+              autoplay={true}
+              onDOMLoaded={handleAnimationLoad}
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+              rendererSettings={{
+                preserveAspectRatio: "xMidYMid slice",
+                progressiveLoad: false,
+                hideOnTransparent: true,
+              }}
+            />
           )}
         </div>
       </div>
@@ -226,21 +223,21 @@ export default function Home() {
         <div className="w-full h-full">
           {animationData && (
             <Lottie
-            animationData={animationData}
-            loop={false}
-            autoplay={true}
-            onDOMLoaded={handleAnimationLoad}
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "block",
-            }}
-            rendererSettings={{
-              preserveAspectRatio: "xMidYMid meet",
-              progressiveLoad: false,
-              hideOnTransparent: true,
-            }}
-          />
+              animationData={animationData}
+              loop={false}
+              autoplay={true}
+              onDOMLoaded={handleAnimationLoad}
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "block",
+              }}
+              rendererSettings={{
+                preserveAspectRatio: "xMidYMid meet",
+                progressiveLoad: false,
+                hideOnTransparent: true,
+              }}
+            />
           )}
         </div>
       </div>

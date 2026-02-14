@@ -99,14 +99,15 @@ export default async function Home() {
                 src={
                   getOptimizedImageUrl(
                     data?.aboutSections?.[0]?.image,
-                    800,
-                    70,
+                    1600,
+                    90,
                   ) || urlFor(data?.aboutSections?.[0]?.image).url()
                 }
                 fill
-                loading="lazy"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                quality={70}
+                priority={true}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                quality={90}
+                unoptimized={false}
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                 className="object-cover lg:object-center rounded-b-3xl lg:rounded-r-3xl lg:rounded-bl-none"
@@ -128,15 +129,16 @@ export default async function Home() {
                       src={
                         getOptimizedImageUrl(
                           data?.cta1Sections?.[0]?.image,
-                          600,
-                          70,
+                          1600,
+                          90,
                         ) || urlFor(data?.cta1Sections?.[0]?.image).url()
                       }
                       alt="Students learning in classroom at Love & Learning"
                       fill
-                      loading="lazy"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={70}
+                      priority={true}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                      quality={90}
+                      unoptimized={false}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                       className="object-cover md:rounded-2xl"
@@ -208,15 +210,16 @@ export default async function Home() {
                       src={
                         getOptimizedImageUrl(
                           data?.cta2Sections?.[0]?.image,
-                          800,
-                          70,
+                          1600,
+                          90,
                         ) || urlFor(data?.cta2Sections?.[0]?.image).url()
                       }
                       alt="Children playing and learning at Love & Learning"
                       fill
-                      loading="lazy"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      quality={70}
+                      priority={true}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                      quality={90}
+                      unoptimized={false}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
                       className="object-cover rounded-2xl"
