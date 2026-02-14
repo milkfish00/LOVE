@@ -40,7 +40,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
   return (
     <section className="py-12 md:py-16" aria-label="testimonials-section">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
+        <h2 className="text-4xl capitalize md:text-5xl font-bold text-gray-800 mb-3">
           {testimonials[0]?.title || "What Our Parents Say"}
         </h2>
       </div>

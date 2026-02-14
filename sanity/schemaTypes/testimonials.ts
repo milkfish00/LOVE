@@ -61,8 +61,27 @@ export const testimonial = defineType({
               validation: (Rule) => Rule.required().min(10).max(500),
             }),
           ],
+          preview: {
+            select: {
+              title: "name",
+              subtitle: "role",
+            },
+            prepare(selection) {
+              return {
+                ...selection,
+                media: CommentIcon,
+              };
+            },
+          },
         },
       ],
     }),
   ],
+  preview: {
+    select: {
+      title: "title",
+      description: "description",
+      media: "CommentIcon",
+    },
+  },
 });
