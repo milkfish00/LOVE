@@ -86,7 +86,7 @@ export default async function Home() {
                   href={data?.aboutSections?.[0]?.button?.link || "/about"}
                   rel="noopener noreferrer"
                   aria-label={aboutBtnText}
-                  className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-black bg-[#FAB391] hover:bg-[#f9a27d] transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FAB391]">
+                  className="inline-flex cursor-pointer items-center px-8 py-4 rounded-full font-semibold text-lg text-black bg-[#FAB391] hover:bg-[#f9a27d] transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FAB391]">
                   {aboutBtnText}
                 </a>
               </div>
@@ -169,7 +169,7 @@ export default async function Home() {
                 <a
                   href={data?.cta1Sections?.[0]?.Button?.link || "/enroll"}
                   aria-label={cta1Text}
-                  className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-white bg-[#264f71] hover:opacity-90 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#264f71]">
+                  className="inline-flex cursor-pointer items-center px-8 py-4 rounded-full font-semibold text-lg text-white bg-[#264f71] hover:opacity-90 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#264f71]">
                   {cta1Text}
                 </a>
               </div>
@@ -177,6 +177,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <TestimonialsSlider testimonials={testimonialsData} />
 
       {/* CTA 2 Section */}
       <section className="py-20 bg-white" aria-labelledby="cta2-heading">
@@ -194,7 +196,7 @@ export default async function Home() {
                 </p>
                 <a
                   href={data?.cta2Sections?.[0]?.Button?.link}
-                  className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg text-white bg-[#F48573] hover:opacity-90 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F48573]">
+                  className="inline-flex cursor-pointer items-center px-8 py-4 rounded-full font-semibold text-lg text-white bg-[#F48573] hover:opacity-90 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F48573]">
                   {cta2Text}
                 </a>
               </div>
@@ -240,11 +242,6 @@ export default async function Home() {
       </section>
 
       <FAQAccordion data={data} />
-
-      <TestimonialsSlider
-        testimonials={testimonialsData}
-        backgroundImage="https://images.pexels.com/photos/5278801/pexels-photo-5278801.jpeg"
-      />
     </div>
   );
 }

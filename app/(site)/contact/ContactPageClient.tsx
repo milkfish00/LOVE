@@ -27,7 +27,7 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     setFormData({
       ...formData,
@@ -109,7 +109,7 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
         subtitle,
         color: getColorForItem(item),
       };
-    }
+    },
   );
 
   const cta = contactData?.ctaSection?.[0];
@@ -263,7 +263,7 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
           </p>
           <a
             href={cta?.button?.url || "#"}
-            className=" bg-[#f48573]  px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#e37664]  text-white transition-colors">
+            className=" bg-[#f48573]  px-8 py-4 cursor-pointer rounded-full font-semibold text-lg hover:bg-[#e37664]  text-white transition-colors">
             {" "}
             {cta?.button?.text || "View Open Positions"}
           </a>

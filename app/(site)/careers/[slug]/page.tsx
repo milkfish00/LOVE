@@ -83,7 +83,7 @@ const portableTextComponents: PortableTextComponents = {
     link: ({ children, value }) => (
       <a
         href={value?.href}
-        className="text-[#86AF61] hover:underline"
+        className="text-[#86AF61] cursor-pointer hover:underline"
         target="_blank"
         rel="noopener noreferrer">
         {children}
@@ -114,7 +114,7 @@ const JobDetailPage = async ({
         <div className="max-w-4xl mx-auto">
           <Link
             href="/careers"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-[#86AF61] mb-6 transition-colors">
+            className="inline-flex items-center cursor-pointer gap-2 text-gray-600 hover:text-[#86AF61] mb-6 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to Jobs
           </Link>
           <div className="bg-white p-8 rounded-2xl shadow">Job not found.</div>
@@ -128,7 +128,7 @@ const JobDetailPage = async ({
       <div className="max-w-4xl mx-auto">
         <Link
           href="/careers"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-[#86AF61] mb-6 transition-colors">
+          className="inline-flex cursor-pointer items-center gap-2 text-gray-600 hover:text-[#86AF61] mb-6 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Jobs
         </Link>
 

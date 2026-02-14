@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import Slider from "react-slick";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import "slick-carousel/slick/slick.css";
@@ -18,33 +18,14 @@ interface Testimonial {
 
 interface TestimonialsSliderProps {
   testimonials?: Testimonial[];
-  backgroundImage?: string;
 }
 
 const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
   testimonials = [],
-  backgroundImage = "https://images.pexels.com/photos/5278801/pexels-photo-5278801.jpeg",
 }) => {
   const sliderRef = useRef<Slider>(null);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Handle window resize to determine background attachment
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth > 768);
-    };
-
-    // Set initial value
-    handleResize();
-
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // If no testimonials, don't render the component
   if (!testimonials || testimonials.length === 0) {
     return null;
   }
@@ -57,92 +38,135 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
     slidesToScroll: 1,
     arrows: false,
     fade: true,
+    beforeChange: (_current: number, next: number) => setCurrentSlide(next),
   };
 
   return (
-    <div
-      className="w-full py-12 sm:py-16 md:py-20 lg:py-32 bg-cover bg-center relative overflow-hidden"
-      style={{
-        backgroundImage: `url('${backgroundImage}')`,
-        backgroundAttachment: isLargeScreen ? "fixed" : "scroll",
-      }}>
-      {/* Black Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
-
-      {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <Slider ref={sliderRef} {...settings}>
-          {testimonials.map((testimonial) => (
-            <div key={testimonial._id}>
-              <div className="flex justify-center lg:justify-start items-center">
-                {/* Testimonial Card */}
-                <div className="bg-[#5a80ae] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 w-full max-w-3xl min-h-75 flex flex-col justify-between border-2 sm:border-4 border-[#5a80ae] relative overflow-hidden">
-                  {/* Flower Image - Bottom Right */}
-                  <img
-                    src="/svg/flower6.svg"
-                    alt="Decorative flower"
-                    className="absolute bottom-4 right-4 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-contain opacity-10"
-                  />
-
-                  <div className="space-y-4 sm:space-y-6 relative z-10">
-                    {/* Star Rating */}
-                    <div
-                      className="flex gap-1"
-                      aria-label={`${testimonial.rating} out of 5 stars`}>
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                            i < testimonial.rating
-                              ? "fill-[#ffd58b] text-[#ffd58b]"
-                              : "fill-gray-300 text-gray-300"
-                          }`}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Testimonial Text */}
-                    <blockquote className="text-xl text-white leading-relaxed  pb-4 font-medium">
-                      "{testimonial.testimonial}"
-                    </blockquote>
-                  </div>
-
-                  <div className="relative z-10">
-                    {/* Author Info */}
-                    <div className="pt-6 sm:pt-8 border-t-2 border-[#ffffff32]">
-                      <div className="font-bold text-2xl md:text-3xl text-[#ffffff]">
-                        {testimonial.name}
-                      </div>
-                      <div className="text-base md:text-lg font-semibold text-[#ffffff9a] mt-1">
-                        {testimonial.role}
-                      </div>
-                    </div>
-
-                    {/* Navigation Arrows - Only show if more than 1 testimonial */}
-                    {testimonials.length > 1 && (
-                      <div className="flex items-center gap-3 sm:gap-4 pt-5 sm:pt-6">
-                        <button
-                          onClick={() => sliderRef.current?.slickPrev()}
-                          className="p-2 sm:p-3 cursor-pointer bg-[#86af61] hover:bg-[#6B9578] active:bg-[#5a8f6a] rounded-full transition-all duration-300 focus:outline-none   transform hover:scale-105 active:scale-95  "
-                          aria-label="Previous testimonial">
-                          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                        </button>
-                        <button
-                          onClick={() => sliderRef.current?.slickNext()}
-                          className="p-2 sm:p-3 cursor-pointer bg-[#86af61] hover:bg-[#6B9578] active:bg-[#5a8f6a] rounded-full transition-all duration-300 focus:outline-none   transform hover:scale-105 active:scale-95  "
-                          aria-label="Next testimonial">
-                          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </Slider>
+    <section className="py-12 md:py-16" aria-label="testimonials-section">
+      <div className="text-center mb-16">
+        <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
+          What People Say
+        </h2>
       </div>
-    </div>
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Container with arrows on the sides */}
+        <div className="relative w-full flex items-center gap-4 md:gap-6">
+          {/* Left Navigation Arrow */}
+          {testimonials.length > 1 && (
+            <button
+              onClick={() => sliderRef.current?.slickPrev()}
+              className="hidden md:flex p-4 cursor-pointer bg-[#86af61] hover:bg-[#6B9578] rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#86af61] focus:ring-offset-2 shrink-0"
+              aria-label="Previous testimonial">
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+          )}
+
+          {/* Main Container */}
+          <div className="relative overflow-hidden rounded-2xl w-full bg-[#5a80ae] flex-1 py-10 ">
+            {/* Huge SVG flower bottom right */}
+
+            {/* Huge SVG flower top left */}
+            <img
+              src="/svg/flower6.svg"
+              alt="Decorative flower"
+              className="pointer-events-none select-none absolute -top-20 -left-40 w-[320px] h-80 md:w-120 md:h-120  lg:w-150 lg:h-150 object-contain opacity-10 z-0 rotate-180"
+              aria-hidden="true"
+            />
+
+            <div className="relative z-10 p-0 ">
+              <Slider ref={sliderRef} {...settings}>
+                {testimonials.map((testimonial) => (
+                  <div key={testimonial._id}>
+                    <div className="flex flex-col items-center text-center min-h-[420px] md:min-h-[380px] h-full grow justify-center px-4 py-0 flex-1">
+                      {/* Star Rating */}
+                      <div
+                        className="flex gap-1 mb-8"
+                        aria-label={`${testimonial.rating} out of 5 stars`}>
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-5 h-5 ${
+                              i < testimonial.rating
+                                ? "fill-[#ffd58b] text-[#ffd58b]"
+                                : "fill-white/30 text-white/30"
+                            }`}
+                          />
+                        ))}
+                      </div>
+
+                      {/* Testimonial Text and Author Info */}
+                      <div className="flex flex-col items-center justify-center w-full">
+                        <blockquote className="text-lg md:text-xl text-white leading-relaxed max-w-3xl mb-8">
+                          "{testimonial.testimonial}"
+                        </blockquote>
+                        <div className="pt-6 border-t border-white/20 w-full max-w-md">
+                          <div className="font-bold text-xl md:text-2xl text-white">
+                            {testimonial.name}
+                          </div>
+                          <div className="text-sm md:text-base text-white/70 mt-1">
+                            {testimonial.role}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Pagination Dots (mobile only, placeholder for spacing) */}
+                      {testimonials.length > 1 && <div className=" " />}
+                    </div>
+                  </div>
+                ))}
+              </Slider>
+
+              {/* Pagination Dots - Fixed position */}
+              {testimonials.length > 1 && (
+                <div className="hidden md:flex gap-2 m-0 md:my-3 justify-center">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => sliderRef.current?.slickGoTo(index)}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        currentSlide === index
+                          ? "bg-white w-8"
+                          : "bg-white/40 hover:bg-white/60 w-2"
+                      }`}
+                      aria-label={`Go to testimonial ${index + 1}`}
+                      aria-current={currentSlide === index ? "true" : "false"}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Mobile Navigation Arrows */}
+              {testimonials.length > 1 && (
+                <div className="flex md:hidden gap-4 mt-5 justify-center">
+                  <button
+                    onClick={() => sliderRef.current?.slickPrev()}
+                    className="p-3 bg-[#86af61] hover:bg-[#6B9578] rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#86af61] focus:ring-offset-2"
+                    aria-label="Previous testimonial">
+                    <ChevronLeft className="w-5 h-5 text-white" />
+                  </button>
+                  <button
+                    onClick={() => sliderRef.current?.slickNext()}
+                    className="p-3 bg-[#86af61] hover:bg-[#6B9578] rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#86af61] focus:ring-offset-2"
+                    aria-label="Next testimonial">
+                    <ChevronRight className="w-5 h-5 text-white" />
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right Navigation Arrow */}
+          {testimonials.length > 1 && (
+            <button
+              onClick={() => sliderRef.current?.slickNext()}
+              className="hidden md:flex p-4 cursor-pointer bg-[#86af61] hover:bg-[#6B9578] rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#86af61] focus:ring-offset-2 shrink-0"
+              aria-label="Next testimonial">
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+          )}
+        </div>
+      </div>
+    </section>
   );
 };
 

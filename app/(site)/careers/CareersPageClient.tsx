@@ -135,7 +135,7 @@ export default function CareersPageClient({
                     <span className="text-xs text-gray-500"></span>
                     <a
                       href={`/careers/${job.slug}`}
-                      className="bg-[#86AF61] hover:bg-[#769A51] text-white px-6 py-2 rounded-full font-medium transition-colors">
+                      className="bg-[#86AF61] cursor-pointer hover:bg-[#769A51] text-white px-6 py-2 rounded-full font-medium transition-colors">
                       Learn More
                     </a>
                   </div>

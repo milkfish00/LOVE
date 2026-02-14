@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Tuition , Programs} from "@/app/lib/interface";
+import { Tuition, Programs } from "@/app/lib/interface";
 import { ArrowRight } from "lucide-react";
 import { buttonClasses } from "@/app/components/ui/buttonStyles";
 import { text } from "@/app/components/ui/textStyles";
@@ -8,7 +8,7 @@ import TuitionRatesSection from "@/app/components/Home/Tuition";
 
 type Props = {
   data: Tuition;
-  programsData?: Programs; 
+  programsData?: Programs;
 };
 
 const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
@@ -27,7 +27,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
       }))
       .filter(
         (b): b is { key: string; text: string; url: string | undefined } =>
-          !!b.text
+          !!b.text,
       ) || [];
 
   return (
@@ -137,7 +137,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                       href={b.url || "#"}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={buttonClasses("link", "sm", "lg")}>
+                      className={`${buttonClasses("link", "sm", "lg")} cursor-pointer`}>
                       {b.text}
                       <ArrowRight className="ml-2 w-5 h-5" />
                     </a>
