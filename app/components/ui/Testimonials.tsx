@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import "slick-carousel/slick/slick.css";
@@ -16,6 +16,18 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
 }) => {
   const sliderRef = useRef<Slider>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Flatten all testimonial items from all testimonial docs
   const testimonialItems: TestimonialItem[] = testimonials.flatMap(
@@ -34,6 +46,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
     slidesToScroll: 1,
     arrows: false,
     fade: true,
+    adaptiveHeight: isMobile,
     beforeChange: (_current: number, next: number) => setCurrentSlide(next),
   };
 
@@ -58,7 +71,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
           )}
 
           {/* Main Container */}
-          <div className="relative overflow-hidden rounded-2xl w-full bg-[#5a80ae] flex-1 py-6 md:py-10">
+          <div className="relative overflow-hidden rounded-2xl w-full bg-[#5a80ae] flex-1 py-4 md:py-10">
             {/* Huge SVG flower bottom right */}
 
             {/* Huge SVG flower top left */}
@@ -69,14 +82,14 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
               aria-hidden="true"
             />
 
-            <div className="relative z-10 p-0 ">
+            <div className="relative z-10">
               <Slider ref={sliderRef} {...settings}>
                 {testimonialItems.map((testimonial) => (
                   <div key={testimonial._key}>
-                    <div className="flex flex-col items-center text-center justify-center px-4 py-0">
+                    <div className="flex flex-col items-center text-center justify-center px-6 py-8 md:px-4 md:min-h-[400px]">
                       {/* Star Rating */}
                       <div
-                        className="flex gap-1 mb-4 md:mb-8"
+                        className="flex gap-1 mb-3 md:mb-8"
                         aria-label={`${testimonial.rating} out of 5 stars`}>
                         {[...Array(5)].map((_, i) => (
                           <Star
@@ -92,11 +105,11 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
 
                       {/* Testimonial Text and Author Info */}
                       <div className="flex flex-col items-center justify-center w-full">
-                        <blockquote className="text-lg md:text-xl text-white leading-relaxed max-w-3xl mb-4 md:mb-8">
+                        <blockquote className="text-base md:text-xl text-white leading-relaxed max-w-3xl mb-3 md:mb-8">
                           "{testimonial.testimonial}"
                         </blockquote>
-                        <div className="pt-4 md:pt-6 border-t border-white/20 w-full max-w-md">
-                          <div className="font-bold text-xl md:text-2xl text-white">
+                        <div className="pt-3 md:pt-6 border-t border-white/20 w-full max-w-md">
+                          <div className="font-bold text-lg md:text-2xl text-white">
                             {testimonial.name}
                           </div>
                           <div className="text-sm md:text-base text-white/70 mt-1">
@@ -130,7 +143,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
 
               {/* Mobile Navigation Arrows */}
               {testimonialItems.length > 1 && (
-                <div className="flex md:hidden gap-4 mt-5 justify-center">
+                <div className="flex md:hidden gap-4 mt-3 justify-center">
                   <button
                     onClick={() => sliderRef.current?.slickPrev()}
                     className="p-3 bg-[#86af61] hover:bg-[#6B9578] rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#86af61] focus:ring-offset-2"
