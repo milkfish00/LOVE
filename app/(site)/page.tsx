@@ -180,9 +180,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section 
-
-      <TestimonialsSlider testimonials={testimonialsData} />*/}
+      <TestimonialsSlider testimonials={testimonialsData} />
 
       {/* CTA 2 Section */}
       <section className="py-20 bg-white" aria-labelledby="cta2-heading">

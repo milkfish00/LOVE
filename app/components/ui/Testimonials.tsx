@@ -5,19 +5,10 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-interface Testimonial {
-  _id: string;
-  _type: "testimonials";
-  _createdAt: string;
-  _updatedAt: string;
-  name: string;
-  rating: number;
-  role: string;
-  testimonial: string;
-}
+import { Testimonials, TestimonialItem } from "@/app/lib/interface";
 
 interface TestimonialsSliderProps {
-  testimonials?: Testimonial[];
+  testimonials?: Testimonials[];
 }
 
 const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
@@ -26,13 +17,18 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
   const sliderRef = useRef<Slider>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  if (!testimonials || testimonials.length === 0) {
+  // Flatten all testimonial items from all testimonial docs
+  const testimonialItems: TestimonialItem[] = testimonials.flatMap(
+    (t) => t.testimonialsSections || [],
+  );
+
+  if (!testimonialItems || testimonialItems.length === 0) {
     return null;
   }
 
   const settings = {
     dots: false,
-    infinite: testimonials.length > 1,
+    infinite: testimonialItems.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -45,14 +41,14 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
     <section className="py-12 md:py-16" aria-label="testimonials-section">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
-          What People Say
+          {testimonials[0]?.title || "What Our Parents Say"}
         </h2>
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Container with arrows on the sides */}
         <div className="relative w-full flex items-center gap-4 md:gap-6">
           {/* Left Navigation Arrow */}
-          {testimonials.length > 1 && (
+          {testimonialItems.length > 1 && (
             <button
               onClick={() => sliderRef.current?.slickPrev()}
               className="hidden md:flex p-4 cursor-pointer bg-[#86af61] hover:bg-[#6B9578] rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#86af61] focus:ring-offset-2 shrink-0"
@@ -75,8 +71,8 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
 
             <div className="relative z-10 p-0 ">
               <Slider ref={sliderRef} {...settings}>
-                {testimonials.map((testimonial) => (
-                  <div key={testimonial._id}>
+                {testimonialItems.map((testimonial) => (
+                  <div key={testimonial._key}>
                     <div className="flex flex-col items-center text-center min-h-105 md:min-h-95 h-full grow justify-center px-4 py-0 flex-1">
                       {/* Star Rating */}
                       <div
@@ -110,16 +106,16 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
                       </div>
 
                       {/* Pagination Dots (mobile only, placeholder for spacing) */}
-                      {testimonials.length > 1 && <div className=" " />}
+                      {testimonialItems.length > 1 && <div className=" " />}
                     </div>
                   </div>
                 ))}
               </Slider>
 
               {/* Pagination Dots - Fixed position */}
-              {testimonials.length > 1 && (
+              {testimonialItems.length > 1 && (
                 <div className="hidden md:flex gap-2 m-0 md:my-3 justify-center">
-                  {testimonials.map((_, index) => (
+                  {testimonialItems.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => sliderRef.current?.slickGoTo(index)}
@@ -136,7 +132,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
               )}
 
               {/* Mobile Navigation Arrows */}
-              {testimonials.length > 1 && (
+              {testimonialItems.length > 1 && (
                 <div className="flex md:hidden gap-4 mt-5 justify-center">
                   <button
                     onClick={() => sliderRef.current?.slickPrev()}
@@ -156,7 +152,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
           </div>
 
           {/* Right Navigation Arrow */}
-          {testimonials.length > 1 && (
+          {testimonialItems.length > 1 && (
             <button
               onClick={() => sliderRef.current?.slickNext()}
               className="hidden md:flex p-4 cursor-pointer bg-[#86af61] hover:bg-[#6B9578] rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#86af61] focus:ring-offset-2 shrink-0"

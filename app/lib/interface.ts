@@ -585,15 +585,19 @@ export interface NavSettings {
   }[];
 }
 
-export interface Testimonials {
-  _createdAt: string;
-  _id: string;
-  _originalId: string;
-  _rev: string;
-  _type: "testimonials";
-  _updatedAt: string;
+export interface TestimonialItem {
+  _key: string;
   name: string;
   rating: number;
   role: string;
   testimonial: string;
+}
+
+export interface Testimonials {
+  _createdAt: string;
+  _id: string;
+  _type: "testimonials";
+  _updatedAt: string;
+  title: string;
+  testimonialsSections: TestimonialItem[];
 }

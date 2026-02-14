@@ -774,9 +774,13 @@ export const testimonialsQuery = `
     _type,
     _createdAt,
     _updatedAt,
-    name,
-    rating,
-    role,
-    testimonial
+    title,
+    testimonialsSections[] {
+      _key,
+      name,
+      rating,
+      role,
+      testimonial
+    }
   }
 `;

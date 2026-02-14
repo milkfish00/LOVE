@@ -15,14 +15,14 @@ export const testimonial = defineType({
       validation: (Rule) => Rule.required().min(2).max(100),
     }),
     defineField({
-      name: "programSections",
-      title: "Program Sections",
+      name: "testimonialsSections",
+      title: "Testimonials Sections",
       type: "array",
-      description: "Program sections for the program page",
+      description: "Testimonials sections for the testimonials page",
       of: [
         {
           type: "object",
-          title: "Testimonials",
+          title: "Testimonial",
           fields: [
             defineField({
               name: "name",
