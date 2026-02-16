@@ -84,7 +84,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
               <div className="hidden sm:block absolute left-4 top-0 bottom-0 w-px bg-gray-200" />
               <div className="space-y-6">
                 {data.enrollmentProcess?.map((step) => (
-                  <div key={step._key} className="relative pl-12">
+                  <div key={step._key} className="relative ">
                     <div className="hidden sm:flex absolute -translate-x-1/2 left-4 top-0 mt-0.5 h-8 w-8 rounded-full bg-gray-900 text-white items-center justify-center text-sm font-semibold">
                       {step.stepNumber}
                     </div>
