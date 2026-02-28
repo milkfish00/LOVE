@@ -227,16 +227,18 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactInfo.length === 0 && (
-              <div className="text-gray-600">
+              <div className="text-gray-600 text-center md:col-span-2 lg:col-span-4">
                 Contact information coming soon.
               </div>
             )}
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
-                <div key={index} className=" rounded-xl p-6 ">
+                <div
+                  key={index}
+                  className="rounded-xl p-6 flex flex-col items-center text-center">
                   <div
-                    className={`${info.color} p-3 rounded-lg text-white  w-fit mb-4`}>
+                    className={`${info.color} p-3 rounded-lg text-white w-fit mb-4 mx-auto`}>
                     <Icon size={24} />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
