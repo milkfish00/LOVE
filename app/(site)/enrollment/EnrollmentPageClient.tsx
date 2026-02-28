@@ -88,7 +88,7 @@ const EnrollmentPageClient: React.FC<Props> = ({ data, programsData }) => {
                     <div className="hidden sm:flex absolute -translate-x-1/2 left-4 top-0 mt-0.5 h-8 w-8 rounded-full bg-gray-900 text-white items-center justify-center text-sm font-semibold">
                       {step.stepNumber}
                     </div>
-                    <div className="sm:ml-0">
+                    <div className="ml-0 sm:ml-12">
                       <h3 className={`${text.h3} mb-1`}>{step.title}</h3>
                       <p className={text.body}>{step.description}</p>
                     </div>
