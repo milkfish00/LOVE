@@ -122,7 +122,7 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             {contactData?.title || "Contact Us"}
           </h1>
-          <p className="text-xl max-w-xl mx-auto">
+          <p className="text-xl max-w-md mx-auto">
             {contactData?.description || ""}
           </p>
         </div>
