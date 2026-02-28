@@ -17,7 +17,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
 
   return (
     <section
-      className={`relative h-screen flex items-center justify-center transition-all duration-1000 ease-out ${
+      className={`relative h-240 flex items-center justify-center transition-all duration-1000 ease-out ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}>
       {/* Decorative flowers with bloom animation */}

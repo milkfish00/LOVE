@@ -35,7 +35,7 @@ export default function FAQAccordion({ data }: FAQAccordionProps) {
 
   if (!faqSection || faqs.length === 0) {
     return (
-      <div className="w-full h-full bg-white">
+      <div className="w-full h-full ">
         <div className="max-w-4xl mx-auto px-6 py-20">
           <div className="text-center">
             <h3 className="text-4xl pally capitalize md:text-5xl font-bold text-gray-800 mb-3">
@@ -49,7 +49,7 @@ export default function FAQAccordion({ data }: FAQAccordionProps) {
   }
 
   return (
-    <div className="w-full h-full bg-white">
+    <div className="w-full h-full ">
       <div className="max-w-4xl mx-auto px-6 py-20">
         {/* Header Section */}
         <div className="text-center mb-16">

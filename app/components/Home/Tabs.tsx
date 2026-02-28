@@ -11,7 +11,7 @@ interface ProgramsSectionProps {
 
 export default function ProgramsSection({ data }: ProgramsSectionProps) {
   const [activeTab, setActiveTab] = useState(
-    data?.programSections?.[0]?.slug?.current || ""
+    data?.programSections?.[0]?.slug?.current || "",
   );
 
   const programColors: Record<string, { color: string; textColor: string }> = {
@@ -24,7 +24,7 @@ export default function ProgramsSection({ data }: ProgramsSectionProps) {
   };
 
   const currentProgram = data?.programSections?.find(
-    (program) => program.slug.current === activeTab
+    (program) => program.slug.current === activeTab,
   );
 
   const getProgramColors = (slug: string) => {
@@ -79,7 +79,7 @@ export default function ProgramsSection({ data }: ProgramsSectionProps) {
                   colors.color
                 } ${colors.textColor} ${
                   isActive
-                    ? "shadow-lg scale-105"
+                    ? " scale-105"
                     : "opacity-80 hover:opacity-100 hover:scale-105"
                 }`}>
                 {program.programTitle}
@@ -90,10 +90,10 @@ export default function ProgramsSection({ data }: ProgramsSectionProps) {
 
         {/* Tab Content - Cleaner layout */}
         {currentProgram && (
-          <div className="bg-white overflow-hidden flex flex-col md:flex-row rounded-2xl ">
-            <div className="grid lg:grid-cols-5 gap-0 max-w-3xl mx-auto">
+          <div className="overflow-hidden flex flex-col md:flex-row rounded-2xl ">
+            <div className="grid lg:grid-cols-5 gap-0 max-w-4xl mx-auto">
               {/* Image Section - Takes more space */}
-              <div className="lg:col-span-2 bg-gray-50 p-8 flex items-center justify-center">
+              <div className="lg:col-span-2 bg-white rounded-2xl p-8 flex items-center justify-center">
                 {(() => {
                   const imageUrl = getImageUrl(currentProgram.image);
                   return imageUrl ? (
@@ -120,7 +120,7 @@ export default function ProgramsSection({ data }: ProgramsSectionProps) {
 
               {/* Content Section - Streamlined */}
               <div className="lg:col-span-3 p-8 md:p-12">
-                <div className="inline-block bg-gray-100 rounded-full px-4 py-1.5 mb-4">
+                <div className="inline-block bg-white  rounded-full px-4 py-1.5 mb-4">
                   <span className="text-sm font-semibold text-gray-700">
                     {currentProgram.ageRange}
                   </span>
