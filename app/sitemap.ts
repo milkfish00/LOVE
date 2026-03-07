@@ -1,9 +1,8 @@
 import { MetadataRoute } from "next";
-import { client } from "@/sanity/lib/client"; 
+import { client } from "@/sanity/lib/client";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.loveandlearning.net";
-
 
   const resources = await client.fetch(`
     *[_type == "resources" && !(_id in path("drafts.**"))]{
@@ -19,14 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   `);
 
-
   const resourceUrls = resources.map((resource: any) => ({
     url: `${baseUrl}/resources/${resource.slug}`,
     lastModified: new Date(resource._updatedAt),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
-
 
   const programUrls = programs.map((program: any) => ({
     url: `${baseUrl}/programs/${program.slug}`,
@@ -79,6 +76,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/service-areas`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/gallery`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
@@ -92,6 +95,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/legal`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    },
+
+    {
+      url: `${baseUrl}/service-areas`,
       lastModified: new Date(),
       changeFrequency: "yearly" as const,
       priority: 0.3,

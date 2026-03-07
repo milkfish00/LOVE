@@ -109,13 +109,25 @@ export default function HeroSection({ data }: HeroSectionProps) {
           <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-white">
             {data?.heroSections?.[0]?.description}
           </p>
-          <a
-            href={data?.heroSections?.[0]?.Button?.link || "#programs"}
-            className="bg-white cursor-pointer text-[#000000] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-            aria-label="Explore our childcare programs">
-            {data?.heroSections?.[0]?.Button?.text || "Explore our programs"}
-            <span className="screen-reader-text">Hidden</span>
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href={data?.heroSections?.[0]?.Button?.link || "#programs"}
+              className="bg-white cursor-pointer text-[#000000] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+              aria-label="Explore our childcare programs">
+              {data?.heroSections?.[0]?.Button?.text || "Explore our programs"}
+              <span className="screen-reader-text">Hidden</span>
+            </a>
+
+            {data?.heroSections?.[0]?.secondButton?.text && (
+              <a
+                href="https://calendly.com/loveandlearning-info/30min"
+                target="_blank"
+                className="border border-white text-white cursor-pointer px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-colors focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-white"
+                aria-label={data?.heroSections?.[0]?.secondButton?.text}>
+                {data?.heroSections?.[0]?.secondButton?.text}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </section>

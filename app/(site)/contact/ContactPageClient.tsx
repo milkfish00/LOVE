@@ -1,44 +1,38 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { Phone, Mail, MapPin, Clock, Globe } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Globe,
+  type LucideIcon,
+} from "lucide-react";
 import { Contact } from "@/app/lib/interface";
 
 interface ContactPageClientProps {
   data: Contact;
 }
 
-const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    childAge: "",
-    message: "",
-    inquiryType: "general",
-  });
+type ContactInformationItem = Contact["contactInformation"][number];
+type ContactInfoCard = {
+  key: string;
+  icon: LucideIcon;
+  title: string;
+  details: string;
+  color: string;
+};
 
+const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [expectingResponse, setExpectingResponse] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleSubmit = () => {
     setIsSubmitting(true);
     setSuccessMsg(null);
-    setErrorMsg(null);
     setExpectingResponse(true);
   };
 
@@ -49,7 +43,6 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
     const handleLoad = () => {
       if (!expectingResponse) return;
       setSuccessMsg("Thanks! Your message has been sent.");
-      setErrorMsg(null);
       setIsSubmitting(false);
       setExpectingResponse(false);
       formRef.current?.reset();
@@ -61,7 +54,7 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
     };
   }, [expectingResponse]);
 
-  const getIconForItem = (item: any) => {
+  const getIconForItem = (item: ContactInformationItem): LucideIcon => {
     const key = (item?.type || item?.title || "").toLowerCase();
     if (item?.number || key.includes("phone")) return Phone;
     if (key.includes("email")) return Mail;
@@ -76,7 +69,7 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
     return Globe;
   };
 
-  const getColorForItem = (item: any) => {
+  const getColorForItem = (item: ContactInformationItem): string => {
     const key = (item?.type || item?.title || "").toLowerCase();
     if (item?.number || key.includes("phone")) return "bg-[#80739C]";
     if (key.includes("email")) return "bg-[#86AF61]";
@@ -91,26 +84,23 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
     return "bg-[#80739C]";
   };
 
-  const contactInfo = (contactData?.contactInformation || []).map(
-    (item: any) => {
-      const Icon = getIconForItem(item);
-      const details =
-        item?.number ||
-        [item?.street, item?.address].filter(Boolean).join(" ") ||
-        item?.hours ||
-        "";
-      const subtitle =
-        item?.subtitle ||
-        (item?.hours && !details.includes(item.hours) ? item.hours : "");
-      return {
-        icon: Icon,
-        title: item?.title || item?.type || "",
-        details,
-        subtitle,
-        color: getColorForItem(item),
-      };
-    },
-  );
+  const contactInfo: ContactInfoCard[] = (
+    contactData?.contactInformation || []
+  ).map((item) => {
+    const Icon = getIconForItem(item);
+    const details =
+      item?.number ||
+      [item?.street, item?.address].filter(Boolean).join(" ") ||
+      item?.hours ||
+      "";
+    return {
+      key: item._key,
+      icon: Icon,
+      title: item?.title || item?.type || "",
+      details,
+      color: getColorForItem(item),
+    };
+  });
 
   const cta = contactData?.ctaSection?.[0];
 
@@ -125,6 +115,13 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
           <p className="text-xl max-w-md mx-auto">
             {contactData?.description || ""}
           </p>
+          <a
+            href="https://calendly.com/loveandlearning-info/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex mt-6 items-center justify-center rounded-full bg-[#81aa8e] px-6 py-3 text-white font-semibold hover:bg-[#476e53] transition-colors">
+            Book a Tour
+          </a>
         </div>
       </section>
 
@@ -206,11 +203,6 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
                     {successMsg}
                   </div>
                 )}
-                {errorMsg && (
-                  <div className="text-red-700 bg-red-50 border border-red-200 rounded-md p-3">
-                    {errorMsg}
-                  </div>
-                )}
               </form>
               <iframe
                 ref={iframeRef}
@@ -231,11 +223,11 @@ const ContactPageClient = ({ data: contactData }: ContactPageClientProps) => {
                 Contact information coming soon.
               </div>
             )}
-            {contactInfo.map((info, index) => {
+            {contactInfo.map((info) => {
               const Icon = info.icon;
               return (
                 <div
-                  key={index}
+                  key={info.key}
                   className="rounded-xl p-6 flex flex-col items-center text-center">
                   <div
                     className={`${info.color} p-3 rounded-lg text-white w-fit mb-4 mx-auto`}>

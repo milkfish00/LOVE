@@ -1,9 +1,7 @@
 import { defineType, defineField } from "sanity";
 import { HomeIcon } from "@sanity/icons";
-import {AddCommentIcon} from '@sanity/icons'
+import { AddCommentIcon } from "@sanity/icons";
 import { HelpCircleIcon } from "@sanity/icons";
-
-
 
 export const home = defineType({
   name: "home",
@@ -41,6 +39,21 @@ export const home = defineType({
               title: "Button",
               type: "object",
               description: "Primary action button",
+              fields: [
+                { name: "text", title: "Button Text", type: "string" },
+                {
+                  name: "link",
+                  title: "Button Link",
+                  type: "string",
+                  description: "Button link URL",
+                },
+              ],
+            },
+            {
+              name: "secondButton",
+              title: "Second Button",
+              type: "object",
+              description: "Secondary action button",
               fields: [
                 { name: "text", title: "Button Text", type: "string" },
                 {
@@ -253,109 +266,6 @@ export const home = defineType({
       ],
     }),
 
-    // Testimonials Section
-    defineField({
-      name: "testimonialsSections",
-      title: "Testimonials Sections",
-      type: "array",
-      readOnly: true,
-      description: "Testimonials sections",
-      of: [
-        {
-          type: "object",
-          title: "Testimonials Section",
-          fields: [
-            {
-              name: "title",
-              title: "Section Title",
-              type: "string",
-              description: "Section title",
-              initialValue: "What Parents Say",
-            },
-            {
-              name: "subtitle",
-              title: "Section Subtitle",
-              type: "text",
-              rows: 2,
-              description: "Optional subtitle text",
-            },
-            {
-              name: "testimonials",
-              title: "Testimonials",
-              type: "array",
-              description: "List of testimonials",
-              of: [
-                {
-                  type: "object",
-                  title: "Testimonial",
-                  fields: [
-                    {
-                      name: "quote",
-                      title: "Quote",
-                      type: "text",
-                      rows: 4,
-                      description: "Testimonial quote",
-                      validation: (Rule) => Rule.required(),
-                    },
-                    {
-                      name: "author",
-                      title: "Author Name",
-                      type: "string",
-                      description: "Name of the person giving the testimonial",
-                      validation: (Rule) => Rule.required(),
-                    },
-                    {
-                      name: "role",
-                      title: "Role/Title",
-                      type: "string",
-                      description:
-                        "Role or title of the author (e.g., 'Parent', 'Guardian')",
-                    },
-                    {
-                      name: "childProgram",
-                      title: "Child's Program",
-                      type: "string",
-                      description:
-                        "Program the child is enrolled in (optional)",
-                    },
-                  ],
-                  preview: {
-                    select: {
-                      title: "author",
-                      subtitle: "quote",
-                      media: "media",
-                    },
-                    prepare({ title, subtitle }) {
-                      return {
-                        title: title || "Testimonial",
-                        subtitle: subtitle
-                          ? subtitle.substring(0, 50) + "..."
-                          : "",
-                        media: AddCommentIcon,
-                      };
-                    },
-                  },
-                },
-              ],
-              validation: (Rule) => Rule.min(1),
-            },
-          ],
-          preview: {
-            select: {
-              title: "title",
-              media: "media",
-            },
-            prepare(selection) {
-              return {
-                ...selection,
-                media: AddCommentIcon,
-              };
-            },
-          },
-        },
-      ],
-    }),
-
     // FAQ Section
     defineField({
       name: "faqSections",
@@ -421,7 +331,6 @@ export const home = defineType({
                           : "",
                         media: HelpCircleIcon,
                       };
-
                     },
                   },
                 },

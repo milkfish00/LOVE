@@ -21,6 +21,10 @@ export const homeQuery = `
       Button {
         link,
         text
+      },
+      secondButton {
+        link,
+        text
       }
     },
     aboutSections[] {
@@ -662,6 +666,10 @@ export const getHomeData = `*[_type == "home"] {
     description,
     headline,
     Button {
+      link,
+      text
+    },
+    secondButton {
       link,
       text
     }

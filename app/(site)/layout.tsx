@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "../globals.css";
 import SanityClientProviders from "../components/SanityClientProviders";
 import { SanityLive } from "@/sanity/lib/live";
@@ -141,80 +142,227 @@ export default async function RootLayout({
   const dm = await draftMode();
 
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head>
-        <link rel="preconnect" href="https://cdn.sanity.io" />
-        <link rel="preconnect" href="https://6jqzfkhy.apicdn.sanity.io" />
-        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
-        <link rel="dns-prefetch" href="https://6jqzfkhy.apicdn.sanity.io" />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ChildCare",
-              name: "Love & Learning Child Care Center",
-              description:
-                settings?.description ||
-                "A safe, loving environment for early learning in Fletcher, NC. ",
-              url: "https://www.loveandlearning.net",
-              logo: settings?.navLogo
-                ? urlFor(settings.navLogo).url()
-                : undefined,
-              image: settings?.openGraphImage
-                ? urlFor(settings.openGraphImage).url()
-                : undefined,
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Your Street Address",
-                addressLocality: "Fletcher",
-                addressRegion: "NC",
-                postalCode: "Your Postal Code",
-                addressCountry: "US",
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ChildCare",
+            name: "Love & Learning Child Care Center",
+            description:
+              settings?.description ||
+              "A safe, loving environment for early learning in Fletcher, NC. ",
+            url: "https://www.loveandlearning.net",
+            logo: settings?.navLogo
+              ? urlFor(settings.navLogo).url()
+              : undefined,
+            image: settings?.openGraphImage
+              ? urlFor(settings.openGraphImage).url()
+              : undefined,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Your Street Address",
+              addressLocality: "Fletcher",
+              addressRegion: "NC",
+              postalCode: "Your Postal Code",
+              addressCountry: "US",
+            },
+            contactPoint: {
+              "@type": "ContactPoint",
+              telephone: "Your Phone Number",
+              contactType: "customer service",
+            },
+            sameAs: settings?.socialLinks?.map((link) => link.url) || [],
+            priceRange: "$$",
+            openingHoursSpecification: [
+              {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                ],
+                opens: "07:00",
+                closes: "18:00",
               },
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "Your Phone Number",
-                contactType: "customer service",
-              },
-              sameAs: settings?.socialLinks?.map((link) => link.url) || [],
-              priceRange: "$$",
-              openingHoursSpecification: [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                  ],
-                  opens: "07:00",
-                  closes: "18:00",
-                },
-              ],
-            }),
-          }}
-        />
-      </head>
-      <body
+            ],
+          }),
+        }}
+      />
+      <div
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <Banner />
-          <Navbar settings={settings as any} />
-          
-          {children}
-          <Footer settings={settings as any} />
-          {dm.isEnabled && (
-            <>
-              <VisualEditing />
-              <DisableDraftMode />
-            </>
-          )}
+        <Banner />
+        <Navbar settings={settings as any} />
+
+        {children}
+        <Footer settings={settings as any} />
+        <div className="calendly-badge-widget calendly-badge-hidden">
+          <a
+            id="calendly-floating-trigger"
+            href="https://calendly.com/loveandlearning-info/30min"
+            className="calendly-badge-content calendly-badge-professional"
+            aria-label="Book a tour">
+            <img
+              src="/svg/boy.svg"
+              alt=""
+              aria-hidden="true"
+              className="calendly-badge-icon"
+            />
+            <span className="calendly-badge-label">Book a Tour!</span>
+          </a>
+        </div>
+        <Script id="calendly-badge-init" strategy="afterInteractive">
+          {`(function initCalendlyBadge() {
+  if (window.__loveCalendlyFloatingInit) {
+    return;
+  }
+  window.__loveCalendlyFloatingInit = true;
+
+  var MAX_ATTEMPTS = 60;
+  var attempts = 0;
+  var activeObserver = null;
+  var activeFallbackCheck = null;
+  var currentPathname = null;
+
+  function getPathname() {
+    try {
+      return window.location.pathname || '/';
+    } catch (_error) {
+      return '/';
+    }
+  }
+
+  function isHomePath(pathname) {
+    return pathname === '/';
+  }
+
+  function cleanupVisibilityBindings() {
+    if (activeObserver) {
+      activeObserver.disconnect();
+      activeObserver = null;
+    }
+
+    if (activeFallbackCheck) {
+      window.removeEventListener('scroll', activeFallbackCheck);
+      activeFallbackCheck = null;
+    }
+  }
+
+  function setBadgeVisible(visible) {
+    var widget = document.querySelector('.calendly-badge-widget');
+    if (!widget) {
+      return;
+    }
+
+    widget.classList.toggle('calendly-badge-hidden', !visible);
+    widget.classList.toggle('calendly-badge-visible', visible);
+  }
+
+  function bindHomeVisibilityTrigger() {
+    var aboutHeading = document.getElementById('about-heading');
+
+    if (!aboutHeading) {
+      setBadgeVisible(false);
+      return;
+    }
+
+    setBadgeVisible(false);
+
+    if (!('IntersectionObserver' in window)) {
+      activeFallbackCheck = function () {
+        var rect = aboutHeading.getBoundingClientRect();
+        var hasReachedAbout = rect.top <= window.innerHeight * 0.8;
+        setBadgeVisible(hasReachedAbout);
+      };
+
+      activeFallbackCheck();
+      window.addEventListener('scroll', activeFallbackCheck, { passive: true });
+      return;
+    }
+
+    activeObserver = new IntersectionObserver(
+      function (entries) {
+        var entry = entries[0];
+        if (!entry) {
+          return;
+        }
+
+        var hasReachedAbout = entry.isIntersecting || entry.boundingClientRect.top < window.innerHeight * 0.8;
+        setBadgeVisible(hasReachedAbout);
+      },
+      {
+        root: null,
+        threshold: 0,
+        rootMargin: '0px 0px -20% 0px'
+      }
+    );
+
+    activeObserver.observe(aboutHeading);
+  }
+
+  function refreshVisibilityBindings() {
+    var pathname = getPathname();
+    cleanupVisibilityBindings();
+
+    if (isHomePath(pathname)) {
+      bindHomeVisibilityTrigger();
+    } else {
+      setBadgeVisible(true);
+    }
+  }
+
+  function mountBadge() {
+    if (!document.querySelector('.calendly-badge-widget')) {
+      attempts += 1;
+      if (attempts < MAX_ATTEMPTS) {
+        window.setTimeout(mountBadge, 200);
+      }
+      return;
+    }
+
+    currentPathname = getPathname();
+    refreshVisibilityBindings();
+
+    window.setInterval(function () {
+      var nextPathname = getPathname();
+      if (nextPathname !== currentPathname) {
+        currentPathname = nextPathname;
+        refreshVisibilityBindings();
+      }
+    }, 250);
+
+    var domObserver = new MutationObserver(function () {
+      if (!isHomePath(getPathname())) {
+        return;
+      }
+
+      if (!document.getElementById('about-heading')) {
+        return;
+      }
+
+      cleanupVisibilityBindings();
+      bindHomeVisibilityTrigger();
+    });
+
+    domObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
+  mountBadge();
+})();`}
+        </Script>
+        {dm.isEnabled && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+          </>
+        )}
         <SanityLive />
 
         {dm.isEnabled ? <SanityClientProviders /> : null}
-      </body>
-    </html>
+      </div>
+    </>
   );
 }

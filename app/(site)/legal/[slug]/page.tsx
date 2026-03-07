@@ -1,10 +1,9 @@
-
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/lib/client";
 import { PortableText } from "@portabletext/react";
 import { sanityFetch } from "@/sanity/lib/live";
 
-export const revalidate = 60; 
+export const revalidate = 60;
 
 const legalDocumentQuery = `
   *[_type == "settings"][0] {

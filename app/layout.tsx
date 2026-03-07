@@ -6,8 +6,6 @@ import { settingsQuery } from "@/app/lib/queries";
 import { urlFor } from "@/app/lib/sanity";
 // Navbar and Footer are rendered in segment layout: app/(site)/layout.tsx
 
-
-
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const settings = await sanityClient.fetch(settingsQuery);
@@ -17,7 +15,9 @@ export async function generateMetadata(): Promise<Metadata> {
     const ogImageUrl = settings?.openGraphImage?.asset
       ? urlFor(settings.openGraphImage).width(1200).height(630).url()
       : undefined;
-    const iconUrl = settings?.favicon?.asset ? urlFor(settings.favicon).width(64).height(64).url() : undefined;
+    const iconUrl = settings?.favicon?.asset
+      ? urlFor(settings.favicon).width(64).height(64).url()
+      : undefined;
 
     const defaultTitle = "Love & Learning Child Care Center";
     const defaultDescription =
@@ -35,8 +35,22 @@ export async function generateMetadata(): Promise<Metadata> {
     const resolvedDescription = description || defaultDescription;
     const resolvedKeywords = keywords || defaultKeywords;
     const resolvedOgImages = ogImageUrl
-      ? [{ url: ogImageUrl, width: 1200, height: 630, alt: title || "Open Graph Image" }]
-      : [{ url: "/hero.jpeg", width: 1200, height: 630, alt: "Love & Learning" }];
+      ? [
+          {
+            url: ogImageUrl,
+            width: 1200,
+            height: 630,
+            alt: title || "Open Graph Image",
+          },
+        ]
+      : [
+          {
+            url: "/hero.jpeg",
+            width: 1200,
+            height: 630,
+            alt: "Love & Learning",
+          },
+        ];
 
     return {
       metadataBase: new URL("https://www.loveandlearningchildcare.com"),
@@ -118,14 +132,18 @@ export default async function RootLayout({
       <head>
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="" />
         <link rel="dns-prefetch" href="//cdn.sanity.io" />
-        <link rel="preconnect" href="https://images.pexels.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://images.pexels.com"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="//images.pexels.com" />
+        <link
+          href="https://assets.calendly.com/assets/external/widget.css"
+          rel="stylesheet"
+        />
       </head>
-      <body className={openSans.className}>
-        
-        {children}
-     
-      </body>
+      <body className={openSans.className}>{children}</body>
     </html>
   );
 }

@@ -53,10 +53,233 @@
   }
 }
 
+.calendly-badge-widget {
+  bottom: 2.4rem !important;
+  right: 1.2rem !important;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease !important;
+}
+
+.calendly-badge-widget.calendly-badge-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(14px) !important;
+  pointer-events: none !important;
+}
+
+.calendly-badge-widget.calendly-badge-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.calendly-badge-widget .calendly-badge-content {
+  background: transparent !important;
+  color: #ffffff !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  padding: 0 !important;
+  min-height: unset !important;
+  font-weight: 600 !important;
+  font-size: 1.45rem !important;
+  line-height: 1.95rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.9rem !important;
+  box-shadow: none !important;
+  position: relative !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease !important;
+}
+
+.calendly-badge-widget .calendly-badge-content:focus-visible {
+  outline: 2px solid #264f71;
+  outline-offset: 4px;
+}
+
+.calendly-badge-widget .calendly-badge-content::after {
+  content: none;
+}
+
+.calendly-badge-widget .calendly-badge-content:hover {
+  background: transparent !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.calendly-badge-widget .calendly-badge-content:hover::after {
+  background: transparent;
+}
+
+.calendly-badge-widget .calendly-badge-content .calendly-badge-icon {
+  width: 4.25rem !important;
+  height: 4.25rem !important;
+  object-fit: contain !important;
+  background: #f8f5e0 !important;
+  border: 2px solid #f8d4c2 !important;
+  border-radius: 9999px !important;
+  padding: 0.45rem 0.45rem 0 0.45rem !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18) !important;
+  margin-right: -0.05rem;
+  transform-origin: center !important;
+  animation: calendly-icon-float 2.8s ease-in-out infinite;
+}
+
+.calendly-badge-widget .calendly-badge-content:hover .calendly-badge-icon {
+  animation-duration: 2.2s;
+  transform: rotate(-11deg) translateY(-2px) !important;
+}
+
+.calendly-badge-widget .calendly-badge-content .calendly-badge-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: #f48573;
+  color: #fff;
+  border: 1px solid rgba(244, 133, 115, 0.45);
+  border-radius: 1.15rem;
+  padding: 0.5rem 1.05rem 0.5rem 0.95rem;
+  font-size: 1.4rem;
+  line-height: 1.7rem;
+  font-weight: 700;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  letter-spacing: 0.01em;
+  transition:
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.calendly-badge-widget .calendly-badge-content .calendly-badge-label::before {
+  content: "";
+  position: absolute;
+  left: -0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 0.42rem solid transparent;
+  border-bottom: 0.42rem solid transparent;
+  border-right: 0.7rem solid #f48573;
+  transition: border-right-color 0.22s ease;
+}
+
+.calendly-badge-widget .calendly-badge-content:hover .calendly-badge-label {
+  background: #e97866;
+  border-color: #e97866;
+  transform: translateY(-1px);
+}
+
+.calendly-badge-widget
+  .calendly-badge-content:hover
+  .calendly-badge-label::before {
+  border-right-color: #e97866;
+}
+
+@keyframes calendly-icon-float {
+  0%,
+  100% {
+    transform: rotate(-14deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-9deg) translateY(-4px);
+  }
+}
+
+@media (max-width: 640px) {
+  .calendly-badge-widget {
+    right: 0.8rem !important;
+    bottom: 1.35rem !important;
+  }
+
+  .calendly-badge-widget .calendly-badge-content {
+    padding: 0 !important;
+    min-height: unset !important;
+    font-size: 1.1rem !important;
+    line-height: 1.4rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .calendly-badge-widget .calendly-badge-content::after {
+    content: none;
+  }
+
+  .calendly-badge-widget .calendly-badge-content .calendly-badge-icon {
+    width: 3.25rem !important;
+    height: 3.25rem !important;
+    padding: 0.3rem 0.3rem 0 0.3rem !important;
+  }
+
+  .calendly-badge-widget .calendly-badge-content .calendly-badge-label {
+    padding: 0.4rem 0.7rem 0.4rem 0.62rem;
+    font-size: 1.06rem;
+    line-height: 1.3rem;
+    border-radius: 0.95rem;
+  }
+
+  .calendly-badge-widget .calendly-badge-content .calendly-badge-label::before {
+    left: -0.48rem;
+    border-top-width: 0.34rem;
+    border-bottom-width: 0.34rem;
+    border-right-width: 0.52rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .calendly-badge-widget .calendly-badge-content:hover .calendly-badge-icon {
+    animation-duration: 2.2s;
+    transform: rotate(-11deg) translateY(-2px) !important;
+  }
+
+  .calendly-badge-widget .calendly-badge-content:hover .calendly-badge-label {
+    background: #e97866;
+    border-color: #e97866;
+    transform: translateY(-1px);
+  }
+
+  .calendly-badge-widget
+    .calendly-badge-content:hover
+    .calendly-badge-label::before {
+    border-right-color: #e97866;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .calendly-badge-widget .calendly-badge-content:hover .calendly-badge-icon {
+    transform: none !important;
+  }
+
+  .calendly-badge-widget .calendly-badge-content:hover .calendly-badge-label {
+    transform: none;
+    background: #f48573;
+    border-color: rgba(244, 133, 115, 0.45);
+  }
+
+  .calendly-badge-widget
+    .calendly-badge-content:hover
+    .calendly-badge-label::before {
+    border-right-color: #f48573;
+  }
+}
+
 h1,
 h2,
 .pally {
-  font-family: Pally-bold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Pally-bold, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 input {
@@ -510,16 +733,16 @@ svg.active .svg-elem-30 {
 }
 
 .screen-reader-text {
-   border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    -webkit-clip-path: inset(50%);
-    clip-path: inset(50%);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute !important;
-    width: 1px;
-    word-wrap: normal !important;
-    word-break: normal;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+  word-break: normal;
 }

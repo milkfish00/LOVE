@@ -69,6 +69,10 @@ export interface homeInterface {
       link: string;
       text: string;
     };
+    secondButton?: {
+      link: string;
+      text: string;
+    };
     _key: string;
     backgroundImage: {
       _type: "image";

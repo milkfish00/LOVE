@@ -1,0 +1,9 @@
+{
+  "name": "Love & Learning Child Care Center",
+  "short_name": "Love & Learning",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": []
+}
