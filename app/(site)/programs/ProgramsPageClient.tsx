@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
+import { getProgramColors, getSubtleColors } from "@/app/lib/program-utils";
 
 interface AgeGroup {
   slug: any;
@@ -32,31 +33,16 @@ const ProgramsPageClient = ({
 }: ProgramsPageClientProps) => {
   const [activeAgeGroup, setActiveAgeGroup] = useState(programs[0]?.id || "");
 
-  const programColors: Record<string, { color: string; textColor: string }> = {
-    infants: { color: "bg-[#E68978]", textColor: "text-white" },
-    toddlers: { color: "bg-[#EB9D73]", textColor: "text-white" },
-    twos: { color: "bg-[#F4BC5C]", textColor: "text-white" },
-    threes: { color: "bg-[#859989]", textColor: "text-white" },
-    "fours-and-fives": { color: "bg-[#445f80]", textColor: "text-white" },
-    sixes: { color: "bg-[#A085A0]", textColor: "text-white" },
-  };
-
-  const getProgramColors = (id: string) => {
-    return (
-      programColors[id] || {
-        color: "bg-gray-500",
-        textColor: "text-white",
-      }
-    );
-  };
-
   const currentProgram = programs.find((g) => g.id === activeAgeGroup);
 
   if (!currentProgram) {
     return <div>Program not found</div>;
   }
 
-  const currentColors = getProgramColors(currentProgram.id);
+  const currentProgramIndex = programs.findIndex(
+    (g) => g.id === activeAgeGroup,
+  );
+  const currentColors = getProgramColors(currentProgramIndex);
 
   return (
     <div className="min-h-screen">
@@ -77,8 +63,11 @@ const ProgramsPageClient = ({
       <section className="py-6 bg-white top-0 z-10 border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-3">
-            {programs.map((group) => {
-              const colors = getProgramColors(group.id);
+            {programs.map((group, index) => {
+              const boldColors = getProgramColors(index);
+              const subtleColors = getSubtleColors(index);
+              const colors =
+                activeAgeGroup === group.id ? boldColors : subtleColors;
               const isActive = activeAgeGroup === group.id;
               return (
                 <button
@@ -132,7 +121,6 @@ const ProgramsPageClient = ({
                   <img
                     src={currentProgram.image}
                     alt={currentProgram.title}
-                
                     className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 object-contain filter"
                   />
                 </div>
@@ -156,8 +144,8 @@ const ProgramsPageClient = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {programs.map((program) => {
-              const colors = getProgramColors(program.id);
+            {programs.map((program, index) => {
+              const colors = getProgramColors(index);
               return (
                 <a
                   key={program.id}

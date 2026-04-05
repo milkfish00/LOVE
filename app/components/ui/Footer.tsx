@@ -126,6 +126,13 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 </li>
                 <li>
                   <Link
+                    href="/programs/waddlers"
+                    className="text-white/80 hover:text-white text-sm">
+                    Waddlers
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/programs/toddlers"
                     className="text-white/80 hover:text-white text-sm">
                     Toddlers

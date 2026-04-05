@@ -9,36 +9,54 @@ interface TuitionRatesSectionProps {
 export default function TuitionRatesSection({
   data,
 }: TuitionRatesSectionProps) {
-  const programColors: Record<string, { color: string; gradient: string }> = {
-    infants: {
-      color: "bg-[#E68978]",
-      gradient: "from-[#E68978] to-[#d67766]",
-    },
-    toddlers: {
-      color: "bg-[#EB9D73]",
-      gradient: "from-[#EB9D73] to-[#d98b61]",
-    },
-    twos: {
-      color: "bg-[#F4BC5C]",
-      gradient: "from-[#F4BC5C] to-[#e2aa4a]",
-    },
-    threes: {
-      color: "bg-[#859989]",
-      gradient: "from-[#859989] to-[#738777]",
-    },
-    "fours-and-fives": {
+  // Brand color palette with gradients for Tuition section (randomized order)
+  const brandColorPalette = [
+    {
+      color: "bg-[#e68979]",
+      gradient: "from-[#e68979] to-[#d67261]",
+    }, // Coral
+    {
+      color: "bg-[#6a9b8a]",
+      gradient: "from-[#6a9b8a] to-[#587a77]",
+    }, // Sage Green
+    {
       color: "bg-[#445f80]",
       gradient: "from-[#445f80] to-[#354d6e]",
-    },
-    sixes: {
-      color: "bg-[#A085A0]",
-      gradient: "from-[#A085A0] to-[#8e738e]",
-    },
-  };
+    }, // Navy Blue
+    {
+      color: "bg-[#F79A6B]",
+      gradient: "from-[#F79A6B] to-[#e17e50]",
+    }, // Peach
+    {
+      color: "bg-[#edc35d]",
+      gradient: "from-[#edc35d] to-[#dab34a]",
+    }, // Muted Teal
+    {
+      color: "bg-[#A684A3]",
+      gradient: "from-[#A684A3] to-[#907087]",
+    }, // Purple
+    {
+      color: "bg-[#E3AC4A]",
+      gradient: "from-[#E3AC4A] to-[#d0983a]",
+    }, // Gold
+    {
+      color: "bg-[#81AA8E]",
+      gradient: "from-[#81AA8E] to-[#6d947a]",
+    }, // Muted Green
+    {
+      color: "bg-[#eb9d73]",
+      gradient: "from-[#eb9d73] to-[#d98b61]",
+    }, // Orange
+    {
+      color: "bg-[#80739C]",
+      gradient: "from-[#80739C] to-[#6b627f]",
+    }, // Dark Purple
+  ];
 
-  const getProgramColors = (slug: string) => {
+  const getProgramColors = (index: number) => {
+    const colorIndex = index % brandColorPalette.length;
     return (
-      programColors[slug] || {
+      brandColorPalette[colorIndex] || {
         color: "bg-gray-500",
         gradient: "from-gray-500 to-gray-600",
       }
@@ -58,14 +76,14 @@ export default function TuitionRatesSection({
             Tuition Rates
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-Quality child care with transparent, family-friendly rates
+            Quality child care with transparent, family-friendly rates
           </p>
         </div>
 
         {/* Tuition Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.programSections.map((program) => {
-            const colors = getProgramColors(program.slug.current);
+          {data.programSections.map((program, index) => {
+            const colors = getProgramColors(index);
 
             return (
               <div

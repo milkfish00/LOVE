@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Programs } from "@/app/lib/interface";
 import { urlFor } from "@/app/lib/sanity";
 import { PortableText } from "next-sanity";
+import { getProgramColors, getSubtleColors } from "@/app/lib/program-utils";
 
 interface ProgramsSectionProps {
   data: Programs;
@@ -14,27 +15,9 @@ export default function ProgramsSection({ data }: ProgramsSectionProps) {
     data?.programSections?.[0]?.slug?.current || "",
   );
 
-  const programColors: Record<string, { color: string; textColor: string }> = {
-    infants: { color: "bg-[#E68978]", textColor: "text-white" },
-    toddlers: { color: "bg-[#EB9D73]", textColor: "text-white" },
-    twos: { color: "bg-[#F4BC5C]", textColor: "text-white" },
-    threes: { color: "bg-[#859989]", textColor: "text-white" },
-    "fours-and-fives": { color: "bg-[#445f80]", textColor: "text-white" },
-    sixes: { color: "bg-[#A085A0]", textColor: "text-white" },
-  };
-
   const currentProgram = data?.programSections?.find(
     (program) => program.slug.current === activeTab,
   );
-
-  const getProgramColors = (slug: string) => {
-    return (
-      programColors[slug] || {
-        color: "bg-gray-500",
-        textColor: "text-white",
-      }
-    );
-  };
 
   const getImageUrl = (imageAsset: any) => {
     if (imageAsset?.asset?._ref) {
@@ -68,8 +51,11 @@ export default function ProgramsSection({ data }: ProgramsSectionProps) {
 
         {/* Tab Navigation - More compact */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {data.programSections.map((program) => {
-            const colors = getProgramColors(program.slug.current);
+          {data.programSections.map((program, index) => {
+            const boldColors = getProgramColors(index);
+            const subtleColors = getSubtleColors(index);
+            const colors =
+              activeTab === program.slug.current ? boldColors : subtleColors;
             const isActive = activeTab === program.slug.current;
             return (
               <button
@@ -80,7 +66,7 @@ export default function ProgramsSection({ data }: ProgramsSectionProps) {
                 } ${colors.textColor} ${
                   isActive
                     ? " scale-105"
-                    : "opacity-80 hover:opacity-100 hover:scale-105"
+                    : "opacity-90 hover:opacity-100 hover:scale-105"
                 }`}>
                 {program.programTitle}
               </button>

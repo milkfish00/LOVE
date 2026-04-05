@@ -9,7 +9,6 @@ import {
 } from "@/app/lib/program-utils";
 import { sanityFetch } from "@/sanity/lib/live";
 
- 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -40,6 +39,12 @@ const IndividualProgramPage = async ({
     params: { slug },
   });
 
+  // Also fetch all programs to get the correct index for color assignment
+  const { data: allData } = await sanityFetch({
+    query: allProgramSlugsQuery,
+    params: {},
+  });
+
   const rawProgramSections = data?.programSections;
   const currentProgram = Array.isArray(rawProgramSections)
     ? rawProgramSections.find((p: any) => p?.slug?.current === slug)
@@ -66,16 +71,24 @@ const IndividualProgramPage = async ({
     );
   }
 
-  const colors = getProgramColors(currentProgram.slug.current);
+  // Find the program index using all programs data
+  const allProgramSections = allData?.programSections;
+  const programIndex = Array.isArray(allProgramSections)
+    ? allProgramSections.findIndex((p: any) => p?.slug?.current === slug)
+    : 0;
+
+  const colors = getProgramColors(programIndex);
+  // Use black text for the yellow program (index 4) due to contrast
+  const headerTextColor = programIndex === 4 ? "text-black" : colors.textColor;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Header */}
-      <section className={`${colors.color} ${colors.textColor} py-10 `}>
+      <section className={`${colors.color} ${headerTextColor} py-10 `}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <a
             href="/programs"
-            className="flex items-center text-white/80 hover:text-white mb-6 transition-colors text-sm sm:text-base">
+            className={`flex items-center ${programIndex === 4 ? "text-black/70 hover:text-black" : "text-white/80 hover:text-white"} mb-6 transition-colors text-sm sm:text-base`}>
             <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
             Back to All Programs
           </a>
@@ -85,10 +98,12 @@ const IndividualProgramPage = async ({
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-center lg:text-left">
                 {currentProgram.programTitle}
               </h1>
-              <p className="text-white/90 mb-4 sm:mb-5 text-center lg:text-left text-lg sm:text-xl">
+              <p
+                className={`${programIndex === 4 ? "text-black/80" : "text-white/90"} mb-4 sm:mb-5 text-center lg:text-left text-lg sm:text-xl`}>
                 Ages: {currentProgram.ageRange}
               </p>
-              <div className="text-white/80 leading-relaxed text-center lg:text-left text-base sm:text-lg">
+              <div
+                className={`${programIndex === 4 ? "text-black/70" : "text-white/80"} leading-relaxed text-center lg:text-left text-base sm:text-lg`}>
                 {extractTextFromRichText(currentProgram.description) ||
                   `Our comprehensive program designed specifically for children ages ${currentProgram.ageRange}. 
             We provide a nurturing environment that promotes growth, learning, and development.`}

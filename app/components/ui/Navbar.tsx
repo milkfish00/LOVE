@@ -12,8 +12,6 @@ interface NavbarProps {
   settings: NavSettings;
 }
 
-
-
 interface DropdownLink {
   name: string;
   href: string;
@@ -138,6 +136,11 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
                 description: "Ages 6 weeks - 12 months",
               },
               {
+                name: "Waddlers",
+                href: "/programs/waddlers",
+                description: "Ages 6 weeks - 12 months",
+              },
+              {
                 name: "Toddlers",
                 href: "/programs/toddlers",
                 description: "Ages 12 - 24 months",
@@ -208,9 +211,14 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
             <div className="flex-shrink-0">
               <Link href="/" className="flex items-center group">
                 {settings?.navLogo && (
-                  <div className="relative h-7 w-auto" style={{ width: "auto" }}>
+                  <div
+                    className="relative h-7 w-auto"
+                    style={{ width: "auto" }}>
                     <Image
-                      src={urlFor(settings.navLogo).width(160).quality(80).url()}
+                      src={urlFor(settings.navLogo)
+                        .width(160)
+                        .quality(80)
+                        .url()}
                       alt="Love & Learning Child Care Center"
                       width={210}
                       height={28}
@@ -274,7 +282,7 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
                                       ))}
                                     </ul>
                                   </div>
-                                )
+                                ),
                               )}
                             </div>
                           </div>
@@ -383,7 +391,7 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
                               ))}
                             </ul>
                           </div>
-                        )
+                        ),
                       )}
                     </div>
                   )}
