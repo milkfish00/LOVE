@@ -181,7 +181,7 @@ export const programsQuery = `
     _updatedAt,
     title,
     description,
-    programSections[] | order(order asc) {
+    programSections[] {
       _key,
       ageRange,
       classSize,
@@ -210,7 +210,6 @@ export const programsQuery = `
           _type
         }
       },
-      order,
        tuitionRates,
       programTitle,
       schedule,

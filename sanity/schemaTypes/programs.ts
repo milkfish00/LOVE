@@ -26,6 +26,9 @@ export const program = defineType({
       title: "Program Sections",
       type: "array",
       description: "Program sections for the program page",
+      options: {
+        sortable: true,
+      },
       of: [
         {
           type: "object",
@@ -145,15 +148,6 @@ export const program = defineType({
                 },
               ],
             }),
-
-            defineField({
-              name: "order",
-              title: "Display Order",
-              type: "number",
-              description:
-                "Order in which programs should be displayed (lower numbers first)",
-              initialValue: 0,
-            }),
           ],
         },
       ],
@@ -173,11 +167,6 @@ export const program = defineType({
     },
   },
   orderings: [
-    {
-      title: "Display Order",
-      name: "orderAsc",
-      by: [{ field: "order", direction: "asc" }],
-    },
     {
       title: "Title A-Z",
       name: "titleAsc",

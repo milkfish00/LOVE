@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  transpilePackages: ["sanity", "next-sanity", "@sanity/visual-editing"],
   turbopack: {
     root: path.join(__dirname),
   },
