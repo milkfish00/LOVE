@@ -950,6 +950,9 @@
         "type": "text"
       },
       {
+        "options": {
+          "sortable": true
+        },
         "description": "Program sections for the program page",
         "of": [
           {
@@ -1245,13 +1248,6 @@
                 "name": "dailyActivities",
                 "type": "array",
                 "title": "Daily Schedule"
-              },
-              {
-                "initialValue": 0,
-                "description": "Order in which programs should be displayed (lower numbers first)",
-                "name": "order",
-                "type": "number",
-                "title": "Display Order"
               }
             ],
             "type": "object",
