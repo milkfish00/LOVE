@@ -15,19 +15,20 @@ export const metadata: Metadata = {
 
 const JobsPage = async () => {
   try {
-        const { data } = (await sanityFetch({
-          query: careersQuery,
-          params: {},
-        })) as { data: Careers };
-    
-        const jobs: CareersListJob[] = (data?.jobs || []).map((job) => ({
-      key: job._key,
-      title: job.title,
-      location: job.location,
-      descriptionText: extractTextFromRichText(job.description as any[]),
-      slug: slugify(job.title || job._key),
-    }));
+    const { data } = (await sanityFetch({
+      query: careersQuery,
+      params: {},
+    })) as { data: Careers };
 
+    const jobs: CareersListJob[] = (data?.jobs || [])
+      .filter((job) => job.published !== false)
+      .map((job) => ({
+        key: job._key,
+        title: job.title,
+        location: job.location,
+        descriptionText: extractTextFromRichText(job.description as any[]),
+        slug: slugify(job.title || job._key),
+      }));
     return (
       <CareersPageClient
         title={data?.title}

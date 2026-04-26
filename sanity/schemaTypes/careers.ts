@@ -32,6 +32,13 @@ export const careers = defineType({
           title: "Job",
           fields: [
             defineField({
+              name: "published",
+              title: "Show on Front End",
+              type: "boolean",
+              description: "Toggle to show or hide this job posting",
+              initialValue: true,
+            }),
+            defineField({
               name: "title",
               title: "Title",
               type: "string",

@@ -421,6 +421,7 @@ export const careersQuery = `
     description,
     jobs[] {
       _key,
+      published,
       description[] {
         _key,
         _type,

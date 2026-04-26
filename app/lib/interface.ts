@@ -366,6 +366,7 @@ export interface Careers {
   description: string;
   jobs: {
     _key: string;
+    published?: boolean;
     description: {
       _key: string;
       _type: "block";
