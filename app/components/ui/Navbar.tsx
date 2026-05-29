@@ -296,7 +296,7 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
             {/* Desktop Action Buttons */}
             <div className="hidden lg:flex items-center space-x-3">
               <Link
-                href="https://app.tryplayground.com/listings/qe0imFADRTv3liKpN88c"
+                href="https://schools.mybrightwheel.com/sign-in?redirect_path=/admissions/packet/4cb70070-c48f-4492-a406-81e25a7c806d/fill?school_id=8d9582f7-d2e2-4963-9c77-bb5e4d6c1ea5"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={buttonClasses("outline", "sm", "full")}>
@@ -402,7 +402,7 @@ const Navbar: React.FC<NavbarProps> = ({ settings }) => {
               <div className="pt-6 border-t border-gray-200 mt-6">
                 <div className="flex flex-col space-y-3">
                   <Link
-                    href="https://app.tryplayground.com/listings/qe0imFADRTv3liKpN88c"
+                    href="https://schools.mybrightwheel.com/sign-in?redirect_path=/admissions/packet/4cb70070-c48f-4492-a406-81e25a7c806d/fill?school_id=8d9582f7-d2e2-4963-9c77-bb5e4d6c1ea5"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={buttonClasses("outline", "md", "full")}
